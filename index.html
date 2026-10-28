@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GCMS S1 — Evolución y Mantenimiento</title>
+<style>
+:root{--osc:#1C2B33;--txt:#31424B;--gris:#5E6E76;--claro:#EFF2F3;--linea:#CFDAE0;--crema:#F6EAE1;--coral:#C2622C;--teal:#46707E;--cafe:#9E5C3B;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#F3F5F6;color:var(--txt);line-height:1.5;}
+.header{background:var(--osc);color:#fff;padding:26px 28px;}
+.header h1{font-size:23px;font-weight:700;}
+.header p{font-size:13.5px;color:#9FB2BA;margin-top:6px;max-width:72ch;}
+.wrap{max-width:1000px;margin:0 auto;padding:26px 20px 60px;}
+h2{font-size:15px;color:var(--osc);margin:30px 0 4px;letter-spacing:.2px;}
+h2:first-of-type{margin-top:8px;}
+.hint{font-size:13px;color:var(--gris);margin-bottom:12px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:12px;}
+a.card{display:block;background:#fff;border:1px solid var(--linea);border-left:4px solid var(--teal);
+       border-radius:5px;padding:14px 16px;text-decoration:none;color:inherit;transition:.12s;}
+a.card:hover{border-left-color:var(--coral);box-shadow:0 2px 8px rgba(28,43,51,.09);}
+a.card b{display:block;font-size:14.5px;color:var(--osc);margin-bottom:3px;}
+a.card span{font-size:12.5px;color:var(--gris);}
+a.card.taller{border-left-color:var(--coral);}
+.card.inactiva{display:block;background:#fff;border:1px dashed var(--linea);border-radius:5px;padding:14px 16px;}
+.card.inactiva b{display:block;font-size:14.5px;color:var(--gris);margin-bottom:3px;}
+.card.inactiva span{font-size:12.5px;color:var(--gris);}
+.doc{background:#fff;border:1px solid var(--linea);border-radius:5px;padding:14px 16px;
+     display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;text-decoration:none;color:inherit;}
+.doc:hover{background:var(--claro);}
+.doc b{font-size:14px;color:var(--osc);}
+.doc span{font-size:12.5px;color:var(--gris);}
+.tag{font-size:10.5px;font-weight:700;letter-spacing:.4px;background:var(--claro);color:var(--teal);
+     padding:2px 7px;border-radius:3px;text-transform:uppercase;}
+.tag.c{background:var(--crema);color:var(--coral);}
+code{font-size:12px;background:var(--claro);padding:1px 5px;border-radius:3px;}
+.stack{display:flex;flex-direction:column;gap:10px;}
+footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--linea);font-size:12px;color:var(--gris);}
+footer a{color:var(--teal);}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Gestión de Configuración y Mantenimiento de Software · Sesión 1 — Evolución y Mantenimiento</h1>
+  <p>Unidad 1: Evolución del software y mantenimiento. Cómo diagnosticar un sistema a partir de su propia historia.
+     Maestría en Ingeniería de Software, Universidad de La Sabana.</p>
+</div>
+
+<div class="wrap">
+
+  <h2>1 · La actividad</h2>
+  <p class="hint">Qué se pide, con qué criterios se evalúa y en qué orden conviene trabajar.</p>
+  <div class="stack">
+    <a class="doc" href="documentos/1_actividad_1_2/GCMS_S1_Enunciado_Actividad_1_2.pdf">
+      <span class="tag c">Empiece aquí</span><b>Enunciado de las actividades 1.1 y 1.2</b>
+      <span>El encargo, los entregables, las secciones del informe, los criterios y el paso a paso.</span></a>
+  </div>
+
+  <h2>2 · Cómo se ve terminado</h2>
+  <p class="hint">Los formatos llenos con la historia real de Flask, con todos los números verificables.</p>
+  <div class="stack">
+    <a class="doc" href="documentos/2_ejemplo/GCMS_S1_Recorrido_Flask.pdf">
+      <span class="tag">Ejemplo</span><b>Recorrido resuelto con Flask</b>
+      <span>F-01 a F-06: qué se mide, quince años de métricas, 40 cambios clasificados, leyes, etapa, deuda y recomendación.</span></a>
+  </div>
+
+  <h2>3 · Cómo se hace: formatos, herramienta e interactivos</h2>
+  <p class="hint">Los formatos se llenan; la herramienta se corre sobre el proyecto del grupo; los interactivos se recorren
+     en la sesión. Los <code>F-01</code> a <code>F-07</code> no se suben a la plataforma.</p>
+  <div class="stack">
+    <a class="doc" href="documentos/3_como_se_hace/GCMS_S1_Instrumentos.pdf">
+      <span class="tag c">Se llena</span><b>Instrumentos F-01 a F-07</b>
+      <span>Ficha del sistema, evolución por versión, clasificación de cambios, leyes de Lehman, etapa, deuda técnica y
+            verificación previa.</span></a>
+    <a class="doc" href="https://github.com/CesarAVegaF312/GCMS-S1_Evolucion_y_Mantenimiento/blob/main/herramientas/metricas_evolucion.py">
+      <span class="tag">Herramienta</span><b>metricas_evolucion.py</b>
+      <span>Saca del repositorio Git las métricas por versión y una muestra de cambios para clasificar. Python 3, sin
+            dependencias. Las instrucciones están en el README.</span></a>
+  </div>
+  <div class="grid" style="margin-top:12px">
+    <a class="card" href="interactivos/leyes_lehman_interactivo.html">
+      <b>Leyes de Lehman interactivo</b>
+      <span>Las ocho leyes con el dato que las mostraría, un modelo didáctico de la ley II y los datos reales de Flask.</span></a>
+    <a class="card taller" href="interactivos/clasificador_mantenimiento_interactivo.html">
+      <b>Clasificador de mantenimiento</b>
+      <span>Trece cambios reales de Flask para clasificar leyendo el diff y comparar con la heurística.</span></a>
+  </div>
+
+  <h2>4 · La clase</h2>
+  <p class="hint">La sesión sincrónica, en tres bloques: conceptos, seis ejemplos guiados y el taller en salas.</p>
+  <div class="stack">
+    <a class="doc" href="presentacion.html">
+      <span class="tag c">Presentación</span><b>Presentación web de la sesión</b>
+      <span>Las 19 diapositivas, con índice, glosario de códigos, cronómetro del taller y modo de lectura para el teléfono.</span></a>
+    <a class="doc" href="documentos/4_clase/GCMS_S1_Deck.pdf">
+      <span class="tag">Clase</span><b>Diapositivas en PDF</b>
+      <span>Las mismas 19 diapositivas, para descargar o imprimir.</span></a>
+  </div>
+
+  <h2>5 · Las otras unidades del curso</h2>
+  <p class="hint">Cada unidad tiene su propio repositorio. Se habilitan a medida que avanza el curso.</p>
+  <div class="grid">
+    <div class="card inactiva"><b>Unidad 2 · Gestión de configuración</b><span>Próximamente.</span></div>
+    <div class="card inactiva"><b>Unidad 3 · Control de versiones y DevOps</b><span>Próximamente.</span></div>
+    <div class="card inactiva"><b>Unidad 4 · Estrategias de mantenimiento y evolución</b><span>Próximamente.</span></div>
+  </div>
+
+  <footer>
+    Material docente de César Augusto Vega Fernández · Universidad de La Sabana ·
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es">Licencia CC BY-NC-SA 4.0</a> ·
+    Los datos de los ejemplos provienen del repositorio público de Flask (Pallets, licencia BSD-3-Clause).
+  </footer>
+
+</div>
+</body>
+</html>

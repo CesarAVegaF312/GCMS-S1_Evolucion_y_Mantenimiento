@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content"/>
+<meta name="theme-color" content="#0E181D"/>
+<meta name="color-scheme" content="light"/>
+<title>GCMS S1 · Evolución y Mantenimiento — Presentación</title>
+<style>
+:root{
+  --osc:#1C2B33; --txt:#31424B; --gris:#6B7A82; --claro:#EFF2F3; --linea:#CFDAE0; --crema:#F6EAE1;
+  --coral:#C2622C; --teal:#46707E; --teal2:#34535D; --cafe:#9E5C3B;
+  --verde:#3F7A5B; --ambar:#C9932E; --rojo:#B03A2E; --osc2:#263842;
+  --serif:'Cambria','Georgia','Times New Roman',serif;
+  --sans:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;
+  --sombra:0 18px 48px rgba(28,43,51,.14);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#0E181D;font-family:var(--sans);color:var(--txt);overflow:hidden}
+body.notas-abiertas{overflow:auto}
+
+/* ── escenario: una diapositiva de 1280×720 escalada al viewport ── */
+#escenario{position:fixed;inset:0;overflow:hidden}
+#lienzo{width:1280px;height:720px;position:absolute;left:50%;top:calc(50% - 17px);
+  transform-origin:center;background:#fff;box-shadow:var(--sombra);border-radius:6px;overflow:hidden}
+body.sin-barra #lienzo{top:50%}
+.slide{position:absolute;inset:0;padding:34px 46px 30px;display:none;flex-direction:column;background:#fff}
+.slide.viva{display:flex}
+.slide.entra{animation:entrar .42s cubic-bezier(.22,.61,.36,1)}
+.slide.entra-atras{animation:entrar-atras .42s cubic-bezier(.22,.61,.36,1)}
+@keyframes entrar{from{opacity:0;transform:translateX(26px) scale(.995)}to{opacity:1;transform:none}}
+@keyframes entrar-atras{from{opacity:0;transform:translateX(-26px) scale(.995)}to{opacity:1;transform:none}}
+
+/* ── encabezado ── */
+.kicker{font-size:12.5px;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--coral)}
+.slide h1{font-family:var(--serif);font-size:38px;line-height:1.14;color:var(--osc);margin:6px 0 0;font-weight:700}
+.regla{height:4px;width:74px;border-radius:2px;margin:14px 0 0;background:var(--coral)}
+/* el color de la regla y del rótulo es el del bloque: 1 conceptos, 2 ejemplos, 3 taller */
+.slide[data-bloque="2"] .regla{background:var(--teal)}
+.slide[data-bloque="3"] .regla{background:var(--cafe)}
+.slide[data-bloque="2"] .kicker{color:var(--teal)}
+.slide[data-bloque="3"] .kicker{color:var(--cafe)}
+.cuerpo{flex:1;display:flex;flex-direction:column;gap:13px;justify-content:center;padding:14px 0 6px;min-height:0}
+.pie{font-size:11.5px;color:var(--gris);border-top:1px solid var(--linea);padding-top:8px;word-break:break-word}
+
+/* ── animación de entrada de cada elemento ── */
+[data-anim]{opacity:0;transform:translateY(14px)}
+.slide.viva [data-anim]{animation:surgir .5s cubic-bezier(.22,.61,.36,1) forwards;animation-delay:calc(var(--i,0) * 90ms + 120ms)}
+@keyframes surgir{to{opacity:1;transform:none}}
+
+/* ── el aparte: la caja de la derecha que acompaña a un bloque ── */
+.con-aparte{display:grid;grid-template-columns:1fr minmax(180px,var(--wap,300px));gap:16px;align-items:start}
+.aparte{background:var(--claro);border-radius:10px;padding:14px 16px}
+.aparte.crema{background:var(--crema)}
+.aparte.oscuro{background:var(--osc2);color:#CFDAE0}
+.aparte h3{font-family:var(--serif);font-size:16px;color:var(--osc);margin-bottom:8px}
+.aparte.oscuro h3{color:#fff}
+.aparte ul{list-style:none;font-size:14px;line-height:1.45;display:flex;flex-direction:column;gap:7px}
+.aparte.oscuro ul{color:#8FA5AF}
+.apartes{display:flex;flex-direction:column;gap:12px}
+
+/* ── agenda (mapa de la sesión) ── */
+.agenda{display:flex;flex-direction:column;gap:7px}
+.agenda .fila{display:grid;grid-template-columns:34px 1fr auto;gap:12px;align-items:center}
+.agenda .n{width:34px;height:34px;border-radius:5px;display:grid;place-items:center;color:#fff;
+  font-family:var(--serif);font-weight:700;font-size:16px}
+.agenda .t{font-size:15.5px;color:var(--txt)}
+.agenda .m{font-size:13px;color:var(--gris);font-weight:700;white-space:nowrap}
+.c-coral{background:var(--coral)} .c-teal{background:var(--teal)} .c-teal2{background:var(--teal2)}
+.c-cafe{background:var(--cafe)} .c-verde{background:var(--verde)} .c-ambar{background:var(--ambar)}
+.c-rojo{background:var(--rojo)} .c-gris{background:var(--gris)}
+
+/* ── tarjetas ── */
+.tarjetas{display:grid;gap:16px;grid-auto-flow:column;grid-auto-columns:1fr}
+.tarjeta{border-radius:12px;overflow:hidden;background:var(--claro);display:flex;flex-direction:column;
+  box-shadow:0 2px 10px rgba(28,43,51,.06);transition:transform .25s,box-shadow .25s}
+.tarjeta:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(28,43,51,.13)}
+.tarjeta.crema{background:var(--crema)}
+.tarjeta > h2{font-family:var(--serif);font-size:19px;color:#fff;padding:11px 16px;font-weight:700;line-height:1.2}
+.tarjeta.filete > i{display:block;height:6px}
+.tarjeta.filete > h2,.tarjeta.plana > h2{color:var(--osc);background:transparent;padding:14px 16px 0}
+.tarjeta .contenido{padding:13px 16px;font-size:15px;line-height:1.45;display:flex;flex-direction:column;gap:7px}
+.tarjeta .rotulo{font-size:11.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--gris)}
+.tenue{color:var(--gris);font-size:14px}
+.t-coral{color:var(--coral)} .t-teal{color:var(--teal)} .t-teal2{color:var(--teal2)} .t-cafe{color:var(--cafe)}
+
+/* ── pasos ── */
+.pasos{display:flex;flex-direction:column;gap:8px}
+.paso{display:grid;grid-template-columns:44px 1fr auto;align-items:center;border-radius:10px;overflow:hidden;
+  background:var(--claro);transition:transform .2s}
+.paso:hover{transform:translateX(3px)}
+.paso .n{background:var(--coral);color:#fff;font-family:var(--serif);font-size:20px;font-weight:700;
+  align-self:stretch;display:grid;place-items:center}
+.paso.cafe .n{background:var(--cafe)}
+.paso .txt{padding:8px 14px}
+.paso .txt b{display:block;color:var(--osc);font-size:15.5px}
+.paso .txt span{font-size:14.5px;line-height:1.4}
+.paso .m{padding-right:14px;font-size:13px;color:var(--gris);font-weight:700;white-space:nowrap}
+.pasos.enumeradas .paso{grid-template-columns:44px 1fr;background:transparent;border-radius:0}
+.pasos.enumeradas .paso .n{border-radius:6px;font-size:18px;align-self:center;height:36px}
+.pasos.enumeradas .paso .txt{padding:2px 0 2px 12px}
+
+/* ── filas (los marcos, el ciclo ADM) ── */
+.filas{display:flex;flex-direction:column;gap:9px}
+.fila-m{display:grid;grid-template-columns:var(--we,190px) 1fr;gap:14px;background:var(--claro);
+  border-left:7px solid var(--teal);border-radius:0 10px 10px 0;padding:11px 16px;align-items:center}
+.fila-m .et{font-family:var(--serif);font-size:18px;font-weight:700;line-height:1.2}
+.fila-m .sub{font-size:12px;color:var(--gris);margin-top:2px}
+.fila-m .tx{font-size:15px;line-height:1.4}
+.fila-p{display:grid;grid-template-columns:var(--we,190px) 1fr;gap:14px;background:var(--claro);
+  border-radius:8px;padding:9px 16px;align-items:center}
+.fila-p.viva{color:#fff}
+.fila-p.apagada{color:var(--gris)}
+.fila-p .et{font-weight:700;font-size:15px}
+.fila-p .tx{font-size:14.5px}
+
+/* ── tabla ── */
+table{width:100%;border-collapse:collapse;font-size:14.5px;background:#fff;border-radius:10px;overflow:hidden;
+  box-shadow:0 2px 10px rgba(28,43,51,.06)}
+thead th{background:var(--osc);color:#fff;text-align:left;padding:9px 14px;font-size:13px;font-weight:700}
+tbody td{padding:9px 14px;border-bottom:1px solid var(--linea);vertical-align:top;line-height:1.38}
+tbody tr:nth-child(odd){background:var(--claro)}
+tbody tr:last-child td{border-bottom:none}
+tbody td:first-child{font-weight:700;color:var(--osc)}
+table.comparativa td:nth-child(2){color:#8A3A2A}
+table.comparativa td:nth-child(3){color:#1F5A3A}
+
+/* ── columnas (la ruta de la sesión) ── */
+.columnas{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:22px}
+.columna .barra{height:5px;border-radius:3px;margin-bottom:12px}
+.columna .k{font-size:12px;font-weight:800;letter-spacing:.07em;text-transform:uppercase}
+.columna h2{font-family:var(--serif);font-size:27px;color:var(--osc);margin:4px 0 8px}
+.columna p{font-size:15.5px;line-height:1.4}
+
+/* ── pares (dos columnas enfrentadas) ── */
+.pares{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.pares .cab{border-radius:8px;padding:9px 16px;font-family:var(--serif);font-size:18px;font-weight:700;color:#fff}
+.pares .celda{border-radius:8px;padding:12px 16px;font-size:15px;line-height:1.42;background:var(--claro)}
+.pares .celda.crema{background:var(--crema)}
+.pares .celda .rot{font-weight:700;font-size:13.5px;margin-bottom:6px;display:block}
+.pares .celda p+p{margin-top:7px}
+
+/* ── rejilla ── */
+.rejilla-b{display:grid;gap:12px}
+.rejilla-b .celda{background:var(--claro);border-radius:8px;padding:10px 14px}
+.rejilla-b .celda.filete{border-left:6px solid var(--cafe);border-radius:0 8px 8px 0}
+.rejilla-b .celda b{display:block;font-size:13.5px;letter-spacing:.03em}
+.rejilla-b .celda span{font-size:13.5px;color:var(--txt)}
+
+/* ── banda, aviso, párrafo ── */
+.banda{background:var(--osc);color:#fff;border-radius:10px;padding:13px 20px;font-family:var(--serif);
+  font-size:18px;line-height:1.35}
+.aviso{background:var(--crema);border-radius:10px;padding:12px 18px;font-size:14.5px;line-height:1.4}
+.aviso.claro{background:var(--claro)}
+.aviso .rot{display:block;font-family:var(--serif);font-size:16px;font-weight:700;color:var(--osc);margin-bottom:5px}
+.parrafo{background:var(--claro);border-radius:10px;padding:14px 18px;font-size:15px;line-height:1.45}
+.parrafo p+p{margin-top:7px}
+
+/* ── cita y cajas ── */
+.cita-cajas{display:grid;grid-template-columns:7fr 5fr;gap:18px;align-items:stretch}
+.cita{background:var(--crema);border-radius:12px;padding:20px 24px;font-family:var(--serif);font-size:17.5px;
+  line-height:1.38}
+.cita .autor{font-family:var(--sans);font-size:12.5px;color:var(--gris);font-weight:700;margin-top:14px}
+.cajas{display:flex;flex-direction:column;gap:12px}
+.caja{background:var(--claro);border-left:6px solid var(--teal2);border-radius:0 10px 10px 0;padding:14px 18px}
+.caja h2{font-family:var(--serif);font-size:18px;margin-bottom:7px}
+.caja ul{list-style:none;font-size:14.5px;line-height:1.45;display:flex;flex-direction:column;gap:5px}
+.caja li::before{content:"· ";color:var(--gris)}
+.b-coral{border-left-color:var(--coral)} .b-teal{border-left-color:var(--teal)}
+.b-teal2{border-left-color:var(--teal2)} .b-cafe{border-left-color:var(--cafe)}
+.caja.b-teal2 h2{color:var(--teal2)} .caja.b-coral h2{color:var(--coral)}
+
+/* ── cuadrante del modelo operativo ── */
+.cuadrante{display:grid;grid-template-columns:5fr 6fr;gap:20px;align-items:start}
+.cuadrante .plano .ejes{background:var(--osc);color:#fff;border-radius:6px 6px 0 0;padding:7px;text-align:center;
+  font-size:11.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+.cuadrante .rejilla4{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--linea);
+  border:1px solid var(--linea);border-top:0}
+.cuadrante .q{background:#FBFCFC;padding:12px 14px;min-height:78px}
+.cuadrante .q b{display:block;font-family:var(--serif);font-size:19px;color:var(--osc)}
+.cuadrante .q span{font-size:12.5px;color:var(--gris)}
+
+/* ── mapa de capacidades con soporte ── */
+.heat{display:flex;flex-direction:column;gap:8px}
+.heat .cap{display:grid;grid-template-columns:1fr auto;align-items:center;gap:12px;background:var(--claro);
+  border-left:7px solid var(--gris);border-radius:0 8px 8px 0;padding:9px 14px}
+.heat .cap .nom{font-size:15px;color:var(--osc)}
+.heat .cap.critica .nom{font-weight:700}
+.heat .chip{color:#fff;border-radius:5px;padding:3px 16px;font-size:12.5px;font-weight:700}
+.bl-verde{border-left-color:var(--verde)} .bl-ambar{border-left-color:var(--ambar)} .bl-rojo{border-left-color:var(--rojo)}
+
+/* ── escala de madurez ── */
+.escala .niveles{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-bottom:14px}
+.escala .nivel{border-radius:8px;padding:9px;text-align:center;color:#fff}
+.escala .nivel .n{font-size:11px;font-weight:800;letter-spacing:.08em}
+.escala .nivel .nm{font-family:var(--serif);font-size:15px;font-weight:700;margin-top:2px}
+.escala .dims{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.escala .dim{background:var(--claro);border-radius:8px;padding:11px 14px;font-size:15px;font-weight:700;color:var(--osc)}
+
+/* ── cadena evidencia → principio ── */
+.cadena{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;position:relative}
+.cadena .esl{border-radius:10px;padding:13px 14px;color:#fff;position:relative}
+.cadena .esl b{display:block;font-family:var(--serif);font-size:17px;margin-bottom:4px}
+.cadena .esl span{font-size:12.5px;line-height:1.3;display:block}
+.cadena .esl:not(:last-child)::after{content:"›";position:absolute;right:-15px;top:50%;transform:translateY(-50%);
+  color:var(--gris);font-size:22px;font-weight:700}
+
+/* ── compromisos con fecha ── */
+.crono-l{display:flex;flex-direction:column;gap:9px}
+.crono-l .fila{display:grid;grid-template-columns:170px 1fr;gap:8px}
+.crono-l .plazo{border-radius:8px 0 0 8px;display:grid;place-items:center;color:#fff;font-weight:700;font-size:14.5px;padding:10px}
+.crono-l .qué{background:var(--claro);border-radius:0 8px 8px 0;padding:11px 16px;font-size:15px;display:flex;align-items:center}
+
+/* ── lista de errores ── */
+.lista{display:flex;flex-direction:column;gap:9px}
+.lista li{list-style:none;display:grid;grid-template-columns:16px 1fr;gap:14px;align-items:start;font-size:15px}
+.lista li::before{content:"";width:12px;height:12px;background:var(--coral);margin-top:5px;display:block}
+
+/* ── portada, divisores y cierre ── */
+.slide.oscura{background:var(--osc);color:#fff}
+.slide.oscura h1{color:#fff}
+.slide.oscura .pie{border-top-color:rgba(255,255,255,.14);color:#8FA5AF}
+.slide.portada{justify-content:center;padding:60px 70px}
+.slide.portada h1{font-size:58px;margin:10px 0 18px}
+.slide.portada .sub{font-family:var(--serif);font-size:26px;color:#CFDAE0}
+.slide.portada .lema{font-size:17px;color:#8FA5AF;margin-top:16px;max-width:60ch}
+.slide.portada .docente{margin-top:auto;font-size:15px;font-weight:700}
+.barras{position:absolute;right:70px;top:190px;display:flex;flex-direction:column;gap:14px}
+.barras i{display:block;width:250px;height:22px;border-radius:3px;background:var(--teal);
+  animation:crecer .7s cubic-bezier(.22,.61,.36,1) backwards}
+.barras i.on{background:var(--coral)}
+.barras i:nth-child(1){animation-delay:.15s} .barras i:nth-child(2){animation-delay:.28s}
+.barras i:nth-child(3){animation-delay:.41s} .barras i:nth-child(4){animation-delay:.54s}
+@keyframes crecer{from{transform:scaleX(0);opacity:0;transform-origin:left}to{transform:none;opacity:1}}
+.refs{font-size:14.5px;line-height:1.5;columns:2;column-gap:34px}
+.refs p{break-inside:avoid;margin-bottom:9px;padding-left:18px;text-indent:-18px}
+
+/* ── barra de estado ── */
+#estado{position:fixed;left:0;right:0;bottom:0;height:34px;display:flex;align-items:center;gap:16px;
+  padding:0 14px;background:rgba(14,24,29,.92);color:#C9D6EA;font-size:12.5px;backdrop-filter:blur(4px);
+  transition:transform .25s;z-index:5}
+#estado.oculta{transform:translateY(100%)}
+#estado button{background:transparent;border:1px solid rgba(201,214,234,.35);color:inherit;border-radius:6px;
+  padding:3px 9px;font-size:12px;cursor:pointer;font-family:inherit}
+#estado button:hover{background:rgba(201,214,234,.16)}
+#progreso{position:fixed;top:0;left:0;height:3px;background:var(--coral);z-index:6;transition:width .3s}
+.crece{margin-left:auto}
+
+/* ── índice ── */
+#indice{position:fixed;inset:0;background:rgba(14,24,29,.97);z-index:10;display:none;overflow:auto;padding:34px}
+#indice.abierto{display:block}
+#indice h2{color:#fff;font-family:var(--serif);font-size:24px;margin-bottom:18px}
+.rejilla{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:12px}
+.mini{background:#fff;border-radius:8px;padding:12px 14px;cursor:pointer;border:2px solid transparent;text-align:left}
+.mini:hover,.mini:focus-visible{border-color:var(--coral)}
+.mini .num{font-size:11px;font-weight:800;color:var(--gris)}
+.mini .t{font-family:var(--serif);font-size:15px;color:var(--osc);line-height:1.25;margin-top:3px}
+.mini[data-bloque="1"]{border-left:6px solid var(--coral)}
+.mini[data-bloque="2"]{border-left:6px solid var(--teal)}
+.mini[data-bloque="3"]{border-left:6px solid var(--cafe)}
+
+/* ── notas del docente ── */
+#notas{position:fixed;right:0;top:0;bottom:34px;width:390px;background:#13212A;color:#DCE6EA;padding:22px;
+  overflow:auto;transform:translateX(100%);transition:transform .3s;z-index:7;font-size:14.5px;line-height:1.5}
+#notas.abiertas{transform:none}
+#notas h3{font-family:var(--serif);font-size:17px;color:#fff;margin-bottom:10px}
+#notas p{margin-bottom:10px;white-space:pre-wrap}
+#notas .sig{margin-top:16px;padding-top:12px;border-top:1px solid rgba(220,230,234,.18);color:#93AAC9;font-size:13px}
+#notas .codigos{margin-top:16px;padding-top:12px;border-top:1px solid rgba(220,230,234,.18)}
+#notas .codigos h4{font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:#93AAC9;margin-bottom:8px}
+#notas .codigos div{margin-bottom:7px;font-size:13.5px;line-height:1.4}
+#notas .codigos b{color:#F0B48A;font-family:var(--serif)}
+
+/* ── glosario completo ── */
+#glosario{position:fixed;inset:0;background:rgba(14,24,29,.97);z-index:10;display:none;overflow:auto;padding:34px}
+#glosario.abierto{display:block}
+#glosario h2{color:#fff;font-family:var(--serif);font-size:24px;margin-bottom:6px}
+#glosario .aclara{color:#93AAC9;font-size:14px;max-width:80ch;margin-bottom:18px}
+.gfamilias{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:14px}
+.gfam{background:#fff;border-radius:10px;padding:14px 16px}
+.gfam h3{font-family:var(--serif);font-size:17px;color:var(--osc);margin-bottom:4px}
+.gfam .de{font-size:12.5px;color:var(--gris);margin-bottom:10px}
+.gfam dl{font-size:14px;line-height:1.4}
+.gfam dt{font-weight:700;color:var(--coral);font-family:var(--serif);margin-top:8px}
+.gfam dd{color:var(--txt)}
+
+/* ── cronómetro de las salas ── */
+#crono{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%) scale(.9);z-index:9;display:none;
+  background:rgba(14,24,29,.96);color:#fff;border-radius:18px;padding:30px 44px;text-align:center;
+  box-shadow:0 24px 60px rgba(0,0,0,.4);animation:aparecer .25s forwards}
+#crono.visible{display:block}
+@keyframes aparecer{to{transform:translate(-50%,-50%) scale(1)}}
+#crono .tiempo{font-family:var(--serif);font-size:96px;font-variant-numeric:tabular-nums;line-height:1}
+#crono .tiempo.poco{color:#F0A28A}
+#crono .rot{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#8FA5AF;margin-bottom:8px}
+#crono .acc{margin-top:16px;display:flex;gap:10px;justify-content:center}
+#crono button{background:transparent;border:1px solid rgba(255,255,255,.4);color:#fff;border-radius:8px;
+  padding:6px 14px;cursor:pointer;font-family:inherit}
+
+#ayuda{position:fixed;inset:0;background:rgba(14,24,29,.96);z-index:11;display:none;place-items:center;color:#fff}
+#ayuda.abierta{display:grid}
+#ayuda table{background:transparent;box-shadow:none;color:#fff;max-width:560px;font-size:15px;border-collapse:collapse}
+#ayuda td{border-bottom:1px solid rgba(255,255,255,.12);color:#DCE6EA;padding:7px 10px}
+#ayuda td:first-child{color:#fff;font-family:var(--serif);width:150px}
+#ayuda h2{font-family:var(--serif);font-size:26px;margin-bottom:16px;text-align:center}
+
+/* ── guion con acotaciones (panel N y modo presentador) ── */
+.seg-nota{margin-bottom:6px}
+.acot{font-style:italic;color:#8FA5AF}
+
+/* ── modo presentador: esta ventana lleva el guion, la vista previa y los controles;
+      la otra, la que se comparte, solo las diapositivas ── */
+#pview,#pinfo{display:none}
+body.presenter #estado,body.presenter #notas,body.presenter #progreso,body.presenter #crono{display:none !important}
+body.presenter{background:#0B1318}
+body.presenter #lienzo{border:1px solid #2E4550;border-radius:8px}
+body.presenter #pview{display:flex;flex-direction:column;position:fixed;top:16px;right:16px;bottom:16px;width:calc(44vw - 48px);
+  background:#13212A;border:1px solid #2E4550;border-radius:10px;color:#DCE6EA;z-index:8}
+#pview header{padding:14px 20px;border-bottom:1px solid #2E4550;font-size:13px;font-weight:800;letter-spacing:.1em;color:#F0B48A;
+  display:flex;justify-content:space-between;gap:10px}
+#pview header span{color:#93AAC9;font-weight:600;letter-spacing:0}
+#pnotas{flex:1;overflow:auto;padding:18px 22px;font:21px/1.5 var(--sans)}
+#pnotas p{margin:0 0 14px}
+#pcods{border-top:1px solid #2E4550;padding:12px 22px;font-size:14px;color:#C5D0E0;max-height:26%;overflow:auto}
+#pcods b{color:#F0B48A;font-family:var(--serif)}
+#pcods div{margin-bottom:6px}
+body.presenter #pinfo{display:grid;position:fixed;left:16px;top:calc(58vh + 16px);width:56vw;gap:12px;color:#C5D0E0;font-size:16px;z-index:8}
+#pinfo .fila{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+#pinfo button{font:700 17px var(--sans);background:#1E2F38;color:#fff;border:1px solid #2E4550;border-radius:8px;padding:11px 20px;cursor:pointer}
+#pinfo button.grande{background:var(--coral);border-color:var(--coral)}
+#pinfo button.chico{font-size:13px;padding:6px 12px}
+#pinfo .reloj{font:700 34px var(--serif);color:#fff;font-variant-numeric:tabular-nums}
+#pinfo .pos{font:700 19px var(--sans);color:#fff}
+#pinfo .ritmo{font-size:14px;font-weight:700;padding:3px 10px;border-radius:12px;background:#1E2F38}
+#pinfo .ritmo.bien{color:#9FD5A8} #pinfo .ritmo.tarde{color:#F0A28A} #pinfo .ritmo.pronto{color:#F0D28A}
+#pinfo .sigue,#pinfo .sinc{color:#8FA5AF;font-size:14px}
+#phelp{position:fixed;right:16px;bottom:48px;width:min(480px,calc(100vw - 32px));background:#fff;color:var(--txt);border-radius:10px;
+  padding:16px 18px;z-index:12;box-shadow:0 8px 28px rgba(0,0,0,.35);font-size:15px;line-height:1.45}
+#phelp ol{margin:8px 0 0;padding-left:20px;display:grid;gap:6px}
+#phelp button{margin-top:12px;font:600 13px var(--sans);background:var(--osc);color:#fff;border:0;border-radius:6px;padding:6px 12px;cursor:pointer}
+@media (max-width: 760px){ body.presenter #pview,body.presenter #pinfo{position:static;width:auto} }
+
+/* ══════════════ plataforma: que en el teléfono no se note que es una web ══════════════ */
+html { -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%; overscroll-behavior: none; }
+button, [role="button"], .mini { touch-action: manipulation; user-select: none; -webkit-user-select: none; }
+#escenario { touch-action: pan-y; }              /* el cambio de diapositiva se lleva el eje horizontal */
+#estado button, .mini { transition: transform 120ms cubic-bezier(.22,.61,.36,1), background 120ms; }
+#estado button:active, .mini:active { transform: scale(.97); }
+/* el dedo no tiene hover: sin esto, el estado se queda pegado tras tocar */
+@media (hover: none), (pointer: coarse) {
+  .tarjeta:hover { transform: none; box-shadow: 0 2px 10px rgba(28,43,51,.06); }
+  .paso:hover { transform: none; }
+  .mini:hover { border-color: transparent; }
+  #estado button:hover { background: transparent; }
+}
+
+/* ══════════════ móvil: una diapositiva por pantalla, en vertical ══════════════ */
+#b-lectura { display: none; }
+@media (max-width: 760px) {
+  html, body { height: auto; overflow: auto; background: #0E181D; }
+  #escenario { position: static; overflow: visible; }
+  #lienzo { position: static; width: 100%; height: auto; min-height: 100dvh; transform: none !important;
+            border-radius: 0; box-shadow: none; background: transparent; }
+  .slide { position: relative; min-height: calc(100dvh - 62px); background: #fff;
+           padding: calc(22px + env(safe-area-inset-top, 0px)) 18px 26px; }
+  .slide.oscura { background: var(--osc); }
+  .cuerpo { justify-content: flex-start; gap: 12px; }
+  .slide.viva { animation: entrar-movil .28s cubic-bezier(.22,.61,.36,1); }
+  @keyframes entrar-movil { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+  /* el texto, a su tamaño real */
+  .slide h1 { font-size: 26px; }
+  .slide.portada h1 { font-size: 34px; }
+  .slide.portada .sub { font-size: 19px; }
+  .barras { display: none; }
+  .kicker { font-size: 11.5px; }
+  .tarjeta > h2, .caja h2 { font-size: 17px; }
+  .tarjeta .contenido, .paso .txt span, .fila-m .tx { font-size: 15px; }
+  .banda { font-size: 16px; padding: 12px 16px; }
+  .cita { font-size: 16.5px; padding: 18px; }
+  .pie { font-size: 12px; }
+
+  /* de varias columnas a una */
+  .tarjetas, .columnas { grid-auto-flow: row; grid-auto-columns: auto; }
+  .cita-cajas, .con-aparte, .cuadrante, .pares { grid-template-columns: 1fr; }
+  .refs { columns: 1; }
+  .escala .niveles, .escala .dims, .cadena, .rejilla-b { grid-template-columns: 1fr 1fr; }
+  .cuerpo > div { overflow-x: auto; overscroll-behavior-x: contain; }
+  table { font-size: 14px; min-width: 520px; }
+  .cadena .esl::after { display: none; }
+  .crono-l .fila { grid-template-columns: 110px 1fr; }
+  .fila-m, .fila-p { grid-template-columns: 1fr; gap: 4px; }
+  .gfamilias { grid-template-columns: 1fr; }
+
+  /* la barra: a la medida del pulgar y por encima del indicador de inicio */
+  #estado { position: fixed; height: auto; flex-wrap: wrap; gap: 8px 12px;
+            padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px)); }
+  #estado button { padding: 8px 13px; min-height: 40px; }
+  #titulo-actual { display: none; }
+  #cuenta { font-weight: 700; }
+  #b-lectura { display: inline-block; }
+  #notas, #indice, #glosario { width: 100%; top: 0; bottom: 0;
+            padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px)); }
+  #crono { padding: 24px 28px; }
+  #crono .tiempo { font-size: 64px; }
+
+  /* ── modo lectura: las 19, una debajo de otra ── */
+  body.lectura .slide { display: flex !important; min-height: 0;
+                        border-radius: 12px; margin: 0 10px 14px; }
+  body.lectura .slide.viva { animation: none; }
+  body.lectura [data-anim] { opacity: 1 !important; transform: none !important; animation: none !important; }
+  body.lectura #lienzo { padding: 8px 0 96px; }
+  body.lectura #b-ant, body.lectura #b-sig, body.lectura #cuenta, body.lectura #progreso { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  [data-anim]{opacity:1;transform:none}
+}
+@media print{
+  body{background:#fff;overflow:visible}
+  #estado,#indice,#notas,#crono,#progreso,#ayuda,#glosario{display:none !important}
+  #escenario{position:static;display:block}
+  #lienzo{transform:none !important;box-shadow:none;border-radius:0}
+  .slide{display:flex !important;position:relative;page-break-after:always;width:1280px;height:720px}
+  [data-anim]{opacity:1 !important;transform:none !important;animation:none !important}
+  @page{size:1280px 720px;margin:0}
+}
+</style>
+</head>
+<body>
+
+<div id="progreso"></div>
+<div id="escenario"><div id="lienzo" aria-live="polite"></div></div>
+
+<div id="estado">
+  <button id="b-ant" aria-label="Diapositiva anterior">←</button>
+  <span id="cuenta" aria-live="off">1 / 19</span>
+  <button id="b-sig" aria-label="Diapositiva siguiente">→</button>
+  <span id="titulo-actual"></span>
+  <span class="crece"></span>
+  <button id="b-crono">Cronómetro (T)</button>
+  <button id="b-presentador">Modo presentador (P)</button>
+  <button id="b-notas">Notas (N)</button>
+  <button id="b-lectura" aria-pressed="false">Lectura</button>
+  <button id="b-indice">Índice (I)</button>
+  <button id="b-glosario">Códigos (G)</button>
+  <button id="b-ayuda" aria-label="Atajos de teclado">?</button>
+</div>
+
+<aside id="notas" aria-label="Notas del docente">
+  <h3 id="notas-tit"></h3>
+  <p id="notas-txt"></p>
+  <div class="sig" id="notas-sig"></div>
+  <div class="codigos" id="notas-cod"></div>
+</aside>
+
+
+
+<div id="glosario" role="dialog" aria-label="Glosario de códigos">
+  <h2>De dónde sale cada código</h2>
+  <p class="aclara">Los formatos F-nn son del curso: F-01 a F-07 son de la Unidad 1. Las leyes, los tipos de programa y los tipos de mantenimiento son de sus autores, no del curso. Los datos de los ejemplos son del repositorio público de Flask.</p>
+  <div class="gfamilias" id="gfamilias"></div>
+</div>
+
+<div id="indice" role="dialog" aria-label="Índice de diapositivas">
+  <h2>Índice de la sesión</h2>
+  <div class="rejilla" id="rejilla"></div>
+</div>
+
+<div id="crono" role="timer" aria-live="off">
+  <div class="rot">Taller en salas · ajústelo al tiempo que le quede</div>
+  <div class="tiempo" id="crono-t">30:00</div>
+  <div class="acc">
+    <button id="crono-menos" aria-label="Un minuto menos">−1</button>
+    <button id="crono-play">Iniciar</button>
+    <button id="crono-mas" aria-label="Un minuto más">+1</button>
+    <button id="crono-cerrar">Cerrar (T)</button>
+  </div>
+</div>
+
+<div id="ayuda" role="dialog" aria-label="Atajos de teclado">
+  <div>
+    <h2>Atajos</h2>
+    <table><tbody>
+      <tr><td>← → · espacio</td><td>Moverse entre diapositivas</td></tr>
+      <tr><td>Inicio · Fin</td><td>Primera y última</td></tr>
+      <tr><td>N</td><td>Notas del docente, en esta misma pantalla</td></tr>
+      <tr><td>P</td><td>Modo presentador: abra el archivo en otra ventana, pulse P allí y comparta solo la de las diapositivas</td></tr>
+      <tr><td>I</td><td>Índice</td></tr>
+      <tr><td>L</td><td>En el teléfono: leer las 19 diapositivas de corrido</td></tr>
+      <tr><td>G</td><td>Glosario: de dónde sale cada código</td></tr>
+      <tr><td>T</td><td>Cronómetro de las salas, ajustable</td></tr>
+      <tr><td>B</td><td>Barra inferior</td></tr>
+      <tr><td>F</td><td>Pantalla completa</td></tr>
+      <tr><td>?</td><td>Esta ayuda</td></tr>
+    </tbody></table>
+  </div>
+</div>
+
+<script>
+const SLIDES = [
+ {
+  "tipo": "portada",
+  "bloque": 0,
+  "kicker": "Maestría · Espacio académico",
+  "titulo": "Gestión de Configuración y Mantenimiento de Software",
+  "subtitulo": "Sesión 1 — Unidad 1 · Evolución del software y mantenimiento",
+  "lema": "Diagnosticar un sistema a partir de su propia historia.",
+  "pie": "Encuentro sincrónico · Leyes de Lehman · ISO/IEC/IEEE 14764 · Modelo por etapas de Rajlich y Bennett",
+  "codigos": [],
+  "notas": "Presentación del curso y de la unidad. El objetivo de hoy es que cada grupo salga con un proyecto elegido y la herramienta de métricas corriendo sobre él.",
+  "guion": []
+ },
+ {
+  "bloque": 0,
+  "kicker": "El reto de la Unidad 1 · Actividades en la plataforma",
+  "titulo": "Un diagnóstico con el que un comité pueda decidir",
+  "bloques": [
+   {
+    "t": "cita_y_cajas",
+    "cita": [
+     "«Nuestra organización depende de un componente de código abierto y tenemos que decidir si seguimos apostando por él durante los próximos cinco años.",
+     "",
+     "No queremos opiniones sobre si es popular. Queremos saber cómo ha evolucionado, en qué se le va el esfuerzo de mantenimiento, en qué etapa de su vida está y qué deuda arrastra.",
+     "",
+     "Con eso decidimos.»"
+    ],
+    "autor": "Comité de arquitectura de la organización cliente",
+    "cajas": [
+     {
+      "titulo": "Actividad 1.1 · Presentación del reto",
+      "color": "teal2",
+      "lineas": [
+       "Individual · formativa. Reflexión de 1 a 2 páginas: qué tipo de mantenimiento consume más esfuerzo en un sistema que usted conoce, y cómo lo demostraría. Propuesta de proyecto con el F-01 en borrador."
+      ]
+     },
+     {
+      "titulo": "Actividad 1.2 · Diagnóstico de evolución y mantenimiento",
+      "color": "coral",
+      "lineas": [
+       "Grupal · peso y horas: por completar",
+       "Métricas por versión · clasificación de 40 cambios",
+       "Contraste con las leyes de Lehman · etapa del ciclo de vida",
+       "5 deudas técnicas · recomendación · PDF de máximo 15 páginas, APA 7"
+      ]
+     }
+    ]
+   },
+   {
+    "t": "banda",
+    "texto": "La evidencia sale del repositorio, del registro de cambios y de los issues. Una afirmación sin dato que la respalde no entra en el informe."
+   }
+  ],
+  "pie": "Los F-nn son los formatos del curso, las plantillas que preparan cada sección del informe. F-01 a F-07 son los de la Unidad 1. No se suben a la plataforma.",
+  "codigos": [
+   [
+    "F-01",
+    "Formato del curso · Ficha del sistema: qué se estudia, por qué cumple los criterios y qué se mide"
+   ]
+  ],
+  "notas": "El encargo es el marco de ficción; el objeto de estudio es el proyecto de código abierto que elija cada grupo. Completar en esta diapositiva el peso y las horas de la plataforma.",
+  "guion": []
+ },
+ {
+  "bloque": 0,
+  "kicker": "Cómo vamos a usar la sesión",
+  "titulo": "Primero qué significa, después ejemplos, después ustedes",
+  "bloques": [
+   {
+    "t": "columnas",
+    "items": [
+     {
+      "kicker": "Primero",
+      "titulo": "Conceptos",
+      "color": "coral",
+      "texto": "Por qué el software que se usa tiene que cambiar, las leyes de Lehman, los tipos de mantenimiento, las etapas de vida y la deuda técnica."
+     },
+     {
+      "kicker": "Después",
+      "titulo": "Ejemplos",
+      "color": "teal",
+      "texto": "Los formatos F-01 a F-06 llenos con la historia real de Flask, un framework web con quince años de versiones."
+     },
+     {
+      "kicker": "Y el resto de la sesión",
+      "titulo": "El hacer",
+      "color": "cafe",
+      "texto": "El taller en salas: elegir el proyecto, clonarlo y correr la herramienta de métricas sobre él."
+     }
+    ]
+   },
+   {
+    "t": "banda",
+    "texto": "El bloque que no se recorta es el tercero. Si los conceptos se alargan, se acortan los ejemplos: están completos en el recorrido resuelto del repositorio."
+   }
+  ],
+  "codigos": [],
+  "notas": "",
+  "guion": []
+ },
+ {
+  "bloque": 1,
+  "kicker": "Bloque 1 · Por qué cambia el software",
+  "titulo": "Tres tipos de programa según Lehman",
+  "bloques": [
+   {
+    "t": "tarjetas",
+    "estilo": "filete",
+    "items": [
+     {
+      "titulo": "S · especificado",
+      "color": "teal2",
+      "lineas": [
+       "Resuelve un problema definido formalmente.",
+       "Es correcto o no lo es respecto de su especificación.",
+       {
+        "texto": "Ejemplo: una función que ordena una lista."
+       }
+      ]
+     },
+     {
+      "titulo": "P · problema",
+      "color": "teal",
+      "lineas": [
+       "Resuelve un problema real con una aproximación aceptable.",
+       "Se juzga por la utilidad de la solución.",
+       {
+        "texto": "Ejemplo: un programa que juega ajedrez."
+       }
+      ]
+     },
+     {
+      "titulo": "E · embebido",
+      "color": "coral",
+      "lineas": [
+       "Opera en el mundo real y forma parte de él.",
+       "Su uso cambia el entorno, y el entorno cambiado exige cambiar el programa.",
+       {
+        "texto": "Ejemplo: un sistema bancario, un framework web."
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "t": "banda",
+    "texto": "Las leyes de la evolución se formularon para los programas tipo E. Casi todo el software que una organización mantiene es de ese tipo."
+   }
+  ],
+  "pie": "Lehman, M. M. (1980). Programs, life cycles, and laws of software evolution. Proceedings of the IEEE, 68(9), 1060–1076.",
+  "codigos": [],
+  "notas": "Preguntar a dos o tres estudiantes qué tipo de programa mantienen en su trabajo. Casi siempre es tipo E.",
+  "guion": []
+ },
+ {
+  "bloque": 1,
+  "kicker": "Bloque 1 · Leyes de la evolución · herramienta en vivo",
+  "titulo": "Las ocho leyes de Lehman",
+  "bloques": [
+   {
+    "t": "tabla",
+    "filas": [
+     [
+      "Ley",
+      "Qué dice",
+      "Qué dato la mostraría"
+     ],
+     [
+      "I · Cambio continuo",
+      "Un sistema E que no se adapta se vuelve progresivamente menos satisfactorio",
+      "Cambios adaptativos durante toda la vida"
+     ],
+     [
+      "II · Complejidad creciente",
+      "La complejidad crece salvo que se trabaje para reducirla",
+      "Trabajo preventivo, retiro de código, o indicadores de complejidad al alza"
+     ],
+     [
+      "III · Autorregulación",
+      "La evolución se autorregula: sus medidas tienen tendencias estables",
+      "Tendencias reconocibles en tamaño y actividad"
+     ],
+     [
+      "IV · Estabilidad organizacional",
+      "La tasa media de trabajo efectivo es invariante",
+      "Commits por mes estables aunque cambie el equipo"
+     ],
+     [
+      "V · Familiaridad",
+      "El contenido incremental de cada versión se mantiene acotado",
+      "Después de una versión grande, una pequeña"
+     ],
+     [
+      "VI · Crecimiento continuo",
+      "La funcionalidad debe crecer para mantener la satisfacción",
+      "Tamaño creciente versión tras versión"
+     ],
+     [
+      "VII · Calidad decreciente",
+      "La calidad se percibe en declive si no se mantiene y adapta",
+      "Defectos reportados por versión"
+     ],
+     [
+      "VIII · Retroalimentación",
+      "La evolución es un sistema de retroalimentación de varios niveles",
+      "Decisiones que responden a usuarios, equipo y entorno"
+     ]
+    ]
+   }
+  ],
+  "pie": "Formulación de Lehman et al. (1997). En el aula se recorre el interactivo de las leyes: el control de trabajo preventivo muestra la ley II.",
+  "codigos": [
+   [
+    "Ley II",
+    "Complejidad creciente: la única ley que dice qué hacer para contenerla"
+   ]
+  ],
+  "notas": "Abrir interactivos/leyes_lehman_interactivo.html. Mover el control de trabajo preventivo a cero y mostrar cómo la complejidad frena el crecimiento.",
+  "guion": []
+ },
+ {
+  "bloque": 1,
+  "kicker": "Bloque 1 · Qué se hace cuando se mantiene · herramienta en vivo",
+  "titulo": "Cuatro tipos de mantenimiento",
+  "bloques": [
+   {
+    "t": "tabla",
+    "filas": [
+     [
+      "",
+      "Corrección",
+      "Mejora"
+     ],
+     [
+      "Reactivo",
+      "**Correctivo** · repara una falla que ya se manifestó",
+      "**Adaptativo** · responde a un cambio del entorno: lenguaje, dependencias, plataforma, normas"
+     ],
+     [
+      "Proactivo",
+      "**Preventivo** · corrige fallas latentes o reduce la dificultad de cambios futuros",
+      "**Perfectivo** · agrega o mejora funcionalidad, rendimiento o usabilidad"
+     ]
+    ],
+    "aparte": {
+     "titulo": "De dónde sale",
+     "lineas": [
+      "Swanson (1976) propuso correctivo, adaptativo y perfectivo.",
+      "La norma ISO/IEC/IEEE 14764 agrega el preventivo y los agrupa en corrección y mejora.",
+      "SWEBOK presenta esta misma rejilla."
+     ]
+    }
+   },
+   {
+    "t": "banda",
+    "texto": "El tipo se decide leyendo el cambio. El mensaje del commit orienta, pero «fix» aparece en correcciones de documentación y en funcionalidades nuevas."
+   }
+  ],
+  "pie": "En el aula se usa el clasificador interactivo: trece cambios reales de Flask para clasificar antes de ver la respuesta.",
+  "codigos": [],
+  "notas": "Hacer en vivo tres o cuatro casos del clasificador. Detenerse en los que tienen dos tipos posibles.",
+  "guion": []
+ },
+ {
+  "bloque": 1,
+  "kicker": "Bloque 1 · En qué momento de su vida está",
+  "titulo": "El modelo por etapas de Rajlich y Bennett",
+  "bloques": [
+   {
+    "t": "cronologia",
+    "items": [
+     {
+      "plazo": "Desarrollo inicial",
+      "color": "teal2",
+      "texto": "Primera versión funcional. Se forman la arquitectura y el conocimiento del equipo."
+     },
+     {
+      "plazo": "Evolución",
+      "color": "teal",
+      "texto": "Funcionalidad nueva frecuente. Los cambios de estructura todavía son posibles porque el equipo entiende la arquitectura."
+     },
+     {
+      "plazo": "Servicio",
+      "color": "ambar",
+      "texto": "Correcciones y adaptaciones pequeñas. Los cambios de estructura se evitan porque se volvieron costosos o riesgosos."
+     },
+     {
+      "plazo": "Retiro gradual",
+      "color": "cafe",
+      "texto": "Solo correcciones críticas. Se anuncia reemplazo o fin de soporte."
+     },
+     {
+      "plazo": "Cierre",
+      "color": "gris",
+      "texto": "El sistema se apaga y los usuarios migran."
+     }
+    ]
+   },
+   {
+    "t": "banda",
+    "texto": "Un sistema pasa de evolución a servicio cuando pierde la integridad de su arquitectura o el conocimiento de quienes la entendían. Ese paso rara vez tiene marcha atrás."
+   }
+  ],
+  "pie": "Rajlich, V. T., & Bennett, K. H. (2000). A staged model for the software life cycle. Computer, 33(7), 66–71.",
+  "codigos": [
+   [
+    "F-05",
+    "Formato del curso · Etapa del ciclo de vida, con señales que la sostienen"
+   ]
+  ],
+  "notas": "",
+  "guion": []
+ },
+ {
+  "bloque": 1,
+  "kicker": "Bloque 1 · Lo que se acumula",
+  "titulo": "Deuda técnica y envejecimiento",
+  "bloques": [
+   {
+    "t": "tabla",
+    "filas": [
+     [
+      "",
+      "Imprudente",
+      "Prudente"
+     ],
+     [
+      "Deliberada",
+      "«No hay tiempo para diseñar»",
+      "«Hay que publicar ya y asumimos las consecuencias»"
+     ],
+     [
+      "Inadvertida",
+      "«¿Qué es una arquitectura por capas?»",
+      "«Ahora sabemos cómo debimos hacerlo»"
+     ]
+    ],
+    "aparte": {
+     "titulo": "Los términos",
+     "lineas": [
+      "**Interés**: lo que cuesta cada cambio mientras la deuda sigue.",
+      "**Pago**: lo que cuesta quitarla.",
+      "Cunningham (1992) acuñó la metáfora; Fowler (2009) propuso este cuadrante."
+     ]
+    }
+   },
+   {
+    "t": "aviso",
+    "rotulo": "El envejecimiento según Parnas (1994)",
+    "texto": "El software envejece por dos causas: no se adapta a un entorno que cambia, y los cambios que sí se le hacen los hace gente que no entiende el diseño original. La segunda causa es deuda inadvertida."
+   }
+  ],
+  "codigos": [
+   [
+    "F-06",
+    "Formato del curso · Registro de deuda técnica: cinco deudas localizadas con origen, interés, pago y prioridad"
+   ]
+  ],
+  "notas": "",
+  "guion": []
+ },
+ {
+  "bloque": 1,
+  "kicker": "Bloque 1 · La cadena que sostiene el informe",
+  "titulo": "De la historia del repositorio a una recomendación",
+  "bloques": [
+   {
+    "t": "cadena",
+    "items": [
+     {
+      "titulo": "Historia",
+      "texto": "Etiquetas, commits, registro de cambios, issues"
+     },
+     {
+      "titulo": "Métricas",
+      "texto": "F-02 · tamaño, crecimiento y actividad por versión"
+     },
+     {
+      "titulo": "Clasificación",
+      "texto": "F-03 · qué tipo de mantenimiento consume el esfuerzo"
+     },
+     {
+      "titulo": "Leyes y etapa",
+      "texto": "F-04 y F-05 · qué se observa y en qué momento está"
+     },
+     {
+      "titulo": "Deuda y decisión",
+      "texto": "F-06 · qué arrastra y qué conviene hacer"
+     }
+    ]
+   },
+   {
+    "t": "banda",
+    "texto": "Cada eslabón se apoya en el anterior. Una recomendación que no se puede rastrear hasta un dato del repositorio no sostiene la decisión del comité."
+   }
+  ],
+  "codigos": [],
+  "notas": "",
+  "guion": []
+ },
+ {
+  "bloque": 2,
+  "kicker": "Bloque 2 · Ejemplo guiado 1 · F-01",
+  "titulo": "Decidir qué se mide antes de medir",
+  "bloques": [
+   {
+    "t": "filas",
+    "ancho_etiqueta": 2.4,
+    "items": [
+     {
+      "etiqueta": "flask.py",
+      "sub": "0.1 a 0.4",
+      "color": "teal2",
+      "texto": "Todo el framework en un solo archivo."
+     },
+     {
+      "etiqueta": "flask/",
+      "sub": "0.5 a 1.0",
+      "color": "teal",
+      "texto": "Paquete con varios módulos. Hasta la 0.10 las pruebas viven dentro, en **flask/testsuite/**."
+     },
+     {
+      "etiqueta": "src/flask/",
+      "sub": "desde 1.1.0",
+      "color": "coral",
+      "texto": "El paquete pasa a la carpeta src/. Las pruebas, la documentación y los ejemplos están fuera."
+     }
+    ],
+    "aparte": {
+     "titulo": "Un error de medición",
+     "tono": "crema",
+     "color": "coral",
+     "lineas": [
+      "Sin acotar las rutas, la versión 0.10 aparece con **59 archivos**.",
+      "Midiendo solo el paquete tiene **20**.",
+      "La diferencia son pruebas y setup.py: cambia cualquier conclusión sobre el crecimiento."
+     ]
+    }
+   }
+  ],
+  "pie": "python herramientas/metricas_evolucion.py flask --incluir \"flask.py,flask/**/*.py,src/flask/**/*.py\"",
+  "codigos": [],
+  "notas": "Mostrar el comando y la salida en la terminal si hay tiempo.",
+  "guion": []
+ },
+ {
+  "bloque": 2,
+  "kicker": "Bloque 2 · Ejemplo guiado 2 · F-02",
+  "titulo": "Quince años de Flask en números",
+  "bloques": [
+   {
+    "t": "tabla",
+    "filas": [
+     [
+      "Versión",
+      "Fecha",
+      "Archivos",
+      "Líneas",
+      "Agregadas / eliminadas",
+      "Commits por mes"
+     ],
+     [
+      "0.1",
+      "2010-04",
+      "1",
+      "663",
+      "—",
+      "—"
+     ],
+     [
+      "0.5",
+      "2010-07",
+      "12",
+      "1.970",
+      "+1.970 / −1.516",
+      "125"
+     ],
+     [
+      "1.0",
+      "2018-04",
+      "20",
+      "7.712",
+      "+2.336 / −1.160",
+      "27"
+     ],
+     [
+      "2.0.0",
+      "2021-05",
+      "21",
+      "8.254",
+      "+2.727 / −2.794",
+      "14"
+     ],
+     [
+      "2.3.0",
+      "2023-04",
+      "22",
+      "8.799",
+      "+658 / −1.216",
+      "15"
+     ],
+     [
+      "3.1.0",
+      "2024-11",
+      "24",
+      "9.187",
+      "+743 / −396",
+      "9"
+     ]
+    ],
+    "aparte": {
+     "titulo": "Lo que se ve",
+     "lineas": [
+      "Hasta la 1.0 crece casi doce veces; después, 19 % en seis años y medio.",
+      "La 2.0.0 elimina más de lo que agrega.",
+      "Desde 2012, entre 14 y 28 commits por mes."
+     ],
+     "w": 3.6
+    }
+   }
+  ],
+  "pie": "Fuente: ejemplo_flask/evolucion_por_version.csv, 20 versiones con funcionalidad nueva. Las versiones atípicas se explican con CHANGES.rst en el recorrido resuelto.",
+  "codigos": [],
+  "notas": "",
+  "guion": []
+ },
+ {
+  "bloque": 2,
+  "kicker": "Bloque 2 · Ejemplo guiado 3 · F-03",
+  "titulo": "En qué se va el esfuerzo de mantenimiento",
+  "bloques": [
+   {
+    "t": "tabla",
+    "filas": [
+     [
+      "Tipo",
+      "Commits de la muestra",
+      "Sobre los que tocan el producto"
+     ],
+     [
+      "Fuera del producto",
+      "24 de 40",
+      "—"
+     ],
+     [
+      "Preventivo",
+      "5",
+      "31 %"
+     ],
+     [
+      "Correctivo",
+      "4",
+      "25 %"
+     ],
+     [
+      "Adaptativo",
+      "4",
+      "25 %"
+     ],
+     [
+      "Perfectivo",
+      "3",
+      "19 %"
+     ]
+    ],
+    "aparte": {
+     "titulo": "Dos hallazgos de método",
+     "tono": "crema",
+     "color": "coral",
+     "lineas": [
+      "**60 %** de la muestra no toca el producto: por eso se usa --solo-fuente.",
+      "La heurística por palabras clave acierta en **15 de 40**.",
+      "La clasificación se hace leyendo el diff."
+     ]
+    }
+   }
+  ],
+  "pie": "Muestra aleatoria de 40 commits sin merges, semilla 1. Clasificación manual en ejemplo_flask/muestra_cambios_clasificada.csv.",
+  "codigos": [
+   [
+    "F-03",
+    "Formato del curso · Clasificación de una muestra de cambios por tipo de mantenimiento"
+   ]
+  ],
+  "notas": "",
+  "guion": []
+ },
+ {
+  "bloque": 2,
+  "kicker": "Bloque 2 · Ejemplo guiado 4 · F-03",
+  "titulo": "Los casos difíciles",
+  "bloques": [
+   {
+    "t": "tabla",
+    "comparativa": true,
+    "filas": [
+     [
+      "Commit",
+      "La heurística dice",
+      "Leyendo el diff",
+      "Por qué"
+     ],
+     [
+      "Added template_global, fixes #657",
+      "correctivo",
+      "perfectivo",
+      "Método nuevo con pruebas; el issue pedía la funcionalidad"
+     ],
+     [
+      "remove deprecated RequestContext.g",
+      "adaptativo",
+      "preventivo",
+      "El entorno no cambió; se retira código propio obsoleto"
+     ],
+     [
+      "add SESSION_COOKIE_PARTITIONED config",
+      "perfectivo",
+      "adaptativo",
+      "Los navegadores introdujeron las cookies particionadas"
+     ],
+     [
+      "Pass maxsplit via kwarg to re.split",
+      "sin sugerencia",
+      "adaptativo",
+      "Python 3.13 marcó como obsoleto el argumento por posición"
+     ]
+    ]
+   },
+   {
+    "t": "banda",
+    "texto": "Un caso difícil bien razonado vale más en el informe que diez casos fáciles. Anoten por qué admitía dos tipos y cuál eligieron."
+   }
+  ],
+  "codigos": [],
+  "notas": "",
+  "guion": []
+ },
+ {
+  "bloque": 2,
+  "kicker": "Bloque 2 · Ejemplo guiado 5 · F-04",
+  "titulo": "Qué leyes se observan en Flask",
+  "bloques": [
+   {
+    "t": "tabla",
+    "filas": [
+     [
+      "Ley",
+      "Evidencia",
+      "Contraevidencia",
+      "Veredicto"
+     ],
+     [
+      "I · Cambio continuo",
+      "4 de 16 cambios al producto son adaptativos",
+      "—",
+      "Se observa"
+     ],
+     [
+      "II · Complejidad",
+      "Menciones a «deprecat»: 27, 91 y 2 en 2.0.0, 2.2.0 y 3.0.0",
+      "type: ignore pasa de 58 a 105",
+      "Con matices"
+     ],
+     [
+      "IV · Estabilidad",
+      "14 a 28 commits por mes desde 2012, con 13 a 209 autores",
+      "9 por mes en la 3.1.0",
+      "Se observa"
+     ],
+     [
+      "V · Familiaridad",
+      "2.0.0 → 2.1.0, 2.2.0 → 2.3.0, 3.0.0 → 3.1.0: grande y luego pequeña",
+      "1.0 y 1.1.0 grandes seguidas",
+      "Se observa"
+     ],
+     [
+      "VI · Crecimiento",
+      "De 663 a 9.187 líneas",
+      "Casi plano desde 2018",
+      "Con matices"
+     ],
+     [
+      "VII · Calidad",
+      "—",
+      "—",
+      "Los datos no alcanzan"
+     ]
+    ]
+   }
+  ],
+  "pie": "«Los datos no alcanzan» es una respuesta válida si se dice qué dato haría falta: aquí, la serie de defectos reportados por versión.",
+  "codigos": [
+   [
+    "F-04",
+    "Formato del curso · Contraste con las leyes de Lehman, con evidencia y contraevidencia"
+   ]
+  ],
+  "notas": "",
+  "guion": []
+ },
+ {
+  "bloque": 2,
+  "kicker": "Bloque 2 · Ejemplo guiado 6 · F-05 y F-06",
+  "titulo": "Etapa, deuda y recomendación",
+  "bloques": [
+   {
+    "t": "pares",
+    "izq": {
+     "titulo": "F-05 · Etapa: evolución",
+     "color": "teal"
+    },
+    "der": {
+     "titulo": "F-06 · Deuda vigente",
+     "color": "coral"
+    },
+    "filas": [
+     [
+      "La 3.0.0 reorganizó las clases principales y la 3.2.0, en desarrollo, fusiona dos tipos de contexto: todavía hay cambios de estructura.\nSeñales de transición a servicio: actividad en descenso, tamaño casi constante y ninguna versión con funcionalidad nueva desde noviembre de 2024.",
+      "Supresiones type: ignore (105 en 3.1.0, 90 hoy).\nAlias y firmas obsoletas durante el período de la 3.2.0.\nDespacho interno apoyado en objetos proxy globales.\nSoporte de Python 3.9 y 3.10, ya retirado en la 3.2.0."
+     ]
+    ]
+   },
+   {
+    "t": "banda",
+    "texto": "Recomendación: seguir con condiciones. Seguir los avisos de obsolescencia, fijar versiones y vigilar la salida de la 3.2.0."
+   }
+  ],
+  "pie": "El detalle de cada deuda, con origen, interés y pago, está en el recorrido resuelto.",
+  "codigos": [],
+  "notas": "La segunda condición, fijar versiones, es el puente con la Unidad 2.",
+  "guion": []
+ },
+ {
+  "bloque": 3,
+  "kicker": "El hacer · Taller en salas",
+  "titulo": "De la sesión salen con el proyecto medido",
+  "bloques": [
+   {
+    "t": "pasos",
+    "color": "cafe",
+    "items": [
+     {
+      "titulo": "Elegir el proyecto",
+      "texto": "Dos candidatos por grupo, revisados contra los seis criterios del F-01.",
+      "min": 8
+     },
+     {
+      "titulo": "Clonar con la historia completa",
+      "texto": "Sin --depth. Revisar git tag y decidir el patrón de versiones.",
+      "min": 5
+     },
+     {
+      "titulo": "Decidir qué se mide",
+      "texto": "Rutas del código fuente; qué queda fuera y por qué.",
+      "min": 5
+     },
+     {
+      "titulo": "Correr la herramienta",
+      "texto": "Con --solo-fuente y una semilla declarada.",
+      "min": 5
+     },
+     {
+      "titulo": "Clasificar los primeros cinco commits",
+      "texto": "Leyendo el diff, con la evidencia anotada.",
+      "min": 7
+     }
+    ]
+   }
+  ],
+  "pie": "Al salir de la sala: el F-01 en borrador y los dos CSV generados. El resto de la muestra se clasifica durante la semana.",
+  "codigos": [],
+  "notas": "Ajustar el cronómetro (T) al tiempo que quede.",
+  "guion": []
+ },
+ {
+  "bloque": 3,
+  "kicker": "Para tener al lado durante el taller",
+  "titulo": "Comandos y criterios",
+  "bloques": [
+   {
+    "t": "pares",
+    "izq": {
+     "titulo": "Comandos",
+     "color": "teal2"
+    },
+    "der": {
+     "titulo": "Criterios del proyecto (F-01)",
+     "color": "cafe"
+    },
+    "filas": [
+     [
+      "**git clone** URL del proyecto\n**git tag** para ver las versiones\n**python herramientas/metricas_evolucion.py** proyecto **--incluir** \"rutas\" **--solo-fuente --semilla 7**\n**git show** commit para leer el diff",
+      "Cinco años o más de historia pública\nOcho o más versiones con funcionalidad nueva\nRegistro de cambios y gestor de issues públicos\nLa herramienta termina en menos de diez minutos\nNingún otro grupo lo eligió"
+     ]
+    ]
+   }
+  ],
+  "codigos": [],
+  "notas": "",
+  "guion": []
+ },
+ {
+  "bloque": 3,
+  "kicker": "Cierre · qué sigue",
+  "titulo": "De entender cómo cambia a controlar cómo cambia",
+  "bloques": [
+   {
+    "t": "columnas",
+    "items": [
+     {
+      "kicker": "Esta semana",
+      "titulo": "Actividad 1.2",
+      "color": "coral",
+      "texto": "Clasificar la muestra completa, contrastar las leyes, ubicar la etapa y registrar la deuda. Verificar con el F-07 antes de entregar."
+     },
+     {
+      "kicker": "Unidad 2",
+      "titulo": "Gestión de configuración",
+      "color": "teal",
+      "texto": "Qué elementos se ponen bajo control, cómo se identifican las versiones y cómo se decide qué cambio entra. Es lo que necesita la recomendación de fijar versiones."
+     }
+    ]
+   },
+   {
+    "t": "banda",
+    "texto": "El diagnóstico de esta unidad dice qué le pasa a un sistema con el tiempo. La gestión de configuración es la disciplina que permite controlarlo."
+   }
+  ],
+  "codigos": [],
+  "notas": "",
+  "guion": []
+ },
+ {
+  "tipo": "referencias",
+  "bloque": 0,
+  "kicker": "Referencias",
+  "titulo": "Fuentes de la sesión",
+  "items": [
+   "Bourque, P., & Fairley, R. E. (Eds.). (2014). Guide to the Software Engineering Body of Knowledge (SWEBOK v3.0). IEEE Computer Society.",
+   "Cunningham, W. (1992). The WyCash portfolio management system. En Addendum to the Proceedings of OOPSLA '92 (pp. 29–30). ACM.",
+   "Fowler, M. (2009). Technical debt quadrant. https://martinfowler.com/bliki/TechnicalDebtQuadrant.html",
+   "ISO/IEC/IEEE. (2022). ISO/IEC/IEEE 14764:2022 Software engineering — Software life cycle processes — Maintenance.",
+   "Lehman, M. M. (1980). Programs, life cycles, and laws of software evolution. Proceedings of the IEEE, 68(9), 1060–1076.",
+   "Lehman, M. M., Ramil, J. F., Wernick, P. D., Perry, D. E., & Turski, W. M. (1997). Metrics and laws of software evolution: The nineties view. En Proceedings of the Fourth International Software Metrics Symposium (pp. 20–32). IEEE.",
+   "Parnas, D. L. (1994). Software aging. En Proceedings of the 16th International Conference on Software Engineering (pp. 279–287). IEEE.",
+   "Rajlich, V. T., & Bennett, K. H. (2000). A staged model for the software life cycle. Computer, 33(7), 66–71.",
+   "Swanson, E. B. (1976). The dimensions of maintenance. En Proceedings of the 2nd International Conference on Software Engineering (pp. 492–497). IEEE.",
+   "Pallets. (2026). Flask [Repositorio de código fuente]. https://github.com/pallets/flask"
+  ],
+  "codigos": [],
+  "notas": "",
+  "guion": []
+ }
+];
+const GLOSARIO = [
+ [
+  "F-01",
+  "Formato del curso · Ficha del sistema y criterios de selección",
+  "formato"
+ ],
+ [
+  "F-02",
+  "Formato del curso · Evolución por versión: tamaño, crecimiento y actividad",
+  "formato"
+ ],
+ [
+  "F-03",
+  "Formato del curso · Clasificación de una muestra de cambios",
+  "formato"
+ ],
+ [
+  "F-04",
+  "Formato del curso · Contraste con las leyes de Lehman",
+  "formato"
+ ],
+ [
+  "F-05",
+  "Formato del curso · Etapa del ciclo de vida",
+  "formato"
+ ],
+ [
+  "F-06",
+  "Formato del curso · Registro de deuda técnica",
+  "formato"
+ ],
+ [
+  "F-07",
+  "Formato del curso · Verificación previa a la entrega",
+  "formato"
+ ],
+ [
+  "I a VIII",
+  "Leyes de la evolución del software de Lehman, en la numeración de Lehman et al. (1997)",
+  "ley"
+ ],
+ [
+  "S, P, E",
+  "Tipos de programa de Lehman (1980): especificado, problema y embebido en el mundo real",
+  "ley"
+ ],
+ [
+  "Correctivo",
+  "Repara una falla que ya se manifestó",
+  "tipo"
+ ],
+ [
+  "Adaptativo",
+  "Responde a un cambio del entorno",
+  "tipo"
+ ],
+ [
+  "Perfectivo",
+  "Agrega o mejora funcionalidad, rendimiento o usabilidad",
+  "tipo"
+ ],
+ [
+  "Preventivo",
+  "Corrige fallas latentes o reduce la dificultad de cambios futuros",
+  "tipo"
+ ],
+ [
+  "ISO/IEC/IEEE 14764",
+  "Norma internacional del proceso de mantenimiento del software",
+  "sigla"
+ ],
+ [
+  "SWEBOK",
+  "Guide to the Software Engineering Body of Knowledge, de la IEEE Computer Society",
+  "sigla"
+ ],
+ [
+  "CHIPS",
+  "Cookies Having Independent Partitioned State: cookies particionadas por sitio, introducidas por los navegadores",
+  "sigla"
+ ],
+ [
+  "APA 7",
+  "Séptima edición del manual de estilo de la American Psychological Association: la norma del informe",
+  "sigla"
+ ]
+];
+const DOCENTE = "César Augusto Vega Fernández";
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fuerte = s => esc(s).split("**").map((p, i) => i % 2 ? `<b>${p}</b>` : p).join("");
+// una cadena con saltos de línea se abre en varios párrafos, igual que en el deck
+const parrafos = s => String(s ?? "").split("\n").filter(t => t.trim()).map(t => `<p>${fuerte(t)}</p>`).join("");
+const linea = l => typeof l === "string" ? (l ? `<div>${fuerte(l)}</div>` : "")
+                                         : `<div class="tenue">${fuerte(l.texto)}</div>`;
+const lis = ls => ls.map(l => l ? `<li>${fuerte(typeof l === "string" ? l : l.texto)}</li>` : "<li>&nbsp;</li>").join("");
+
+// ---------------------------------------------------------------- render de los bloques
+const BLOQUES = {
+  agenda: b => `<div class="agenda">${b.items.map(it => `
+      <div class="fila"><div class="n c-${it.color}">${esc(it.n)}</div>
+      <div class="t">${esc(it.titulo)}</div><div class="m">${it.min} min</div></div>`).join("")}</div>`,
+
+  tarjetas: b => `<div class="tarjetas">${b.items.map(it => {
+      const estilo = b.estilo || "solida";
+      const cab = estilo === "solida" ? `<h2 class="c-${it.color}">${esc(it.titulo)}</h2>`
+        : estilo === "filete" ? `<i class="c-${it.color}"></i><h2 class="t-${it.color}">${esc(it.titulo)}</h2>`
+        : `<h2${it.color ? ` class="t-${it.color}"` : ""}>${esc(it.titulo)}</h2>`;
+      const rot = it.rotulo ? `<div class="rotulo">${esc(it.rotulo)}</div>` : "";
+      return `<article class="tarjeta ${estilo}${it.tono === "crema" ? " crema" : ""}">${cab}
+        <div class="contenido">${rot}${it.lineas.map(linea).join("")}</div></article>`;
+    }).join("")}</div>`,
+
+  pasos: b => `<div class="pasos${b.estilo === "regla" ? " enumeradas" : ""}">${b.items.map((it, i) => `
+      <div class="paso${b.color === "cafe" ? " cafe" : ""}"><div class="n">${i + 1}</div>
+      <div class="txt"><b>${esc(it.titulo)}</b>${it.texto ? `<span>${fuerte(it.texto)}</span>` : ""}</div>
+      ${it.min ? `<div class="m">${it.min} min</div>` : "<div></div>"}</div>`).join("")}</div>`,
+
+  filas: b => `<div class="filas" style="--we:${(b.ancho_etiqueta || 2.6) * 62}px">${b.items.map(it =>
+      it.sub !== undefined
+        ? `<div class="fila-m" style="border-left-color:var(--${it.color || "teal"})">
+             <div><div class="et" style="color:var(--${it.color || "teal"})">${esc(it.etiqueta)}</div>
+             <div class="sub">${esc(it.sub)}</div></div><div class="tx">${fuerte(it.texto)}</div></div>`
+        : `<div class="fila-p ${it.color ? "viva" : it.tenue ? "apagada" : ""}"
+                ${it.color ? `style="background:var(--${it.color})"` : ""}>
+             <div class="et">${esc(it.etiqueta)}</div><div class="tx">${fuerte(it.texto)}</div></div>`).join("")}</div>`,
+
+  tabla: b => `<table class="${b.comparativa ? "comparativa" : ""}">
+      <thead><tr>${b.filas[0].map(c => `<th>${esc(c)}</th>`).join("")}</tr></thead>
+      <tbody>${b.filas.slice(1).map(f => `<tr>${f.map(c => `<td>${fuerte(c)}</td>`).join("")}</tr>`).join("")}</tbody></table>`,
+
+  columnas: b => `<div class="columnas">${b.items.map(it => `
+      <div class="columna"><div class="barra c-${it.color}"></div>
+      <div class="k" style="color:var(--${it.color})">${esc(it.kicker)}</div>
+      <h2>${esc(it.titulo)}</h2><p>${fuerte(it.texto)}</p></div>`).join("")}</div>`,
+
+  pares: b => {
+    const cab = l => l.color ? `<div class="cab c-${l.color}">${esc(l.titulo)}</div>` : "";
+    const celda = (l, t, k) => `<div class="celda ${(l.tono || (k ? "crema" : "claro")) === "crema" ? "crema" : ""}">
+        ${l.color ? "" : `<span class="rot"${l.color_titulo ? ` style="color:var(--${l.color_titulo})"` : ""}>${esc(l.titulo)}</span>`}
+        ${parrafos(t)}</div>`;
+    const cabs = b.izq.color ? `<div class="pares">${cab(b.izq)}${cab(b.der)}</div>` : "";
+    return cabs + b.filas.map(f => `<div class="pares">${celda(b.izq, f[0], 0)}${celda(b.der, f[1], 1)}</div>`).join("");
+  },
+
+  rejilla: b => `<div class="rejilla-b" style="grid-template-columns:repeat(${b.cols || 3},1fr)">${b.items.map(it => `
+      <div class="celda${b.filete ? " filete" : ""}"${b.filete && it.color ? ` style="border-left-color:var(--${it.color})"` : ""}>
+      <b${it.color ? ` style="color:var(--${it.color})"` : ""}>${esc(it.titulo)}</b>
+      <span>${fuerte(it.texto)}</span></div>`).join("")}</div>`,
+
+  banda: b => `<div class="banda">${fuerte(b.texto)}</div>`,
+
+  aviso: b => `<div class="aviso${b.tono === "claro" ? " claro" : ""}">
+      ${b.rotulo ? `<span class="rot"${b.color_rotulo ? ` style="color:var(--${b.color_rotulo})"` : ""}>${esc(b.rotulo)}</span>` : ""}
+      ${parrafos(b.texto)}</div>`,
+
+  parrafo: b => `<div class="parrafo">${parrafos(b.texto)}</div>`,
+
+  cita_y_cajas: b => `<div class="cita-cajas">
+      <div class="cita">${b.cita.map(l => l ? `<p>${fuerte(l)}</p>` : "<br>").join("")}
+        <div class="autor">${esc(b.autor)}</div></div>
+      <div class="cajas">${b.cajas.map(c => `<div class="caja b-${c.color}"><h2>${esc(c.titulo)}</h2>
+        <ul>${lis(c.lineas)}</ul></div>`).join("")}</div></div>`,
+
+  cuadrante: b => `<div class="cuadrante">
+      <div class="plano"><div class="ejes">${esc(b.ejes)}</div>
+        <div class="rejilla4">${[0, 1].map(f => [0, 1].map(c => {
+            const q = b.celdas.find(x => x.col === c && x.fila === f);
+            return `<div class="q"><b>${esc(q.nombre)}</b><span>${esc(q.ejes)}</span></div>`;
+          }).join("")).join("")}</div></div>
+      <div class="apartes">
+        <div class="aparte"><h3>${esc(b.evidencias.titulo)}</h3><ul>${lis(b.evidencias.lineas)}</ul></div>
+        <div class="aparte crema"><h3 style="color:var(--coral)">${esc(b.contra.titulo)}</h3>
+          <ul>${lis(b.contra.lineas)}</ul></div></div></div>`,
+
+  heatmap: b => `<div class="heat">${b.items.map(it => `
+      <div class="cap bl-${it.color}${it.critica ? " critica" : ""}">
+      <div class="nom">${it.critica ? "★ " : ""}${esc(it.capacidad)}</div>
+      <div class="chip c-${it.color}">${esc(it.soporte)}</div></div>`).join("")}</div>`,
+
+  escala: b => `<div class="escala">
+      <div class="niveles">${b.niveles.map(n => `<div class="nivel c-${n.color}">
+        <div class="n">${esc(n.n)}</div><div class="nm">${esc(n.nombre)}</div></div>`).join("")}</div>
+      <div class="dims">${b.dimensiones.map(d => `<div class="dim">${esc(d)}</div>`).join("")}</div></div>`,
+
+  cadena: b => `<div class="cadena">${b.items.map((it, i) => `
+      <div class="esl c-${["coral", "cafe", "teal", "teal2"][i] || "osc"}"
+           ${i >= 4 ? 'style="background:var(--osc)"' : ""}>
+      <b>${esc(it.titulo)}</b><span>${esc(it.texto)}</span></div>`).join("")}</div>`,
+
+  cronologia: b => `<div class="crono-l">${b.items.map(it => `
+      <div class="fila"><div class="plazo c-${it.color}">${esc(it.plazo)}</div>
+      <div class="qué">${fuerte(it.texto)}</div></div>`).join("")}</div>`,
+
+  lista: b => `<ul class="lista">${b.items.map(t => `<li><span>${fuerte(t)}</span></li>`).join("")}</ul>`
+};
+
+// Un bloque con aparte se envuelve en una rejilla de dos columnas, como en el deck.
+function bloque(b) {
+  const dentro = BLOQUES[b.t](b);
+  if (!b.aparte) return dentro;
+  const lado = a => `<div class="aparte ${a.tono === "crema" ? "crema" : a.tono === "oscuro" ? "oscuro" : ""}">
+      <h3${a.color ? ` style="color:var(--${a.color})"` : ""}>${esc(a.titulo)}</h3><ul>${lis(a.lineas)}</ul></div>`;
+  const lados = lado(b.aparte) + (b.aparte2 ? lado(b.aparte2) : "");
+  return `<div class="con-aparte" style="--wap:${(b.aparte.w || 3.93) * 72}px">${dentro}
+      <div class="apartes">${lados}</div></div>`;
+}
+
+function render(d) {
+  if (d.tipo === "portada") {
+    return `<section class="slide portada oscura" data-bloque="0">
+      <div class="barras" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
+      <div class="kicker" data-anim style="--i:0">${esc(d.kicker)}</div>
+      <h1 data-anim style="--i:1">${esc(d.titulo)}</h1>
+      <div class="sub" data-anim style="--i:2">${esc(d.subtitulo)}</div>
+      <div class="lema" data-anim style="--i:3">${esc(d.lema)}</div>
+      <div class="docente" data-anim style="--i:4">${esc(DOCENTE)}</div>
+      <div class="pie" data-anim style="--i:5">${esc(d.pie)}</div></section>`;
+  }
+  if (d.tipo === "referencias") {
+    return `<section class="slide" data-bloque="0">
+      <div class="kicker">${esc(d.kicker)}</div><h1>${esc(d.titulo)}</h1><div class="regla"></div>
+      <div class="cuerpo"><div class="refs" data-anim style="--i:0">
+        ${d.items.map(r => `<p>${esc(r)}</p>`).join("")}</div></div></section>`;
+  }
+  const cuerpo = d.bloques.map((b, k) =>
+    `<div data-anim style="--i:${k + 1}">${bloque(b)}</div>`).join("");
+  return `<section class="slide" data-bloque="${d.bloque}">
+    <div class="kicker" data-anim style="--i:0">${esc(d.kicker)}</div>
+    <h1 data-anim style="--i:0">${esc(d.titulo)}</h1>
+    <div class="regla" data-anim style="--i:0"></div>
+    <div class="cuerpo">${cuerpo}</div>
+    ${d.pie ? `<div class="pie" data-anim style="--i:${d.bloques.length + 1}">${esc(d.pie)}</div>` : ""}
+  </section>`;
+}
+
+$("lienzo").innerHTML = SLIDES.map(render).join("");
+const slides = [...document.querySelectorAll(".slide")];
+
+// ---------------------------------------------------------------- escala
+function escalar() {
+  const pres = document.body.classList.contains("presenter");
+  const barra = pres ? 0 : ($("estado").classList.contains("oculta") ? 12 : 46);
+  const ancho = pres ? innerWidth * 0.56 : innerWidth - 24;
+  const alto = pres ? innerHeight * 0.58 : innerHeight - barra;
+  const k = Math.min(ancho / 1280, alto / 720);
+  const l = $("lienzo");
+  l.style.transform = `translate(-50%, -50%) scale(${k})`;
+  l.style.left = pres ? "calc(16px + 28vw)" : "50%";
+  l.style.top = pres ? "calc(16px + 29vh)" : "";
+}
+addEventListener("resize", escalar);
+
+// ---------------------------------------------------------------- navegación
+let actual = 0;
+const HAY_NOTAS = SLIDES.some(d => (d.notas || "").trim());
+if (!HAY_NOTAS) { $("b-notas").hidden = true; $("notas").hidden = true; $("b-presentador").hidden = true; }
+
+function ir(n, atras) {
+  n = Math.max(0, Math.min(slides.length - 1, n));
+  slides[actual].classList.remove("viva", "entra", "entra-atras");
+  actual = n;
+  const s = slides[actual];
+  s.classList.add("viva");
+  void s.offsetWidth;                       // reinicia las animaciones de entrada
+  s.classList.add(atras ? "entra-atras" : "entra");
+  $("cuenta").textContent = `${n + 1} / ${slides.length}`;
+  $("progreso").style.width = ((n + 1) / slides.length * 100) + "%";
+  $("titulo-actual").textContent = SLIDES[n].titulo.replace(/\n/g, " ");
+  $("notas-tit").textContent = `${n + 1} · ${SLIDES[n].titulo.replace(/\n/g, " ")}`;
+  $("notas-txt").innerHTML = htmlGuion(n);
+  $("notas-sig").textContent = n + 1 < SLIDES.length
+    ? "Sigue: " + SLIDES[n + 1].titulo.replace(/\n/g, " ") : "Última diapositiva.";
+  const cod = SLIDES[n].codigos || [];
+  $("notas-cod").innerHTML = cod.length
+    ? `<h4>Qué significa cada código de esta diapositiva</h4>` +
+      cod.map(([c, t]) => `<div><b>${esc(c)}</b> · ${esc(t)}</div>`).join("")
+    : "";
+  location.hash = n + 1;
+  if (SLIDES[n].cronometro) abrirCrono(SLIDES[n].cronometro); else cerrarCrono();
+  pintarPresentador();
+  if (!remoto) emitir();
+  escalar();
+}
+const sig = () => ir(actual + 1);
+const ant = () => ir(actual - 1, true);
+
+addEventListener("keydown", e => {
+  if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") { e.preventDefault(); sig(); }
+  else if (e.key === "ArrowLeft" || e.key === "PageUp") { e.preventDefault(); ant(); }
+  else if (e.key === "Home") ir(0);
+  else if (e.key === "End") ir(slides.length - 1);
+  else if (e.key === "Escape") { $("indice").classList.remove("abierto"); $("ayuda").classList.remove("abierta"); $("glosario").classList.remove("abierto"); }
+  else {
+    const k = e.key.toLowerCase();
+    if (k === "n") alternarNotas();
+    else if (k === "i") $("indice").classList.toggle("abierto");
+    else if (k === "g") $("glosario").classList.toggle("abierto");
+    else if (k === "l") alternarLectura();
+    else if (k === "p") alternarPresentador();
+    else if (k === "t") { $("crono").classList.contains("visible") ? cerrarCrono() : abrirCrono(); }
+    else if (k === "b") { $("estado").classList.toggle("oculta"); document.body.classList.toggle("sin-barra"); escalar(); }
+    else if (k === "f") { document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+    else if (k === "?" || e.key === "?") $("ayuda").classList.toggle("abierta");
+  }
+});
+$("escenario").addEventListener("click", e => {
+  if (tactil()) return;                       // en el teléfono se pasa deslizando o con los botones
+  (e.clientX > innerWidth * 0.35) ? sig() : ant();
+});
+let x0 = null;
+addEventListener("touchstart", e => x0 = e.touches[0].clientX, { passive: true });
+addEventListener("touchend", e => {
+  if (x0 === null || document.body.classList.contains("lectura")) return;
+  const dx = e.changedTouches[0].clientX - x0;
+  if (Math.abs(dx) > 50) dx < 0 ? sig() : ant();
+  x0 = null;
+});
+$("b-sig").onclick = e => { e.stopPropagation(); sig(); };
+$("b-ant").onclick = e => { e.stopPropagation(); ant(); };
+$("b-ayuda").onclick = () => $("ayuda").classList.toggle("abierta");
+$("ayuda").onclick = () => $("ayuda").classList.remove("abierta");
+
+// ---------------------------------------------------------------- índice
+$("rejilla").innerHTML = SLIDES.map((d, i) => `<button class="mini" data-ir="${i}" data-bloque="${d.bloque}">
+   <div class="num">${i + 1}</div>
+   <div class="t">${esc(d.titulo.replace(/\n/g, " "))}</div></button>`).join("");
+$("rejilla").addEventListener("click", e => {
+  const b = e.target.closest("[data-ir]");
+  if (b) { ir(+b.dataset.ir); $("indice").classList.remove("abierto"); }
+});
+$("b-indice").onclick = () => $("indice").classList.toggle("abierto");
+$("b-crono").onclick = () => $("crono").classList.contains("visible") ? cerrarCrono() : abrirCrono();
+
+// ---------------------------------------------------------------- modo lectura (teléfono)
+const tactil = () => matchMedia("(pointer: coarse)").matches;
+function alternarLectura() {
+  const lee = document.body.classList.toggle("lectura");
+  $("b-lectura").setAttribute("aria-pressed", lee);
+  $("b-lectura").textContent = lee ? "Diapositivas" : "Lectura";
+  try { localStorage.setItem("gcms-s1-lectura", lee ? "1" : ""); } catch (e) {}
+  if (lee) slides[actual].scrollIntoView({ block: "start" });
+  else { ir(actual); scrollTo(0, 0); }
+}
+$("b-lectura").onclick = alternarLectura;
+try { if (localStorage.getItem("gcms-s1-lectura")) alternarLectura(); } catch (e) {}
+
+// ---------------------------------------------------------------- glosario
+const FAMILIAS = [
+ [
+  "formato",
+  "Formatos del curso · F-nn",
+  "F-01 a F-07 son de la Unidad 1. La numeración continúa en las unidades siguientes."
+ ],
+ [
+  "ley",
+  "Leyes y tipos de programa de Lehman",
+  "Son de sus autores, no del curso."
+ ],
+ [
+  "tipo",
+  "Tipos de mantenimiento",
+  "De Swanson (1976) y la norma ISO/IEC/IEEE 14764."
+ ],
+ [
+  "sigla",
+  "Siglas",
+  ""
+ ]
+];
+const minutoPlan = SLIDES.map(d => d.minuto ?? null);
+$("gfamilias").innerHTML = FAMILIAS.map(([f, tit, de]) => {
+  const items = GLOSARIO.filter(g => g[2] === f);
+  if (!items.length) return "";
+  return `<section class="gfam"><h3>${esc(tit)}</h3>${de ? `<div class="de">${esc(de)}</div>` : ""}
+    <dl>${items.map(g => `<dt>${esc(g[0])}</dt><dd>${esc(g[1])}</dd>`).join("")}</dl></section>`;
+}).join("");
+$("b-glosario").onclick = () => $("glosario").classList.toggle("abierto");
+
+// ---------------------------------------------------------------- notas
+function alternarNotas() {
+  const abierto = $("notas").classList.toggle("abiertas");
+  $("b-notas").setAttribute("aria-pressed", abierto);
+}
+$("b-notas").onclick = alternarNotas;
+
+// ---------------------------------------------------------------- guion del orador
+// El guion viene partido en párrafos; las acotaciones entre paréntesis van en cursiva y no se leen.
+const acot = t => esc(t).replace(/\(([^)]*)\)/g, '<span class="acot">($1)</span>');
+function htmlGuion(n) {
+  const segs = SLIDES[n].guion || [];
+  if (!segs.length) return esc(SLIDES[n].notas || "");
+  return segs.map(ps => `<div class="seg-nota">${ps.map(t => `<p>${acot(t)}</p>`).join("")}</div>`).join("");
+}
+
+// ---------------------------------------------------------------- modo presentador y sincronización
+// Se abre el mismo archivo en dos ventanas; en una se pulsa P. Cada avance se transmite a la otra por
+// BroadcastChannel y, de respaldo, por localStorage.
+const VENTANA = Math.random().toString(36).slice(2);
+const canal = ("BroadcastChannel" in window) ? new BroadcastChannel("gcms-s1-deck") : null;
+let remoto = false, ultimoPar = 0, t0 = Date.now();
+function emitir() {
+  const m = { n: actual, src: VENTANA, en: Date.now() };
+  try { canal && canal.postMessage(m); } catch (e) {}
+  try { localStorage.setItem("gcms-s1-deck", JSON.stringify(m)); } catch (e) {}
+}
+function recibir(m) {
+  if (!m || m.src === VENTANA) return;
+  ultimoPar = Date.now(); pintarSinc();
+  if (m.ping) { emitir(); return; }
+  if (m.n === actual) return;
+  remoto = true;
+  try { ir(m.n, m.n < actual); } finally { remoto = false; }
+}
+if (canal) canal.onmessage = e => recibir(e.data);
+addEventListener("storage", e => {
+  if (e.key === "gcms-s1-deck" && e.newValue) { try { recibir(JSON.parse(e.newValue)); } catch (err) {} }
+});
+function pintarSinc() {
+  if (!$("p-sinc")) return;                  // la versión publicada no trae el panel
+  $("p-sinc").textContent = Date.now() - ultimoPar < 15000 ? "Sincronizado con la ventana de las diapositivas."
+    : "Esperando la ventana de las diapositivas… Ábranla con el mismo archivo.";
+}
+const mmss = s => String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0");
+function pintarPresentador() {
+  if (!document.body.classList.contains("presenter") || !$("pnotas")) return;
+  $("pnotas").innerHTML = htmlGuion(actual);
+  $("pnotas").scrollTop = 0;
+  const cod = SLIDES[actual].codigos || [];
+  $("pcods").innerHTML = cod.length ? cod.map(([c, t]) => `<div><b>${esc(c)}</b> · ${esc(t)}</div>`).join("") : "";
+  $("p-pos").textContent = `Diapositiva ${actual + 1} / ${slides.length}`;
+  const plan = minutoPlan[actual];
+  $("p-min").textContent = plan === null || plan === undefined ? "" : `planeada en el minuto ${plan}`;
+  $("p-sigue").textContent = actual < slides.length - 1
+    ? "Sigue: " + SLIDES[actual + 1].titulo.replace(/\n/g, " ") : "Fin de la presentación";
+  pintarRitmo();
+}
+function pintarRitmo() {           // el reloj contra el minuto planeado de la diapositiva
+  const plan = minutoPlan[actual], r = $("p-ritmo");
+  if (!r) return;
+  if (plan === null || plan === undefined) { r.textContent = ""; r.className = "ritmo"; return; }
+  const d = Math.round((Date.now() - t0) / 60000 - plan);
+  r.className = "ritmo " + (Math.abs(d) <= 2 ? "bien" : d > 0 ? "tarde" : "pronto");
+  r.textContent = Math.abs(d) <= 2 ? "a tiempo" : d > 0 ? `${d} min atrasado` : `${-d} min adelantado`;
+}
+function alternarPresentador(on) {
+  if (!HAY_NOTAS) return;                    // la versión publicada no lo tiene
+  on = on ?? !document.body.classList.contains("presenter");
+  document.body.classList.toggle("presenter", on);
+  $("notas").classList.remove("abiertas"); if ($("phelp")) $("phelp").hidden = true;
+  if (on) cerrarCrono();
+  escalar(); pintarPresentador(); emitir();
+}
+setInterval(() => {
+  if ($("p-reloj")) $("p-reloj").textContent = mmss(Math.floor((Date.now() - t0) / 1000));
+  pintarSinc(); if (document.body.classList.contains("presenter")) pintarRitmo();
+}, 1000);
+if ($("phelp")) {                           // solo en la versión del docente
+  $("b-presentador").onclick = () => { $("phelp").hidden = !$("phelp").hidden; };
+  $("phelp-ok").onclick = () => { $("phelp").hidden = true; };
+  $("phelp-ya").onclick = () => alternarPresentador(true);
+  $("p-sig").onclick = () => sig();
+  $("p-ant").onclick = () => ant();
+  $("p-salir").onclick = () => alternarPresentador(false);
+  $("p-reiniciar").onclick = () => { t0 = Date.now(); pintarRitmo(); };
+}
+
+// ---------------------------------------------------------------- cronómetro de las salas
+// El Taller 1 son 8 minutos y el Taller 2 son 10: el cronómetro arranca en 10 y se ajusta de a un minuto.
+let minutosTaller = 30;
+try { minutosTaller = +localStorage.getItem("gcms-s1-taller") || 30; } catch (e) {}
+let restan = minutosTaller * 60, cTic = null;
+function pintarCrono() {
+  $("crono-t").textContent = mmss(restan);
+  $("crono-t").classList.toggle("poco", restan <= 60);
+}
+function abrirCrono(min) {
+  if (!$("crono").classList.contains("visible") && !cTic) {
+    if (typeof min === "number") minutosTaller = min;        // los minutos que declara el taller
+    restan = minutosTaller * 60; pintarCrono();
+  }
+  $("crono").classList.add("visible");
+}
+function ajustarCrono(delta) {
+  if (cTic) { restan = Math.max(30, restan + delta * 60); }
+  else { minutosTaller = Math.min(60, Math.max(1, minutosTaller + delta)); restan = minutosTaller * 60;
+         try { localStorage.setItem("gcms-s1-taller", minutosTaller); } catch (e) {} }
+  pintarCrono();
+}
+$("crono-menos").onclick = () => ajustarCrono(-1);
+$("crono-mas").onclick = () => ajustarCrono(1);
+function cerrarCrono() { $("crono").classList.remove("visible"); clearInterval(cTic); cTic = null; $("crono-play").textContent = "Iniciar"; }
+$("crono-play").onclick = () => {
+  if (cTic) { clearInterval(cTic); cTic = null; $("crono-play").textContent = "Reanudar"; return; }
+  cTic = setInterval(() => { if (restan > 0) { restan--; pintarCrono(); } }, 1000);
+  $("crono-play").textContent = "Pausar";
+};
+$("crono-cerrar").onclick = cerrarCrono;
+
+// ---------------------------------------------------------------- arranque
+const inicial = parseInt(location.hash.replace("#", ""), 10);
+remoto = true;            // al abrir, esta ventana no arrastra a la que ya esté proyectando
+if (location.hash.slice(1) === "presentador" && HAY_NOTAS) document.body.classList.add("presenter");
+ir(Number.isFinite(inicial) && inicial > 0 ? inicial - 1 : 0);
+remoto = false;
+try { canal && canal.postMessage({ ping: true, src: VENTANA }); } catch (e) {}
+escalar();
+</script>
+</body>
+</html>
