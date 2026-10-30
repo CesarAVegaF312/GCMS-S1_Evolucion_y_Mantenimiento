@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<title>GCMS S1 · Enunciado de las actividades de la Unidad 1</title>
+<link rel="stylesheet" href="documentos.css"/>
+</head>
+<body>
+
+<div class="portada">
+  <div class="kicker">Gestión de Configuración y Mantenimiento de Software · Unidad 1</div>
+  <h1>Evolución del software y mantenimiento</h1>
+  <div class="sub">Enunciado de las actividades 0 y 1 · Maestría en Ingeniería de Software, Universidad de La Sabana</div>
+</div>
+
+<h2>El encargo</h2>
+<div class="recuadro crema">
+  <p>«Este sistema funciona, pero cada cambio cuesta más que el anterior y cada despliegue da más miedo. Antes de
+  decidir cómo controlar sus cambios necesitamos un diagnóstico: cómo ha evolucionado, en qué se va el esfuerzo de
+  mantenimiento, qué deuda arrastra y qué riesgos corre. Con eso diseñamos lo que sigue.»</p>
+  <p class="nota">Responsable del sistema que eligió cada grupo.</p>
+</div>
+<p>El curso se desarrolla con <b>aprendizaje basado en proyectos</b>. Cada grupo elige en esta unidad un sistema de
+software, académico, laboral o simulado, y trabaja sobre él durante todo el curso. En la Unidad 2 le diseña la gestión de configuración, en la Unidad 3 implementa el control de versiones y el pipeline de integración y
+despliegue continuos, y en la Unidad 4 propone e implementa mejoras. Por eso el sistema debe ser viable para
+modificarlo durante todo el curso.</p>
+
+<h3>Criterios del sistema</h3>
+<ul>
+  <li>El grupo puede modificarlo durante todo el curso.</li>
+  <li>Su código está en Git o se puede poner en Git.</li>
+  <li>Hay evidencia de su evolución: historial de cambios, tickets, incidentes o versiones desplegadas.</li>
+  <li>No expone datos sensibles, o se pueden anonimizar. Si es un sistema laboral, el grupo tiene autorización para usarlo.</li>
+</ul>
+
+<h2>Actividad 0 · Presentación del reto y contexto del sistema</h2>
+<table>
+  <tbody>
+    <tr><td class="campo">Modalidad</td><td>Grupal, de 2 a 3 estudiantes · formativa, sin calificación</td></tr>
+    <tr><td class="campo">Dedicación</td><td>6 horas</td></tr>
+    <tr><td class="campo">Entregable</td><td>Un documento corto de <b>2 a 3 páginas</b> o una presentación de <b>5 a 7 diapositivas</b> con:
+      descripción del sistema; caracterización general (tipo, usuarios, componentes); identificación inicial del problema;
+      formulación del reto; definición del alcance; criterios de éxito preliminares.</td></tr>
+    <tr><td class="campo">Reto</td><td>¿Cómo definir un problema relevante de gestión de configuración y mantenimiento del software que permita proponer soluciones en un contexto real?</td></tr>
+    <tr><td class="campo">Retroalimentación</td><td>Lista de chequeo formativa. La propuesta se socializa para recibir retroalimentación.</td></tr>
+  </tbody>
+</table>
+<h3>Lista de chequeo</h3>
+<table>
+  <thead><tr><th style="width:80%">Verificación</th><th>Sí / No</th></tr></thead>
+  <tbody>
+    <tr><td>El problema y el alcance están definidos con claridad</td><td></td></tr>
+    <tr><td>El sistema es viable para desarrollar el curso completo</td><td></td></tr>
+    <tr><td>El reto está formulado como una pregunta clara y concreta</td><td></td></tr>
+    <tr><td>La propuesta es coherente con las actividades siguientes</td><td></td></tr>
+  </tbody>
+</table>
+
+<h2>Actividad 1 · Análisis de evolución, deuda técnica y mantenimiento</h2>
+<table>
+  <tbody>
+    <tr><td class="campo">Modalidad</td><td>Grupal, de 2 a 3 estudiantes · calificable, <b>15 %</b></td></tr>
+    <tr><td class="campo">Dedicación</td><td>12 horas</td></tr>
+    <tr><td class="campo">Entregable</td><td>Un documento técnico de <b>5 a 7 páginas</b>, en norma APA 7, sobre el sistema de la Actividad 0.</td></tr>
+    <tr><td class="campo">Reto</td><td>¿Cómo analizar la evolución de un sistema de software para identificar problemas de mantenimiento, deuda técnica y riesgos que afectan su calidad y sostenibilidad?</td></tr>
+    <tr><td class="campo">Instrumento</td><td>Rúbrica, publicada en el aula virtual</td></tr>
+  </tbody>
+</table>
+
+<h3>Qué debe tener el documento</h3>
+<table>
+  <thead><tr><th style="width:5%">#</th><th style="width:27%">Sección</th><th>Qué debe mostrar</th><th style="width:12%">Formato</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Descripción y contexto del sistema</td><td>El sistema, sus componentes y artefactos, y su contexto organizacional o técnico</td><td>F-01</td></tr>
+    <tr><td>2</td><td>Problemas asociados a la evolución</td><td>La evidencia de cómo ha cambiado el sistema y las señales de envejecimiento, contrastadas con las leyes de Lehman</td><td>F-02 y F-04</td></tr>
+    <tr><td>3</td><td>Tipos de mantenimiento</td><td>La clasificación de una muestra de cambios en correctivo, adaptativo, perfectivo y preventivo, y qué revela esa distribución</td><td>F-03</td></tr>
+    <tr><td>4</td><td>Deuda técnica</td><td>Las deudas localizadas en el sistema, con su origen, su interés y su prioridad</td><td>F-05</td></tr>
+    <tr><td>5</td><td>Riesgos de la evolución</td><td>Los riesgos de cambios no controlados y de falta de estrategia de evolución, con su impacto en la calidad del sistema</td><td>F-06</td></tr>
+    <tr><td>6</td><td>Alcance del problema</td><td>El problema que el grupo abordará en el resto del curso y por qué importa para la calidad del sistema</td><td>—</td></tr>
+  </tbody>
+</table>
+
+<h3>Criterios de evaluación</h3>
+<p>La rúbrica tiene cinco criterios. Los niveles y los puntajes están en el aula virtual.</p>
+<table>
+  <thead><tr><th style="width:32%">Criterio</th><th>Qué se observa en el nivel más alto</th></tr></thead>
+  <tbody>
+    <tr><td>Definición del reto</td><td>Reto claramente formulado, pertinente y alineado con el sistema</td></tr>
+    <tr><td>Caracterización del sistema</td><td>Sistema completamente descrito: componentes, usuarios y contexto</td></tr>
+    <tr><td>Identificación del problema</td><td>Problemas claramente identificados y bien justificados</td></tr>
+    <tr><td>Análisis de evolución y deuda técnica</td><td>Análisis profundo, coherente y bien argumentado</td></tr>
+    <tr><td>Presentación y soporte</td><td>Documento claro, estructurado, con sustento teórico y normas APA</td></tr>
+  </tbody>
+</table>
+
+<h2>Paso a paso</h2>
+<ol>
+  <li><b>Elegir el sistema</b> con los criterios de este enunciado y llenar el F-01. Socializar la Actividad 0.</li>
+  <li><b>Reunir la evidencia de evolución</b> (F-02). Si el sistema tiene historia en Git, la herramienta
+  <code>herramientas/metricas_evolucion.py</code> saca las métricas por versión y una muestra de cambios. Si no la tiene,
+  la evidencia sale de tickets, incidentes, versiones desplegadas y entrevistas.</li>
+  <li><b>Clasificar los cambios</b> leyendo cada uno (F-03).</li>
+  <li><b>Contrastar con las leyes de Lehman</b> (F-04) y <b>registrar la deuda</b> (F-05).</li>
+  <li><b>Analizar los riesgos</b> (F-06) y definir el alcance del problema.</li>
+  <li><b>Verificar</b> con el F-07 y entregar.</li>
+</ol>
+<pre>python herramientas/metricas_evolucion.py &lt;sistema&gt; --incluir "src/&lt;paquete&gt;/**/*" --solo-fuente --muestra 20 --semilla 7 --salida salida
+git -C &lt;sistema&gt; show &lt;commit&gt;</pre>
+
+<h2>Material de la unidad</h2>
+<ul>
+  <li>Lehman, M. M. (1996). Laws of software evolution revisited. En C. Montangero (Ed.), <i>Software Process Technology</i> (pp. 108–124). Springer. https://doi.org/10.1007/BFb0017737</li>
+  <li>O'Reilly. (2019). <i>Technical debt: A master class</i> [Grabación de video]. O'Reilly Media. Disponible en la biblioteca.</li>
+  <li>Fowler, M. <i>Technical debt</i>. https://martinfowler.com/bliki/TechnicalDebt.html</li>
+  <li>Pressman, R. S. (2010). <i>Software engineering: A practitioner's approach</i> (7.ª ed.). McGraw-Hill. Capítulo de mantenimiento.</li>
+  <li>Complementario: Google. (2022). <i>The site reliability workbook</i>. https://sre.google/workbook/</li>
+</ul>
+
+<h2>Errores frecuentes</h2>
+<ul>
+  <li><b>Elegir un sistema que no se podrá modificar.</b> En las unidades 3 y 4 hay que montarle un pipeline y mejorarlo.</li>
+  <li><b>Clasificar por el mensaje del commit o el título del ticket.</b> «Fix» aparece en correcciones de documentación y en funcionalidades nuevas.</li>
+  <li><b>Deuda genérica.</b> «Falta documentación» no es una deuda registrable; «la capa de compatibilidad X en el módulo Y» sí.</li>
+  <li><b>Riesgos sin evidencia.</b> Cada riesgo debe rastrearse hasta algo observado en el sistema.</li>
+</ul>
+
+<div class="pie-doc">GCMS · Unidad 1 · Enunciado de las actividades · César Augusto Vega Fernández · Universidad de La Sabana ·
+Licencia CC BY-NC-SA 4.0</div>
+</body>
+</html>

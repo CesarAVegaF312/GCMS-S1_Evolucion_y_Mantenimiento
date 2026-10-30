@@ -405,7 +405,7 @@ button, [role="button"], .mini { touch-action: manipulation; user-select: none; 
   #crono { padding: 24px 28px; }
   #crono .tiempo { font-size: 64px; }
 
-  /* ── modo lectura: las 19, una debajo de otra ── */
+  /* ── modo lectura: las 21, una debajo de otra ── */
   body.lectura .slide { display: flex !important; min-height: 0;
                         border-radius: 12px; margin: 0 10px 14px; }
   body.lectura .slide.viva { animation: none; }
@@ -436,7 +436,7 @@ button, [role="button"], .mini { touch-action: manipulation; user-select: none; 
 
 <div id="estado">
   <button id="b-ant" aria-label="Diapositiva anterior">←</button>
-  <span id="cuenta" aria-live="off">1 / 19</span>
+  <span id="cuenta" aria-live="off">1 / 21</span>
   <button id="b-sig" aria-label="Diapositiva siguiente">→</button>
   <span id="titulo-actual"></span>
   <span class="crece"></span>
@@ -489,7 +489,7 @@ button, [role="button"], .mini { touch-action: manipulation; user-select: none; 
       <tr><td>N</td><td>Notas del docente, en esta misma pantalla</td></tr>
       <tr><td>P</td><td>Modo presentador: abra el archivo en otra ventana, pulse P allí y comparta solo la de las diapositivas</td></tr>
       <tr><td>I</td><td>Índice</td></tr>
-      <tr><td>L</td><td>En el teléfono: leer las 19 diapositivas de corrido</td></tr>
+      <tr><td>L</td><td>En el teléfono: leer las 21 diapositivas de corrido</td></tr>
       <tr><td>G</td><td>Glosario: de dónde sale cada código</td></tr>
       <tr><td>T</td><td>Cronómetro de las salas, ajustable</td></tr>
       <tr><td>B</td><td>Barra inferior</td></tr>
@@ -507,60 +507,61 @@ const SLIDES = [
   "kicker": "Maestría · Espacio académico",
   "titulo": "Gestión de Configuración y Mantenimiento de Software",
   "subtitulo": "Sesión 1 — Unidad 1 · Evolución del software y mantenimiento",
-  "lema": "Diagnosticar un sistema a partir de su propia historia.",
-  "pie": "Encuentro sincrónico · Leyes de Lehman · ISO/IEC/IEEE 14764 · Modelo por etapas de Rajlich y Bennett",
+  "lema": "Lo que nadie quiere tocar también se deteriora.",
+  "pie": "Encuentro sincrónico · Leyes de Lehman · ISO/IEC/IEEE 14764 · Deuda técnica",
   "codigos": [],
-  "notas": "Presentación del curso y de la unidad. El objetivo de hoy es que cada grupo salga con un proyecto elegido y la herramienta de métricas corriendo sobre él.",
+  "notas": "Presentación del curso y de la unidad. El objetivo de hoy es que cada grupo salga con su sistema elegido y la Actividad 0 en borrador.",
   "guion": []
  },
  {
   "bloque": 0,
   "kicker": "El reto de la Unidad 1 · Actividades en la plataforma",
-  "titulo": "Un diagnóstico con el que un comité pueda decidir",
+  "titulo": "Un diagnóstico antes de controlar el cambio",
   "bloques": [
    {
     "t": "cita_y_cajas",
     "cita": [
-     "«Nuestra organización depende de un componente de código abierto y tenemos que decidir si seguimos apostando por él durante los próximos cinco años.",
+     "«Este sistema funciona, pero cada cambio cuesta más que el anterior y cada despliegue da más miedo.",
      "",
-     "No queremos opiniones sobre si es popular. Queremos saber cómo ha evolucionado, en qué se le va el esfuerzo de mantenimiento, en qué etapa de su vida está y qué deuda arrastra.",
+     "Antes de decidir cómo controlar sus cambios necesitamos un diagnóstico: cómo ha evolucionado, en qué se va el esfuerzo de mantenimiento, qué deuda arrastra y qué riesgos corre.",
      "",
-     "Con eso decidimos.»"
+     "Con eso diseñamos lo que sigue.»"
     ],
-    "autor": "Comité de arquitectura de la organización cliente",
+    "autor": "Responsable del sistema que eligió cada grupo",
     "cajas": [
      {
-      "titulo": "Actividad 1.1 · Presentación del reto",
+      "titulo": "Actividad 0 · Presentación del reto y contexto del sistema",
       "color": "teal2",
       "lineas": [
-       "Individual · formativa. Reflexión de 1 a 2 páginas: qué tipo de mantenimiento consume más esfuerzo en un sistema que usted conoce, y cómo lo demostraría. Propuesta de proyecto con el F-01 en borrador."
+       "Formativa · 6 horas · grupal, de 2 a 3",
+       "Documento de 2 a 3 páginas o presentación de 5 a 7 diapositivas: sistema, caracterización, problema inicial, reto, alcance y criterios de éxito"
       ]
      },
      {
-      "titulo": "Actividad 1.2 · Diagnóstico de evolución y mantenimiento",
+      "titulo": "Actividad 1 · Análisis de evolución, deuda técnica y mantenimiento",
       "color": "coral",
       "lineas": [
-       "Grupal · peso y horas: por completar",
-       "Métricas por versión · clasificación de 40 cambios",
-       "Contraste con las leyes de Lehman · etapa del ciclo de vida",
-       "5 deudas técnicas · recomendación · PDF de máximo 15 páginas, APA 7"
+       "15 % · 12 horas · grupal, de 2 a 3",
+       "Documento técnico de 5 a 7 páginas, en APA 7",
+       "Problemas de evolución · deuda técnica · tipos de mantenimiento",
+       "Riesgos: cambios no controlados y falta de estrategia de evolución"
       ]
      }
     ]
    },
    {
     "t": "banda",
-    "texto": "La evidencia sale del repositorio, del registro de cambios y de los issues. Una afirmación sin dato que la respalde no entra en el informe."
+    "texto": "El sistema que elijan hoy los acompaña todo el curso: en la Unidad 2 le diseñan la gestión de configuración, en la 3 el control de versiones y el pipeline, y en la 4 las mejoras."
    }
   ],
-  "pie": "Los F-nn son los formatos del curso, las plantillas que preparan cada sección del informe. F-01 a F-07 son los de la Unidad 1. No se suben a la plataforma.",
+  "pie": "Los F-nn son los formatos del curso, las plantillas que preparan cada sección del documento. F-01 a F-07 son los de la Unidad 1. No se suben a la plataforma.",
   "codigos": [
    [
     "F-01",
-    "Formato del curso · Ficha del sistema: qué se estudia, por qué cumple los criterios y qué se mide"
+    "Formato del curso · Ficha del sistema y del reto: es el borrador de la Actividad 0"
    ]
   ],
-  "notas": "El encargo es el marco de ficción; el objeto de estudio es el proyecto de código abierto que elija cada grupo. Completar en esta diapositiva el peso y las horas de la plataforma.",
+  "notas": "El sistema puede ser académico, laboral o simulado. Insistir en que sea viable para todo el curso: en las unidades 3 y 4 hay que modificarlo.",
   "guion": []
  },
  {
@@ -575,19 +576,19 @@ const SLIDES = [
       "kicker": "Primero",
       "titulo": "Conceptos",
       "color": "coral",
-      "texto": "Por qué el software que se usa tiene que cambiar, las leyes de Lehman, los tipos de mantenimiento, las etapas de vida y la deuda técnica."
+      "texto": "Envejecimiento, leyes de Lehman, tipos de mantenimiento, deuda técnica y los riesgos de no gestionar la evolución."
      },
      {
       "kicker": "Después",
       "titulo": "Ejemplos",
       "color": "teal",
-      "texto": "Los formatos F-01 a F-06 llenos con la historia real de Flask, un framework web con quince años de versiones."
+      "texto": "Los formatos llenos con la historia real de Flask, un framework web con quince años de versiones públicas."
      },
      {
       "kicker": "Y el resto de la sesión",
       "titulo": "El hacer",
       "color": "cafe",
-      "texto": "El taller en salas: elegir el proyecto, clonarlo y correr la herramienta de métricas sobre él."
+      "texto": "El taller en salas: cada grupo elige su sistema y sale con la Actividad 0 en borrador."
      }
     ]
    },
@@ -598,6 +599,49 @@ const SLIDES = [
   ],
   "codigos": [],
   "notas": "",
+  "guion": []
+ },
+ {
+  "bloque": 1,
+  "kicker": "Bloque 1 · El problema",
+  "titulo": "Lo que nadie quiere tocar también se deteriora",
+  "bloques": [
+   {
+    "t": "tarjetas",
+    "estilo": "filete",
+    "items": [
+     {
+      "titulo": "Dilatación de tiempos",
+      "color": "coral",
+      "lineas": [
+       "Cambios que parecían sencillos toman mucho más esfuerzo del previsto."
+      ]
+     },
+     {
+      "titulo": "Inestabilidad operativa",
+      "color": "cafe",
+      "lineas": [
+       "Cada actualización trae más errores, aunque el equipo tenga experiencia."
+      ]
+     },
+     {
+      "titulo": "Silos de conocimiento",
+      "color": "teal",
+      "lineas": [
+       "El sistema lo entienden pocas personas, que se vuelven indispensables."
+      ]
+     }
+    ]
+   },
+   {
+    "t": "aviso",
+    "rotulo": "El envejecimiento según Parnas (1994)",
+    "texto": "El software envejece por dos causas: no se adapta a un entorno que cambia, y los cambios que sí se le hacen los hace gente que no entiende el diseño original. A diferencia del hardware, no se desgasta: se deteriora por los efectos de los cambios."
+   }
+  ],
+  "pie": "Los tres síntomas sirven como primera evidencia en la Actividad 0: ¿cuáles se ven en su sistema y quién lo puede confirmar?",
+  "codigos": [],
+  "notas": "Preguntar a dos o tres estudiantes por un sistema que nadie quiera tocar en su trabajo, y cuál de los tres síntomas reconocen.",
   "guion": []
  },
  {
@@ -649,9 +693,9 @@ const SLIDES = [
     "texto": "Las leyes de la evolución se formularon para los programas tipo E. Casi todo el software que una organización mantiene es de ese tipo."
    }
   ],
-  "pie": "Lehman, M. M. (1980). Programs, life cycles, and laws of software evolution. Proceedings of the IEEE, 68(9), 1060–1076.",
+  "pie": "Lehman, M. M. (1980). Programs, life cycles, and laws of software evolution · Lehman, M. M. (1996). Laws of software evolution revisited.",
   "codigos": [],
-  "notas": "Preguntar a dos o tres estudiantes qué tipo de programa mantienen en su trabajo. Casi siempre es tipo E.",
+  "notas": "",
   "guion": []
  },
  {
@@ -665,7 +709,7 @@ const SLIDES = [
      [
       "Ley",
       "Qué dice",
-      "Qué dato la mostraría"
+      "Qué evidencia la mostraría"
      ],
      [
       "I · Cambio continuo",
@@ -685,7 +729,7 @@ const SLIDES = [
      [
       "IV · Estabilidad organizacional",
       "La tasa media de trabajo efectivo es invariante",
-      "Commits por mes estables aunque cambie el equipo"
+      "Cambios por mes estables aunque cambie el equipo"
      ],
      [
       "V · Familiaridad",
@@ -710,7 +754,7 @@ const SLIDES = [
     ]
    }
   ],
-  "pie": "Formulación de Lehman et al. (1997). En el aula se recorre el interactivo de las leyes: el control de trabajo preventivo muestra la ley II.",
+  "pie": "Lehman (1996). En el aula se recorre el interactivo de las leyes: el control de trabajo preventivo muestra la ley II.",
   "codigos": [
    [
     "Ley II",
@@ -745,78 +789,28 @@ const SLIDES = [
      ]
     ],
     "aparte": {
-     "titulo": "De dónde sale",
+     "titulo": "Lo que revela la distribución",
      "lineas": [
-      "Swanson (1976) propuso correctivo, adaptativo y perfectivo.",
-      "La norma ISO/IEC/IEEE 14764 agrega el preventivo y los agrupa en corrección y mejora.",
-      "SWEBOK presenta esta misma rejilla."
+      "Un equipo que solo hace correctivo no tiene espacio para otra cosa.",
+      "El perfectivo y el preventivo son los que más se postergan.",
+      "La distribución real dice más de la madurez que el proceso declarado."
      ]
     }
    },
    {
     "t": "banda",
-    "texto": "El tipo se decide leyendo el cambio. El mensaje del commit orienta, pero «fix» aparece en correcciones de documentación y en funcionalidades nuevas."
+    "texto": "El tipo se decide leyendo el cambio. El mensaje del commit o del ticket orienta, pero «fix» aparece en correcciones de documentación y en funcionalidades nuevas."
    }
   ],
-  "pie": "En el aula se usa el clasificador interactivo: trece cambios reales de Flask para clasificar antes de ver la respuesta.",
+  "pie": "ISO/IEC/IEEE 14764:2022 · Pressman (2010). En el aula se usa el clasificador interactivo: trece cambios reales de Flask para clasificar antes de ver la respuesta.",
   "codigos": [],
   "notas": "Hacer en vivo tres o cuatro casos del clasificador. Detenerse en los que tienen dos tipos posibles.",
   "guion": []
  },
  {
   "bloque": 1,
-  "kicker": "Bloque 1 · En qué momento de su vida está",
-  "titulo": "El modelo por etapas de Rajlich y Bennett",
-  "bloques": [
-   {
-    "t": "cronologia",
-    "items": [
-     {
-      "plazo": "Desarrollo inicial",
-      "color": "teal2",
-      "texto": "Primera versión funcional. Se forman la arquitectura y el conocimiento del equipo."
-     },
-     {
-      "plazo": "Evolución",
-      "color": "teal",
-      "texto": "Funcionalidad nueva frecuente. Los cambios de estructura todavía son posibles porque el equipo entiende la arquitectura."
-     },
-     {
-      "plazo": "Servicio",
-      "color": "ambar",
-      "texto": "Correcciones y adaptaciones pequeñas. Los cambios de estructura se evitan porque se volvieron costosos o riesgosos."
-     },
-     {
-      "plazo": "Retiro gradual",
-      "color": "cafe",
-      "texto": "Solo correcciones críticas. Se anuncia reemplazo o fin de soporte."
-     },
-     {
-      "plazo": "Cierre",
-      "color": "gris",
-      "texto": "El sistema se apaga y los usuarios migran."
-     }
-    ]
-   },
-   {
-    "t": "banda",
-    "texto": "Un sistema pasa de evolución a servicio cuando pierde la integridad de su arquitectura o el conocimiento de quienes la entendían. Ese paso rara vez tiene marcha atrás."
-   }
-  ],
-  "pie": "Rajlich, V. T., & Bennett, K. H. (2000). A staged model for the software life cycle. Computer, 33(7), 66–71.",
-  "codigos": [
-   [
-    "F-05",
-    "Formato del curso · Etapa del ciclo de vida, con señales que la sostienen"
-   ]
-  ],
-  "notas": "",
-  "guion": []
- },
- {
-  "bloque": 1,
   "kicker": "Bloque 1 · Lo que se acumula",
-  "titulo": "Deuda técnica y envejecimiento",
+  "titulo": "Deuda técnica: el costo que se paga después",
   "bloques": [
    {
     "t": "tabla",
@@ -842,20 +836,21 @@ const SLIDES = [
      "lineas": [
       "**Interés**: lo que cuesta cada cambio mientras la deuda sigue.",
       "**Pago**: lo que cuesta quitarla.",
-      "Cunningham (1992) acuñó la metáfora; Fowler (2009) propuso este cuadrante."
+      "La deuda que preocupa es la que nadie registra ni cuantifica."
      ]
     }
    },
    {
     "t": "aviso",
-    "rotulo": "El envejecimiento según Parnas (1994)",
-    "texto": "El software envejece por dos causas: no se adapta a un entorno que cambia, y los cambios que sí se le hacen los hace gente que no entiende el diseño original. La segunda causa es deuda inadvertida."
+    "rotulo": "Knight Capital, 2012",
+    "texto": "Un despliegue dejó uno de ocho servidores con código antiguo, que reactivó una función en desuso desde hacía años. La firma perdió cerca de 460 millones de dólares en unos 45 minutos (SEC, 2013). Código obsoleto que nadie retiró: deuda no registrada."
    }
   ],
+  "pie": "Cuadrante de Fowler (2009).",
   "codigos": [
    [
-    "F-06",
-    "Formato del curso · Registro de deuda técnica: cinco deudas localizadas con origen, interés, pago y prioridad"
+    "F-05",
+    "Formato del curso · Registro de deuda técnica: deudas localizadas con origen, interés, pago y prioridad"
    ]
   ],
   "notas": "",
@@ -863,37 +858,75 @@ const SLIDES = [
  },
  {
   "bloque": 1,
-  "kicker": "Bloque 1 · La cadena que sostiene el informe",
-  "titulo": "De la historia del repositorio a una recomendación",
+  "kicker": "Bloque 1 · Por qué importa",
+  "titulo": "El riesgo de no gestionar la evolución",
+  "bloques": [
+   {
+    "t": "pares",
+    "izq": {
+     "titulo": "Cambios no controlados",
+     "color": "coral"
+    },
+    "der": {
+     "titulo": "Falta de estrategia de evolución",
+     "color": "teal"
+    },
+    "filas": [
+     [
+      "Nadie sabe con certeza qué versión está en producción ni qué cambió entre una entrega y otra.\nUna modificación de configuración rompe el sistema aunque el código no haya cambiado.",
+      "Las adaptaciones se hacen cuando el entorno ya obligó, no antes.\nLa deuda crece sin registro y la complejidad sube sin trabajo preventivo."
+     ]
+    ]
+   },
+   {
+    "t": "aviso",
+    "rotulo": "Ariane 5, 1996",
+    "texto": "El cohete se perdió unos 37 segundos después del lanzamiento. Reutilizaba código del Ariane 4 sin verificar que los nuevos valores de vuelo cupieran en una conversión de datos (Lions, 1996). Lehman lo llama principio de incertidumbre: un sistema puede fallar sin que su código cambie, porque cambian los supuestos."
+   }
+  ],
+  "pie": "Estos dos grupos de riesgo son los que pide analizar la Actividad 1. Responderlos es la tarea de las unidades 2 y 3.",
+  "codigos": [
+   [
+    "F-06",
+    "Formato del curso · Análisis de riesgos de la evolución del sistema"
+   ]
+  ],
+  "notas": "",
+  "guion": []
+ },
+ {
+  "bloque": 1,
+  "kicker": "Bloque 1 · La cadena que sostiene el documento",
+  "titulo": "Del sistema a los riesgos, con evidencia",
   "bloques": [
    {
     "t": "cadena",
     "items": [
      {
-      "titulo": "Historia",
-      "texto": "Etiquetas, commits, registro de cambios, issues"
+      "titulo": "Sistema y reto",
+      "texto": "F-01 · qué es, para quién, qué se aborda"
      },
      {
-      "titulo": "Métricas",
-      "texto": "F-02 · tamaño, crecimiento y actividad por versión"
+      "titulo": "Evidencia",
+      "texto": "F-02 · historial, versiones, tickets, incidentes"
      },
      {
-      "titulo": "Clasificación",
-      "texto": "F-03 · qué tipo de mantenimiento consume el esfuerzo"
+      "titulo": "Mantenimiento",
+      "texto": "F-03 · en qué se va el esfuerzo"
      },
      {
-      "titulo": "Leyes y etapa",
-      "texto": "F-04 y F-05 · qué se observa y en qué momento está"
+      "titulo": "Leyes y deuda",
+      "texto": "F-04 y F-05 · qué se observa y qué se arrastra"
      },
      {
-      "titulo": "Deuda y decisión",
-      "texto": "F-06 · qué arrastra y qué conviene hacer"
+      "titulo": "Riesgos",
+      "texto": "F-06 · qué puede salir mal y por qué importa"
      }
     ]
    },
    {
     "t": "banda",
-    "texto": "Cada eslabón se apoya en el anterior. Una recomendación que no se puede rastrear hasta un dato del repositorio no sostiene la decisión del comité."
+    "texto": "Cada eslabón se apoya en el anterior. Un riesgo que no se puede rastrear hasta una evidencia del sistema es una opinión."
    }
   ],
   "codigos": [],
@@ -903,6 +936,34 @@ const SLIDES = [
  {
   "bloque": 2,
   "kicker": "Bloque 2 · Ejemplo guiado 1 · F-01",
+  "titulo": "El reto y el alcance, escritos antes de medir",
+  "bloques": [
+   {
+    "t": "pares",
+    "izq": {
+     "titulo": "Caracterización",
+     "color": "teal"
+    },
+    "der": {
+     "titulo": "Reto, alcance y criterios",
+     "color": "coral"
+    },
+    "filas": [
+     [
+      "**Tipo:** framework web de Python, publicado como biblioteca.\n**Usuarios:** desarrolladores de aplicaciones y autores de extensiones.\n**Componentes:** aplicación, blueprints, línea de comandos, sesiones, JSON y plantillas.",
+      "**Reto:** ¿puede una organización seguir dependiendo de Flask cinco años más, y qué tendría que vigilar?\n**Alcance:** el paquete flask. **Queda fuera:** pruebas, documentación y extensiones.\n**Criterio de éxito:** cada afirmación se rastrea hasta el historial público."
+     ]
+    ]
+   }
+  ],
+  "pie": "Así se ve una Actividad 0 resumida. La de ustedes describe su propio sistema.",
+  "codigos": [],
+  "notas": "",
+  "guion": []
+ },
+ {
+  "bloque": 2,
+  "kicker": "Bloque 2 · Ejemplo guiado 2 · F-02",
   "titulo": "Decidir qué se mide antes de medir",
   "bloques": [
    {
@@ -942,12 +1003,12 @@ const SLIDES = [
   ],
   "pie": "python herramientas/metricas_evolucion.py flask --incluir \"flask.py,flask/**/*.py,src/flask/**/*.py\"",
   "codigos": [],
-  "notas": "Mostrar el comando y la salida en la terminal si hay tiempo.",
+  "notas": "Si el sistema del grupo no tiene historia en Git, la evidencia sale de tickets, incidentes y versiones desplegadas.",
   "guion": []
  },
  {
   "bloque": 2,
-  "kicker": "Bloque 2 · Ejemplo guiado 2 · F-02",
+  "kicker": "Bloque 2 · Ejemplo guiado 3 · F-02",
   "titulo": "Quince años de Flask en números",
   "bloques": [
    {
@@ -1028,7 +1089,7 @@ const SLIDES = [
  },
  {
   "bloque": 2,
-  "kicker": "Bloque 2 · Ejemplo guiado 3 · F-03",
+  "kicker": "Bloque 2 · Ejemplo guiado 4 · F-03",
   "titulo": "En qué se va el esfuerzo de mantenimiento",
   "bloques": [
    {
@@ -1130,7 +1191,7 @@ const SLIDES = [
    },
    {
     "t": "banda",
-    "texto": "Un caso difícil bien razonado vale más en el informe que diez casos fáciles. Anoten por qué admitía dos tipos y cuál eligieron."
+    "texto": "Un caso difícil bien razonado vale más en el documento que diez casos fáciles. Anoten por qué admitía dos tipos y cuál eligieron."
    }
   ],
   "codigos": [],
@@ -1203,73 +1264,73 @@ const SLIDES = [
  {
   "bloque": 2,
   "kicker": "Bloque 2 · Ejemplo guiado 6 · F-05 y F-06",
-  "titulo": "Etapa, deuda y recomendación",
+  "titulo": "Deuda, riesgos y recomendación",
   "bloques": [
    {
     "t": "pares",
     "izq": {
-     "titulo": "F-05 · Etapa: evolución",
+     "titulo": "F-05 · Deuda vigente",
      "color": "teal"
     },
     "der": {
-     "titulo": "F-06 · Deuda vigente",
+     "titulo": "F-06 · Riesgos para quien depende de Flask",
      "color": "coral"
     },
     "filas": [
      [
-      "La 3.0.0 reorganizó las clases principales y la 3.2.0, en desarrollo, fusiona dos tipos de contexto: todavía hay cambios de estructura.\nSeñales de transición a servicio: actividad en descenso, tamaño casi constante y ninguna versión con funcionalidad nueva desde noviembre de 2024.",
-      "Supresiones type: ignore (105 en 3.1.0, 90 hoy).\nAlias y firmas obsoletas durante el período de la 3.2.0.\nDespacho interno apoyado en objetos proxy globales.\nSoporte de Python 3.9 y 3.10, ya retirado en la 3.2.0."
+      "Supresiones type: ignore (105 en 3.1.0, 90 hoy).\nAlias y firmas obsoletas durante el período de la 3.2.0.\nDespacho interno apoyado en objetos proxy globales.\nSoporte de Python 3.9 y 3.10, ya retirado en la 3.2.0.",
+      "**Cambio no controlado:** cada versión mayor retira API obsoletas; sin versiones fijadas, una actualización rompe la aplicación.\n**Falta de estrategia:** sin seguir los avisos de obsolescencia, los retiros se descubren el día de actualizar.\n**Señal a vigilar:** ninguna versión con funcionalidad nueva desde noviembre de 2024."
      ]
     ]
    },
    {
     "t": "banda",
-    "texto": "Recomendación: seguir con condiciones. Seguir los avisos de obsolescencia, fijar versiones y vigilar la salida de la 3.2.0."
+    "texto": "Recomendación: seguir con condiciones. Fijar versiones, seguir los avisos de obsolescencia y vigilar la salida de la 3.2.0."
    }
   ],
-  "pie": "El detalle de cada deuda, con origen, interés y pago, está en el recorrido resuelto.",
+  "pie": "El detalle de cada deuda y cada riesgo está en el recorrido resuelto.",
   "codigos": [],
-  "notas": "La segunda condición, fijar versiones, es el puente con la Unidad 2.",
+  "notas": "Fijar versiones es el puente con la Unidad 2: identificar qué se controla y en qué versión.",
   "guion": []
  },
  {
   "bloque": 3,
-  "kicker": "El hacer · Taller en salas",
-  "titulo": "De la sesión salen con el proyecto medido",
+  "kicker": "El hacer · Taller en salas · Actividad 0",
+  "titulo": "De la sesión salen con su sistema y su reto",
   "bloques": [
    {
     "t": "pasos",
     "color": "cafe",
     "items": [
      {
-      "titulo": "Elegir el proyecto",
-      "texto": "Dos candidatos por grupo, revisados contra los seis criterios del F-01.",
+      "titulo": "Elegir el sistema",
+      "texto": "Académico, laboral o simulado, revisado contra los criterios del F-01.",
       "min": 8
      },
      {
-      "titulo": "Clonar con la historia completa",
-      "texto": "Sin --depth. Revisar git tag y decidir el patrón de versiones.",
+      "titulo": "Caracterizarlo",
+      "texto": "Tipo de sistema, usuarios principales y componentes.",
+      "min": 6
+     },
+     {
+      "titulo": "Identificar el problema inicial",
+      "texto": "Síntomas de envejecimiento, situaciones de configuración o mantenimiento, riesgos.",
+      "min": 6
+     },
+     {
+      "titulo": "Formular el reto como pregunta",
+      "texto": "Concreto y relevante para el sistema.",
       "min": 5
      },
      {
-      "titulo": "Decidir qué se mide",
-      "texto": "Rutas del código fuente; qué queda fuera y por qué.",
+      "titulo": "Definir alcance y criterios de éxito",
+      "texto": "Qué se aborda, qué queda fuera y cómo sabrán que lo lograron.",
       "min": 5
-     },
-     {
-      "titulo": "Correr la herramienta",
-      "texto": "Con --solo-fuente y una semilla declarada.",
-      "min": 5
-     },
-     {
-      "titulo": "Clasificar los primeros cinco commits",
-      "texto": "Leyendo el diff, con la evidencia anotada.",
-      "min": 7
      }
     ]
    }
   ],
-  "pie": "Al salir de la sala: el F-01 en borrador y los dos CSV generados. El resto de la muestra se clasifica durante la semana.",
+  "pie": "Al salir de la sala: el F-01 en borrador, que es la base de la Actividad 0.",
   "codigos": [],
   "notas": "Ajustar el cronómetro (T) al tiempo que quede.",
   "guion": []
@@ -1277,22 +1338,22 @@ const SLIDES = [
  {
   "bloque": 3,
   "kicker": "Para tener al lado durante el taller",
-  "titulo": "Comandos y criterios",
+  "titulo": "Criterios del sistema y comandos",
   "bloques": [
    {
     "t": "pares",
     "izq": {
-     "titulo": "Comandos",
-     "color": "teal2"
+     "titulo": "Criterios del sistema (F-01)",
+     "color": "cafe"
     },
     "der": {
-     "titulo": "Criterios del proyecto (F-01)",
-     "color": "cafe"
+     "titulo": "Si el sistema tiene historia en Git",
+     "color": "teal2"
     },
     "filas": [
      [
-      "**git clone** URL del proyecto\n**git tag** para ver las versiones\n**python herramientas/metricas_evolucion.py** proyecto **--incluir** \"rutas\" **--solo-fuente --semilla 7**\n**git show** commit para leer el diff",
-      "Cinco años o más de historia pública\nOcho o más versiones con funcionalidad nueva\nRegistro de cambios y gestor de issues públicos\nLa herramienta termina en menos de diez minutos\nNingún otro grupo lo eligió"
+      "El grupo puede modificarlo durante todo el curso\nSu código está o puede ponerse en Git\nHay evidencia de su evolución: historial, tickets, incidentes o versiones\nNo expone datos sensibles, o se pueden anonimizar\nSi es laboral, hay autorización para usarlo",
+      "**git log** y **git tag** para ver la historia\n**python herramientas/metricas_evolucion.py** sistema **--incluir** \"rutas\" **--solo-fuente --semilla 7**\n**git show** commit para leer el diff\nSin historia: la evidencia sale de tickets, incidentes y versiones desplegadas"
      ]
     ]
    }
@@ -1311,15 +1372,15 @@ const SLIDES = [
     "items": [
      {
       "kicker": "Esta semana",
-      "titulo": "Actividad 1.2",
+      "titulo": "Actividades 0 y 1",
       "color": "coral",
-      "texto": "Clasificar la muestra completa, contrastar las leyes, ubicar la etapa y registrar la deuda. Verificar con el F-07 antes de entregar."
+      "texto": "Socializar la Actividad 0 para recibir retroalimentación. Después, el análisis de la Actividad 1, verificado con el F-07 antes de entregar."
      },
      {
       "kicker": "Unidad 2",
       "titulo": "Gestión de configuración",
       "color": "teal",
-      "texto": "Qué elementos se ponen bajo control, cómo se identifican las versiones y cómo se decide qué cambio entra. Es lo que necesita la recomendación de fijar versiones."
+      "texto": "Qué elementos de su sistema se ponen bajo control, cómo se fijan las líneas base y cómo se decide qué cambio entra. Responde a los riesgos de cambios no controlados."
      }
     ]
    },
@@ -1338,15 +1399,14 @@ const SLIDES = [
   "kicker": "Referencias",
   "titulo": "Fuentes de la sesión",
   "items": [
-   "Bourque, P., & Fairley, R. E. (Eds.). (2014). Guide to the Software Engineering Body of Knowledge (SWEBOK v3.0). IEEE Computer Society.",
-   "Cunningham, W. (1992). The WyCash portfolio management system. En Addendum to the Proceedings of OOPSLA '92 (pp. 29–30). ACM.",
    "Fowler, M. (2009). Technical debt quadrant. https://martinfowler.com/bliki/TechnicalDebtQuadrant.html",
    "ISO/IEC/IEEE. (2022). ISO/IEC/IEEE 14764:2022 Software engineering — Software life cycle processes — Maintenance.",
    "Lehman, M. M. (1980). Programs, life cycles, and laws of software evolution. Proceedings of the IEEE, 68(9), 1060–1076.",
-   "Lehman, M. M., Ramil, J. F., Wernick, P. D., Perry, D. E., & Turski, W. M. (1997). Metrics and laws of software evolution: The nineties view. En Proceedings of the Fourth International Software Metrics Symposium (pp. 20–32). IEEE.",
+   "Lehman, M. M. (1996). Laws of software evolution revisited. En C. Montangero (Ed.), Software Process Technology (pp. 108–124). Springer. https://doi.org/10.1007/BFb0017737",
+   "Lions, J. L. (1996). Ariane 5 flight 501 failure: Report by the inquiry board. European Space Agency.",
    "Parnas, D. L. (1994). Software aging. En Proceedings of the 16th International Conference on Software Engineering (pp. 279–287). IEEE.",
-   "Rajlich, V. T., & Bennett, K. H. (2000). A staged model for the software life cycle. Computer, 33(7), 66–71.",
-   "Swanson, E. B. (1976). The dimensions of maintenance. En Proceedings of the 2nd International Conference on Software Engineering (pp. 492–497). IEEE.",
+   "Pressman, R. S. (2010). Software engineering: A practitioner's approach (7.ª ed.). McGraw-Hill.",
+   "Securities and Exchange Commission. (2013). In the matter of Knight Capital Americas LLC (Release No. 70694).",
    "Pallets. (2026). Flask [Repositorio de código fuente]. https://github.com/pallets/flask"
   ],
   "codigos": [],
@@ -1357,17 +1417,17 @@ const SLIDES = [
 const GLOSARIO = [
  [
   "F-01",
-  "Formato del curso · Ficha del sistema y criterios de selección",
+  "Formato del curso · Ficha del sistema y del reto: base de la Actividad 0",
   "formato"
  ],
  [
   "F-02",
-  "Formato del curso · Evolución por versión: tamaño, crecimiento y actividad",
+  "Formato del curso · Evidencia de evolución: historial, versiones, tickets e incidentes",
   "formato"
  ],
  [
   "F-03",
-  "Formato del curso · Clasificación de una muestra de cambios",
+  "Formato del curso · Clasificación de una muestra de cambios por tipo de mantenimiento",
   "formato"
  ],
  [
@@ -1377,12 +1437,12 @@ const GLOSARIO = [
  ],
  [
   "F-05",
-  "Formato del curso · Etapa del ciclo de vida",
+  "Formato del curso · Registro de deuda técnica",
   "formato"
  ],
  [
   "F-06",
-  "Formato del curso · Registro de deuda técnica",
+  "Formato del curso · Análisis de riesgos de la evolución",
   "formato"
  ],
  [
@@ -1392,12 +1452,17 @@ const GLOSARIO = [
  ],
  [
   "I a VIII",
-  "Leyes de la evolución del software de Lehman, en la numeración de Lehman et al. (1997)",
+  "Leyes de la evolución del software, en la formulación de Lehman (1996)",
   "ley"
  ],
  [
   "S, P, E",
-  "Tipos de programa de Lehman (1980): especificado, problema y embebido en el mundo real",
+  "Tipos de programa de Lehman: especificado, problema y embebido en el mundo real",
+  "ley"
+ ],
+ [
+  "Principio de incertidumbre",
+  "Lehman: el resultado de ejecutar un sistema E en el mundo real es incierto, porque sus supuestos pueden dejar de valer",
   "ley"
  ],
  [
@@ -1426,8 +1491,8 @@ const GLOSARIO = [
   "sigla"
  ],
  [
-  "SWEBOK",
-  "Guide to the Software Engineering Body of Knowledge, de la IEEE Computer Society",
+  "SEC",
+  "Securities and Exchange Commission de los Estados Unidos, que documentó el caso Knight Capital",
   "sigla"
  ],
  [
@@ -1437,7 +1502,7 @@ const GLOSARIO = [
  ],
  [
   "APA 7",
-  "Séptima edición del manual de estilo de la American Psychological Association: la norma del informe",
+  "Séptima edición del manual de estilo de la American Psychological Association: la norma del documento",
   "sigla"
  ]
 ];
@@ -1710,13 +1775,13 @@ const FAMILIAS = [
  ],
  [
   "ley",
-  "Leyes y tipos de programa de Lehman",
-  "Son de sus autores, no del curso."
+  "Leyes y principios de Lehman",
+  "Son de su autor, no del curso."
  ],
  [
   "tipo",
   "Tipos de mantenimiento",
-  "De Swanson (1976) y la norma ISO/IEC/IEEE 14764."
+  "De la norma ISO/IEC/IEEE 14764."
  ],
  [
   "sigla",

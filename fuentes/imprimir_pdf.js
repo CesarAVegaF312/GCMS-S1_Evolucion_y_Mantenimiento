@@ -7,7 +7,7 @@ const { chromium } = require("playwright");
 
 const RAIZ = path.resolve(__dirname, "..");
 const DOCUMENTOS = [
-  ["fuentes/GCMS_S1_Enunciado_Actividad_1_2.html", "documentos/1_actividad_1_2/GCMS_S1_Enunciado_Actividad_1_2.pdf"],
+  ["fuentes/GCMS_S1_Enunciado_Actividades.html", "documentos/1_actividades/GCMS_S1_Enunciado_Actividades.pdf"],
   ["fuentes/GCMS_S1_Recorrido_Flask.html", "documentos/2_ejemplo/GCMS_S1_Recorrido_Flask.pdf"],
   ["fuentes/GCMS_S1_Instrumentos.html", "documentos/3_como_se_hace/GCMS_S1_Instrumentos.pdf"],
 ];

@@ -65,7 +65,7 @@ svg{width:100%;height:auto;display:block}
   <div class="card">
     <h2>Las ocho leyes</h2>
     <p class="lead small">Haga clic en cada ley para ver qué dato del repositorio la mostraría y cómo se vio en Flask.
-      Formulación de Lehman et al. (1997); aplican a programas tipo E.</p>
+      Formulación de Lehman (1996); aplican a programas tipo E.</p>
     <div class="leyes" id="leyes"></div>
   </div>
 
@@ -188,7 +188,7 @@ function dibujar() {
   const fr = ref[ref.length - 1].func;
   let txt;
   if (p === 0) txt = "Sin trabajo preventivo la complejidad sube sin freno y cada versión agrega menos: el equipo trabaja igual, pero el sistema crece cada vez más despacio. Es la ley II.";
-  else if (a + p >= 0.8) txt = "El entorno y la prevención consumen casi toda la capacidad. Así se ve un sistema que entra en la etapa de servicio: se mantiene en pie, pero casi no crece.";
+  else if (a + p >= 0.8) txt = "El entorno y la prevención consumen casi toda la capacidad. Así se ve un sistema que se mantiene en pie pero casi no crece.";
   else if (ult.func < fr * 0.9 && p > 0.25) txt = "Con tanto esfuerzo preventivo la complejidad queda baja, pero queda poca capacidad para funcionalidad nueva. Prevenir también tiene un costo de oportunidad.";
   else if (ult.func < fr * 0.9) txt = "El esfuerzo preventivo no alcanza: la complejidad sigue subiendo, más despacio que sin prevención, y cada versión agrega menos que en el escenario de referencia.";
   else txt = "Con una parte moderada del esfuerzo dedicada a prevención, la complejidad se estabiliza y el sistema sigue creciendo a un ritmo sostenido.";

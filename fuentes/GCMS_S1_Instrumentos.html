@@ -13,219 +13,218 @@
   <div class="sub">Evolución del software y mantenimiento · Maestría en Ingeniería de Software, Universidad de La Sabana</div>
 </div>
 
-<p>Estos siete formatos preparan las secciones del informe de la Actividad 1.2. Se llenan en grupo, en el orden en que
-aparecen, sobre el proyecto de código abierto que el grupo eligió. <b>No se suben a la plataforma</b>: son el borrador
-de las secciones del informe y la evidencia que el grupo debe poder mostrar si se le pregunta de dónde sale una
-afirmación.</p>
+<p>Estos siete formatos preparan las actividades 0 y 1. Se llenan en grupo, en el orden en que aparecen, sobre el
+sistema que el grupo eligió. <b>No se suben a la plataforma</b>: son el borrador de los entregables y la evidencia
+que el grupo debe poder mostrar si se le pregunta de dónde sale una afirmación.</p>
 
 <table>
-  <thead><tr><th>Formato</th><th>Qué prepara</th><th>Sección del informe</th><th>Evidencia que usa</th></tr></thead>
+  <thead><tr><th>Formato</th><th>Qué prepara</th><th>Dónde termina</th><th>Evidencia que usa</th></tr></thead>
   <tbody>
-    <tr><td><b>F-01</b> Ficha del sistema</td><td>Qué sistema se estudia, por qué cumple los criterios y qué parte se mide</td><td>1. Caracterización</td><td>Repositorio, sitio del proyecto, registro de cambios</td></tr>
-    <tr><td><b>F-02</b> Evolución por versión</td><td>Tamaño, crecimiento y actividad de cada versión</td><td>2. Métricas de evolución</td><td><code>evolucion_por_version.csv</code></td></tr>
-    <tr><td><b>F-03</b> Clasificación de cambios</td><td>Qué tipo de mantenimiento consume el esfuerzo</td><td>3. Perfil de mantenimiento</td><td><code>muestra_cambios.csv</code> y el diff de cada commit</td></tr>
-    <tr><td><b>F-04</b> Contraste con las leyes de Lehman</td><td>Qué leyes se observan, con evidencia y contraevidencia</td><td>4. Leyes de la evolución</td><td>F-02, F-03 y registro de cambios</td></tr>
-    <tr><td><b>F-05</b> Etapa del ciclo de vida</td><td>En qué etapa del modelo por etapas está el sistema</td><td>5. Etapa y pronóstico</td><td>F-02 a F-04</td></tr>
-    <tr><td><b>F-06</b> Registro de deuda técnica</td><td>Cinco deudas con su origen, costo y prioridad</td><td>6. Deuda técnica</td><td>Código, issues, registro de cambios</td></tr>
-    <tr><td><b>F-07</b> Verificación previa</td><td>Que cada afirmación del informe tenga respaldo</td><td>Antes de entregar</td><td>El informe completo</td></tr>
+    <tr><td><b>F-01</b> Ficha del sistema y del reto</td><td>Qué sistema es, para quién, cuál es el reto y qué se aborda</td><td>Actividad 0 y sección 1 de la Actividad 1</td><td>El sistema, su documentación, su equipo</td></tr>
+    <tr><td><b>F-02</b> Evidencia de evolución</td><td>Cómo ha cambiado el sistema y qué señales de envejecimiento tiene</td><td>Actividad 1, sección 2</td><td>Historial Git, versiones, tickets, incidentes</td></tr>
+    <tr><td><b>F-03</b> Clasificación de cambios</td><td>En qué tipo de mantenimiento se va el esfuerzo</td><td>Actividad 1, sección 3</td><td>Commits o tickets, leídos uno por uno</td></tr>
+    <tr><td><b>F-04</b> Contraste con las leyes de Lehman</td><td>Qué leyes se observan, con evidencia y contraevidencia</td><td>Actividad 1, sección 2</td><td>F-02 y F-03</td></tr>
+    <tr><td><b>F-05</b> Registro de deuda técnica</td><td>Las deudas localizadas, con origen, interés y prioridad</td><td>Actividad 1, sección 4</td><td>Código, issues, registro de cambios</td></tr>
+    <tr><td><b>F-06</b> Análisis de riesgos</td><td>Riesgos de cambios no controlados y de falta de estrategia de evolución</td><td>Actividad 1, sección 5</td><td>F-02 a F-05</td></tr>
+    <tr><td><b>F-07</b> Verificación previa</td><td>Que cada afirmación tenga respaldo</td><td>Antes de entregar</td><td>El documento completo</td></tr>
   </tbody>
 </table>
 
 <div class="recuadro crema">
   <span class="rot">El orden importa</span>
-  <p>Primero se mide (F-02) y se clasifica (F-03); después se contrasta con las leyes (F-04). Un grupo que decide antes
-  qué leyes se cumplen y luego busca los datos que lo confirman suele encontrarlos, y el informe pierde valor.</p>
+  <p>Primero se reúne la evidencia (F-02) y se clasifica (F-03); después se contrasta con las leyes y se registran la
+  deuda y los riesgos. Un grupo que decide antes qué problemas tiene el sistema y luego busca los datos que lo
+  confirman suele encontrarlos, y el análisis pierde valor.</p>
 </div>
 
 <!-- ============================================================ F-01 -->
 <div class="salto"></div>
-<div class="formato-cab"><h2>Ficha del sistema</h2><span class="codigo">F-01</span></div>
-<p>Identifica el sistema y deja por escrito por qué sirve para estudiar su evolución. Un proyecto que no cumple los
-criterios produce un informe sin evidencia suficiente, por bueno que sea el análisis.</p>
+<div class="formato-cab"><h2>Ficha del sistema y del reto</h2><span class="codigo">F-01</span></div>
+<p>Es el borrador de la Actividad 0. El sistema que se describe aquí es el mismo de todo el curso.</p>
 <table>
   <tbody>
-    <tr><td class="campo">Nombre del proyecto y enlace al repositorio</td><td class="vacio"></td></tr>
-    <tr><td class="campo">Qué hace el sistema, en dos líneas, y quién lo usa</td><td class="vacio alto"></td></tr>
-    <tr><td class="campo">Lenguaje principal y licencia</td><td class="vacio"></td></tr>
-    <tr><td class="campo">Primera versión publicada (fecha) y última versión (fecha)</td><td class="vacio"></td></tr>
-    <tr><td class="campo">Número de versiones con funcionalidad nueva (patrón de etiquetas usado)</td><td class="vacio"></td></tr>
-    <tr><td class="campo">Qué se mide como código fuente (rutas incluidas) y qué se deja fuera (pruebas, documentación, ejemplos)</td><td class="vacio alto"></td></tr>
-    <tr><td class="campo">Dónde está el registro de cambios (CHANGES, CHANGELOG, notas de versión)</td><td class="vacio"></td></tr>
-    <tr><td class="campo">Cambios de estructura conocidos (renombres de carpetas, divisiones, migraciones de lenguaje)</td><td class="vacio alto"></td></tr>
-    <tr><td class="campo">Tipo de programa según Lehman (S, P o E) y por qué</td><td class="vacio alto"></td></tr>
+    <tr><td class="campo">Nombre del sistema y origen (académico, laboral o simulado)</td><td class="vacio"></td></tr>
+    <tr><td class="campo">Qué hace, en dos líneas</td><td class="vacio alto"></td></tr>
+    <tr><td class="campo">Tipo de sistema (web, backend, microservicios, móvil, otro)</td><td class="vacio"></td></tr>
+    <tr><td class="campo">Usuarios principales</td><td class="vacio"></td></tr>
+    <tr><td class="campo">Componentes o módulos principales y sus artefactos (código, configuración, scripts, documentación)</td><td class="vacio alto"></td></tr>
+    <tr><td class="campo">Contexto organizacional o técnico</td><td class="vacio alto"></td></tr>
+    <tr><td class="campo">Tipo de programa según Lehman (S, P o E) y por qué</td><td class="vacio"></td></tr>
+    <tr><td class="campo">Problema inicial: situaciones de configuración o mantenimiento y riesgos que ya se ven</td><td class="vacio alto"></td></tr>
+    <tr><td class="campo">Reto, formulado como pregunta</td><td class="vacio alto"></td></tr>
+    <tr><td class="campo">Alcance: qué se abordará</td><td class="vacio alto"></td></tr>
+    <tr><td class="campo">Qué queda por fuera</td><td class="vacio"></td></tr>
+    <tr><td class="campo">Criterios de éxito preliminares</td><td class="vacio alto"></td></tr>
   </tbody>
 </table>
-<h3>Criterios que debe cumplir el proyecto</h3>
+<h3>Criterios del sistema</h3>
 <table>
   <thead><tr><th style="width:62%">Criterio</th><th>Cumple</th><th>Evidencia</th></tr></thead>
   <tbody>
-    <tr><td>Historia pública de al menos cinco años en Git</td><td></td><td></td></tr>
-    <tr><td>Al menos ocho versiones con funcionalidad nueva marcadas con etiquetas</td><td></td><td></td></tr>
-    <tr><td>Registro de cambios mantenido por el proyecto</td><td></td><td></td></tr>
-    <tr><td>Gestor de issues público</td><td></td><td></td></tr>
-    <tr><td>Tamaño manejable: la herramienta de métricas termina en menos de diez minutos</td><td></td><td></td></tr>
-    <tr><td>Ningún otro grupo del curso eligió el mismo proyecto</td><td></td><td></td></tr>
+    <tr><td>El grupo puede modificarlo durante todo el curso</td><td></td><td></td></tr>
+    <tr><td>Su código está en Git o se puede poner en Git</td><td></td><td></td></tr>
+    <tr><td>Hay evidencia de su evolución: historial, tickets, incidentes o versiones</td><td></td><td></td></tr>
+    <tr><td>No expone datos sensibles, o se pueden anonimizar</td><td></td><td></td></tr>
+    <tr><td>Si es laboral, el grupo tiene autorización para usarlo</td><td></td><td></td></tr>
   </tbody>
 </table>
 
 <!-- ============================================================ F-02 -->
 <div class="salto"></div>
-<div class="formato-cab"><h2>Evolución por versión</h2><span class="codigo">F-02</span></div>
-<p>Se llena con <code>evolucion_por_version.csv</code>, que produce la herramienta <code>herramientas/metricas_evolucion.py</code>.
-La tabla del informe puede resumir las versiones; los gráficos deben usar todas.</p>
+<div class="formato-cab"><h2>Evidencia de evolución</h2><span class="codigo">F-02</span></div>
+<p>Se llena con la fuente que tenga el sistema. Si tiene historia en Git, la herramienta
+<code>herramientas/metricas_evolucion.py</code> produce <code>evolucion_por_version.csv</code>. Si no la tiene, se usan
+versiones desplegadas, tickets e incidentes.</p>
 <table>
-  <thead><tr><th>Versión</th><th>Fecha</th><th>Archivos</th><th>Líneas</th><th>Commits desde la anterior</th><th>Autores</th><th>Archivos modificados</th><th>Líneas agregadas / eliminadas</th></tr></thead>
+  <thead><tr><th>Versión o período</th><th>Fecha</th><th>Tamaño (archivos, líneas o módulos)</th><th>Cambios en el período</th><th>Personas que cambiaron el sistema</th><th>Hechos relevantes</th></tr></thead>
   <tbody>
-    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td></tr>
   </tbody>
 </table>
-<h3>Gráficos mínimos</h3>
-<ol>
-  <li><b>Tamaño en el tiempo:</b> líneas de código fuente por versión, con la fecha en el eje horizontal. Sirve para la ley VI.</li>
-  <li><b>Crecimiento por versión:</b> líneas agregadas y eliminadas entre versiones consecutivas. Sirve para la ley V.</li>
-  <li><b>Actividad:</b> commits y autores entre versiones. Sirve para las leyes III y IV.</li>
-</ol>
+<h3>Señales de envejecimiento</h3>
+<table>
+  <thead><tr><th style="width:26%">Señal</th><th>Qué se observa en el sistema</th><th style="width:22%">Fuente</th></tr></thead>
+  <tbody>
+    <tr><td><b>Dilatación de tiempos</b>: cambios sencillos que toman más de lo previsto</td><td class="vacio alto"></td><td></td></tr>
+    <tr><td><b>Inestabilidad operativa</b>: más errores después de cada actualización</td><td class="vacio alto"></td><td></td></tr>
+    <tr><td><b>Silos de conocimiento</b>: pocas personas entienden el sistema</td><td class="vacio alto"></td><td></td></tr>
+    <tr><td><b>Entorno que cambió</b>: dependencias, plataforma o normas que el sistema no ha seguido</td><td class="vacio alto"></td><td></td></tr>
+  </tbody>
+</table>
 <table>
   <tbody>
-    <tr><td class="campo">Tres observaciones sobre los datos, sin interpretarlos todavía</td><td class="vacio alto"></td></tr>
-    <tr><td class="campo">Versiones atípicas (saltos, caídas) y qué dice el registro de cambios sobre ellas</td><td class="vacio alto"></td></tr>
-    <tr><td class="campo">Limitaciones de la medición (qué cuentan y qué no cuentan las líneas)</td><td class="vacio alto"></td></tr>
+    <tr><td class="campo">Limitaciones de la evidencia: qué no se pudo medir y por qué</td><td class="vacio alto"></td></tr>
   </tbody>
 </table>
 
 <!-- ============================================================ F-03 -->
 <div class="salto"></div>
 <div class="formato-cab"><h2>Clasificación de cambios</h2><span class="codigo">F-03</span></div>
-<p>Se llena con <code>muestra_cambios.csv</code>. Cada commit se clasifica <b>leyendo el diff</b>
-(<code>git show &lt;commit&gt;</code>), no el mensaje. La columna <code>sugerencia_heuristica</code> se usa como punto de
-partida y se anota cuándo acierta y cuándo no.</p>
+<p>Se clasifica una muestra de cambios del sistema; se recomiendan al menos 20. Cada cambio se clasifica <b>leyendo
+lo que modificó</b> (<code>git show &lt;commit&gt;</code> o el detalle del ticket), no su mensaje. Si se usa
+<code>muestra_cambios.csv</code>, la columna <code>sugerencia_heuristica</code> es solo un punto de partida.</p>
 <table>
   <thead><tr><th>Tipo</th><th>Pregunta que lo decide</th></tr></thead>
   <tbody>
     <tr><td><b>Correctivo</b></td><td>¿Corrige un comportamiento que ya debía funcionar y no funcionaba?</td></tr>
     <tr><td><b>Adaptativo</b></td><td>¿Responde a un cambio del entorno: lenguaje, dependencias, plataforma, normas, navegadores?</td></tr>
     <tr><td><b>Perfectivo</b></td><td>¿Agrega o mejora funcionalidad, rendimiento o usabilidad que nadie reportó como falla?</td></tr>
-    <tr><td><b>Preventivo</b></td><td>¿Reduce la dificultad de cambios futuros sin cambiar el comportamiento: refactorización, pruebas, retiro de código obsoleto?</td></tr>
-    <tr><td><b>Fuera del producto</b></td><td>¿Toca solo documentación, publicación o infraestructura del proyecto?</td></tr>
+    <tr><td><b>Preventivo</b></td><td>¿Corrige una falla latente o reduce la dificultad de cambios futuros sin cambiar el comportamiento?</td></tr>
+    <tr><td><b>Fuera del producto</b></td><td>¿Toca solo documentación, publicación o herramientas del equipo?</td></tr>
   </tbody>
 </table>
 <table>
-  <thead><tr><th style="width:13%">Commit</th><th style="width:30%">Asunto</th><th style="width:15%">Heurística</th><th style="width:15%">Clasificación</th><th>Evidencia en el diff</th></tr></thead>
+  <thead><tr><th style="width:13%">Cambio</th><th style="width:30%">Descripción</th><th style="width:15%">Sugerencia</th><th style="width:15%">Clasificación</th><th>Evidencia</th></tr></thead>
   <tbody>
     <tr><td class="vacio"></td><td></td><td></td><td></td><td></td></tr>
     <tr><td class="vacio"></td><td></td><td></td><td></td><td></td></tr>
     <tr><td class="vacio"></td><td></td><td></td><td></td><td></td></tr>
     <tr><td class="vacio"></td><td></td><td></td><td></td><td></td></tr>
     <tr><td class="vacio"></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td></tr>
   </tbody>
 </table>
-<p class="nota">La muestra completa (40 commits como mínimo) va en un anexo del informe o en una hoja de cálculo
-enlazada. En el cuerpo del informe va la distribución por tipo y los casos difíciles.</p>
 <table>
   <tbody>
     <tr><td class="campo">Distribución por tipo (número y porcentaje)</td><td class="vacio alto"></td></tr>
-    <tr><td class="campo">Porcentaje de acierto de la heurística y en qué tipos falla más</td><td class="vacio"></td></tr>
-    <tr><td class="campo">Tres casos difíciles: por qué admitían dos tipos y cuál eligió el grupo</td><td class="vacio alto"></td></tr>
+    <tr><td class="campo">Qué revela la distribución sobre las prioridades reales del equipo</td><td class="vacio alto"></td></tr>
+    <tr><td class="campo">Dos casos difíciles: por qué admitían dos tipos y cuál eligió el grupo</td><td class="vacio alto"></td></tr>
   </tbody>
 </table>
 
 <!-- ============================================================ F-04 -->
 <div class="salto"></div>
 <div class="formato-cab"><h2>Contraste con las leyes de Lehman</h2><span class="codigo">F-04</span></div>
-<p>Para cada ley se escribe lo que se esperaría ver en los datos si la ley se cumple, lo que efectivamente se ve y la
-contraevidencia. El informe debe contrastar al menos <b>cuatro leyes</b>, entre ellas la II y la VI.</p>
+<p>Para cada ley se escribe primero qué se esperaría ver si la ley se cumple, y después lo que efectivamente se ve.
+Se recomienda contrastar al menos la I (cambio continuo) y la II (complejidad creciente), según Lehman (1996).</p>
 <table>
-  <thead><tr><th style="width:20%">Ley</th><th style="width:22%">Qué se esperaría ver</th><th style="width:22%">Evidencia (F-02, F-03, registro de cambios)</th><th style="width:20%">Contraevidencia</th><th>Veredicto</th></tr></thead>
+  <thead><tr><th style="width:20%">Ley</th><th style="width:22%">Qué se esperaría ver</th><th style="width:22%">Evidencia (F-02, F-03)</th><th style="width:20%">Contraevidencia</th><th>Veredicto</th></tr></thead>
   <tbody>
     <tr><td><b>I</b> Cambio continuo</td><td class="vacio alto"></td><td></td><td></td><td></td></tr>
     <tr><td><b>II</b> Complejidad creciente</td><td class="vacio alto"></td><td></td><td></td><td></td></tr>
-    <tr><td><b>III</b> Autorregulación</td><td class="vacio alto"></td><td></td><td></td><td></td></tr>
     <tr><td><b>IV</b> Estabilidad organizacional</td><td class="vacio alto"></td><td></td><td></td><td></td></tr>
-    <tr><td><b>V</b> Conservación de la familiaridad</td><td class="vacio alto"></td><td></td><td></td><td></td></tr>
     <tr><td><b>VI</b> Crecimiento continuo</td><td class="vacio alto"></td><td></td><td></td><td></td></tr>
     <tr><td><b>VII</b> Calidad decreciente</td><td class="vacio alto"></td><td></td><td></td><td></td></tr>
-    <tr><td><b>VIII</b> Sistema de retroalimentación</td><td class="vacio alto"></td><td></td><td></td><td></td></tr>
   </tbody>
 </table>
-<p class="nota">Veredicto: <b>se observa</b>, <b>se observa con matices</b>, <b>no se observa</b> o <b>los datos no
-alcanzan</b>. «Los datos no alcanzan» es una respuesta válida si se explica qué dato haría falta.</p>
+<p class="nota">Veredicto: <b>se observa</b>, <b>se observa con matices</b>, <b>no se observa</b> o <b>la evidencia no
+alcanza</b>. «La evidencia no alcanza» es una respuesta válida si se explica qué dato haría falta.</p>
 
 <!-- ============================================================ F-05 -->
 <div class="salto"></div>
-<div class="formato-cab"><h2>Etapa del ciclo de vida</h2><span class="codigo">F-05</span></div>
-<p>Ubica el sistema en el modelo por etapas de Rajlich y Bennett (2000): desarrollo inicial, evolución, servicio,
-retiro gradual y cierre. La etapa se decide con evidencia; la sensación de que un proyecto «está maduro» no basta.</p>
+<div class="formato-cab"><h2>Registro de deuda técnica</h2><span class="codigo">F-05</span></div>
+<p>Cada deuda tiene un lugar en el código o en el proyecto. Para el origen se usa el cuadrante de Fowler (2009):
+<b>deliberada o inadvertida</b>, <b>prudente o imprudente</b>.</p>
 <table>
-  <thead><tr><th style="width:18%">Etapa</th><th style="width:36%">Señales que la indican</th><th>Señales presentes en el proyecto</th></tr></thead>
-  <tbody>
-    <tr><td><b>Desarrollo inicial</b></td><td>Primera versión funcional; arquitectura y conocimiento del equipo se están formando</td><td class="vacio alto"></td></tr>
-    <tr><td><b>Evolución</b></td><td>Funcionalidad nueva frecuente; cambios de estructura posibles; el equipo conoce la arquitectura</td><td class="vacio alto"></td></tr>
-    <tr><td><b>Servicio</b></td><td>Predominan correcciones y adaptaciones pequeñas; cambios de estructura evitados o costosos</td><td class="vacio alto"></td></tr>
-    <tr><td><b>Retiro gradual</b></td><td>Solo correcciones críticas; se anuncia reemplazo o fin de soporte</td><td class="vacio alto"></td></tr>
-    <tr><td><b>Cierre</b></td><td>Repositorio archivado; usuarios migrados</td><td class="vacio"></td></tr>
-  </tbody>
-</table>
-<table>
-  <tbody>
-    <tr><td class="campo">Etapa en la que está el sistema hoy</td><td class="vacio"></td></tr>
-    <tr><td class="campo">Momento (versión) en que cambió de etapa, si lo hubo, y la evidencia</td><td class="vacio alto"></td></tr>
-    <tr><td class="campo">Qué tendría que pasar para que pasara a la etapa siguiente</td><td class="vacio alto"></td></tr>
-  </tbody>
-</table>
-
-<!-- ============================================================ F-06 -->
-<div class="salto"></div>
-<div class="formato-cab"><h2>Registro de deuda técnica</h2><span class="codigo">F-06</span></div>
-<p>Cinco deudas concretas, cada una con un lugar en el código o en el proyecto. Para el origen se usa el cuadrante de
-Fowler (2009): <b>deliberada o inadvertida</b>, <b>prudente o imprudente</b>.</p>
-<table>
-  <thead><tr><th style="width:4%">#</th><th style="width:20%">Deuda y dónde está</th><th style="width:14%">Origen</th><th style="width:20%">Interés: qué cuesta mantenerla</th><th style="width:18%">Pago: qué cuesta quitarla</th><th style="width:12%">Evidencia</th><th>Prioridad</th></tr></thead>
+  <thead><tr><th style="width:4%">#</th><th style="width:22%">Deuda y dónde está</th><th style="width:14%">Origen</th><th style="width:20%">Interés: qué cuesta mantenerla</th><th style="width:18%">Pago: qué cuesta quitarla</th><th style="width:12%">Evidencia</th><th>Prioridad</th></tr></thead>
   <tbody>
     <tr><td>1</td><td class="vacio alto"></td><td></td><td></td><td></td><td></td><td></td></tr>
     <tr><td>2</td><td class="vacio alto"></td><td></td><td></td><td></td><td></td><td></td></tr>
     <tr><td>3</td><td class="vacio alto"></td><td></td><td></td><td></td><td></td><td></td></tr>
     <tr><td>4</td><td class="vacio alto"></td><td></td><td></td><td></td><td></td><td></td></tr>
-    <tr><td>5</td><td class="vacio alto"></td><td></td><td></td><td></td><td></td><td></td></tr>
   </tbody>
 </table>
 <div class="recuadro">
   <span class="rot">Dónde buscar</span>
   <ul>
-    <li>Código marcado como obsoleto: <code>git grep -n -i deprecat &lt;versión&gt; -- &lt;ruta&gt;</code></li>
+    <li>Código marcado como obsoleto: <code>git grep -n -i deprecat</code></li>
     <li>Supresiones de advertencias: <code>type: ignore</code>, <code>noqa</code>, <code>@SuppressWarnings</code>, <code>eslint-disable</code></li>
     <li>Comentarios <code>TODO</code>, <code>FIXME</code>, <code>HACK</code>: <code>git grep -n -E "TODO|FIXME|HACK"</code></li>
-    <li>Issues abiertos hace más de dos años con etiquetas como <i>refactor</i>, <i>cleanup</i> o <i>tech debt</i></li>
-    <li>Entradas del registro de cambios que retiran código, capas de compatibilidad o dependencias</li>
+    <li>Dependencias desactualizadas o sin soporte, y versiones de lenguaje o plataforma que ya no tienen soporte</li>
+    <li>Tickets de refactorización abiertos hace meses, y código que nadie retiró</li>
   </ul>
 </div>
+
+<!-- ============================================================ F-06 -->
+<div class="salto"></div>
+<div class="formato-cab"><h2>Análisis de riesgos</h2><span class="codigo">F-06</span></div>
+<p>Riesgos asociados a la evolución del sistema. La Actividad 1 pide analizar al menos los de <b>cambios no
+controlados</b> y los de <b>falta de estrategias de evolución</b>. Cada riesgo se rastrea hasta una evidencia de los
+formatos anteriores.</p>
+<table>
+  <thead><tr><th style="width:4%">#</th><th style="width:24%">Riesgo</th><th style="width:16%">Grupo</th><th style="width:18%">Evidencia (F-02 a F-05)</th><th style="width:10%">Probabilidad</th><th style="width:10%">Impacto</th><th>Atributo de calidad afectado</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td class="vacio alto"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>2</td><td class="vacio alto"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>3</td><td class="vacio alto"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>4</td><td class="vacio alto"></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+<div class="recuadro">
+  <span class="rot">Preguntas que ayudan</span>
+  <ul>
+    <li>¿Se sabe con certeza qué versión está en producción y qué cambió respecto de la anterior?</li>
+    <li>¿Un cambio de configuración puede llegar a producción sin revisión?</li>
+    <li>¿Las adaptaciones al entorno se planean o se hacen cuando el entorno ya obligó?</li>
+    <li>¿Alguien registra la deuda, o se descubre cuando falla algo?</li>
+  </ul>
+</div>
+<table>
+  <tbody>
+    <tr><td class="campo">Alcance del problema que el grupo abordará en el curso y por qué importa para la calidad del sistema</td><td class="vacio alto"></td></tr>
+  </tbody>
+</table>
 
 <!-- ============================================================ F-07 -->
 <div class="salto"></div>
 <div class="formato-cab"><h2>Verificación previa a la entrega</h2><span class="codigo">F-07</span></div>
-<p>El grupo la recorre completa antes de subir el informe. Cada «no» se corrige o se explica en el informe.</p>
+<p>El grupo la recorre completa antes de subir el documento de la Actividad 1. Cada «no» se corrige o se explica.</p>
 <table>
   <thead><tr><th style="width:76%">Verificación</th><th>Sí / No</th></tr></thead>
   <tbody>
-    <tr><td>El proyecto cumple los seis criterios del F-01 y el informe dice cómo se verificaron</td><td></td></tr>
-    <tr><td>El informe dice qué rutas se midieron como código fuente y por qué</td><td></td></tr>
-    <tr><td>Los tres gráficos del F-02 están en el informe, con título, ejes y fuente</td><td></td></tr>
-    <tr><td>Las versiones atípicas se explican con el registro de cambios</td><td></td></tr>
-    <tr><td>La muestra tiene al menos 40 commits, la semilla está declarada y cualquiera puede repetirla</td><td></td></tr>
-    <tr><td>Cada commit de la muestra se clasificó leyendo el diff</td><td></td></tr>
-    <tr><td>Se contrastan al menos cuatro leyes, entre ellas la II y la VI, con evidencia y contraevidencia</td><td></td></tr>
-    <tr><td>La etapa del F-05 se sostiene con señales concretas</td><td></td></tr>
-    <tr><td>Las cinco deudas tienen un lugar en el código o en el proyecto, no son genéricas</td><td></td></tr>
-    <tr><td>Las tres recomendaciones se derivan de las deudas y de la etapa, y están priorizadas</td><td></td></tr>
-    <tr><td>El informe tiene máximo 15 páginas y sigue la norma APA 7</td><td></td></tr>
-    <tr><td>Los CSV y el comando exacto con que se generaron van como anexo o enlace</td><td></td></tr>
+    <tr><td>El sistema es el mismo de la Actividad 0 y se incorporó la retroalimentación recibida</td><td></td></tr>
+    <tr><td>La descripción incluye componentes, artefactos y contexto organizacional o técnico</td><td></td></tr>
+    <tr><td>La evidencia de evolución dice de dónde sale y cuáles son sus limitaciones</td><td></td></tr>
+    <tr><td>Cada cambio de la muestra se clasificó leyendo lo que modificó</td><td></td></tr>
+    <tr><td>Los veredictos sobre las leyes de Lehman tienen evidencia y contraevidencia</td><td></td></tr>
+    <tr><td>Las deudas tienen un lugar concreto en el sistema, no son genéricas</td><td></td></tr>
+    <tr><td>Los riesgos cubren cambios no controlados y falta de estrategia de evolución, con su evidencia</td><td></td></tr>
+    <tr><td>El alcance del problema está definido y justificado por su impacto en la calidad</td><td></td></tr>
+    <tr><td>El documento tiene de 5 a 7 páginas y sigue la norma APA 7</td><td></td></tr>
   </tbody>
 </table>
 

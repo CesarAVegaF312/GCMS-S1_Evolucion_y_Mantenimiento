@@ -10,7 +10,7 @@
 <div class="portada">
   <div class="kicker">Gestión de Configuración y Mantenimiento de Software · Unidad 1</div>
   <h1>Recorrido resuelto con Flask</h1>
-  <div class="sub">Los formatos F-01 a F-06 llenos con un proyecto real · Maestría en Ingeniería de Software, Universidad de La Sabana</div>
+  <div class="sub">Los formatos F-01 a F-06 llenos con un sistema real · Maestría en Ingeniería de Software, Universidad de La Sabana</div>
 </div>
 
 <p>Este documento recorre los formatos de la unidad con <b>Flask</b>, un framework web de Python con más de quince
@@ -20,8 +20,9 @@ El historial se consultó el 28 de octubre de 2026; el último commit revisado e
 <div class="recuadro">
   <span class="rot">Cómo usar este recorrido</span>
   <p>Léanlo antes de llenar sus propios formatos. Cada sección abre con lo que hay que hacer y después muestra cómo
-  quedó con Flask. Lo que importa es el razonamiento: su proyecto tendrá otros números, otras versiones atípicas y
-  otras deudas.</p>
+  quedó con Flask. Lo que importa es el razonamiento: su sistema tendrá otra evidencia, otros cambios y otras
+  deudas. Flask tiene una historia pública larga, así que la evidencia sale de Git; si su sistema no tiene esa historia,
+  la evidencia sale de tickets, incidentes y versiones desplegadas.</p>
 </div>
 
 <pre>git clone https://github.com/pallets/flask.git
@@ -30,19 +31,24 @@ python herramientas/metricas_evolucion.py flask --incluir "flask.py,flask/**/*.p
 con la clasificación manual de la muestra ya hecha.</p>
 
 <!-- ============================================================ F-01 -->
-<h2>F-01 · Ficha del sistema</h2>
+<h2>F-01 · Ficha del sistema y del reto</h2>
 <div class="recuadro crema"><span class="rot">Qué hay que hacer</span>
-<p>Decidir qué se mide antes de medir. La decisión más importante es qué rutas cuentan como código fuente.</p></div>
+<p>Describir el sistema, formular el reto y decidir el alcance antes de medir. Es el contenido de la Actividad 0.</p></div>
 <table>
   <tbody>
     <tr><td class="campo">Proyecto</td><td>Flask · <code>github.com/pallets/flask</code></td></tr>
     <tr><td class="campo">Qué hace y quién lo usa</td><td>Framework para construir aplicaciones web en Python. Lo usan desarrolladores de aplicaciones y autores de extensiones, que dependen de su API pública.</td></tr>
+    <tr><td class="campo">Tipo de sistema y componentes</td><td>Biblioteca de backend web. Componentes: aplicación, blueprints, línea de comandos, sesiones, JSON y plantillas.</td></tr>
     <tr><td class="campo">Lenguaje y licencia</td><td>Python · BSD-3-Clause</td></tr>
     <tr><td class="campo">Primera y última versión con funcionalidad nueva</td><td>0.1 (16 de abril de 2010) y 3.1.0 (13 de noviembre de 2024). La 3.2.0 está en desarrollo.</td></tr>
     <tr><td class="campo">Versiones con funcionalidad nueva</td><td>20, con el patrón por defecto de la herramienta (<code>X.Y</code> o <code>X.Y.0</code>)</td></tr>
     <tr><td class="campo">Qué se mide como código fuente</td><td>El paquete <code>flask</code>, que cambió de lugar dos veces: <code>flask.py</code> (0.1 a 0.4), <code>flask/</code> (0.5 a 1.0) y <code>src/flask/</code> (desde 1.1.0). Se excluyen pruebas, documentación, ejemplos y scripts. Hasta la 0.10 las pruebas estaban dentro del paquete, en <code>flask/testsuite/</code>; también se excluyen.</td></tr>
     <tr><td class="campo">Registro de cambios</td><td><code>CHANGES.rst</code> en la raíz, con una sección por versión</td></tr>
     <tr><td class="campo">Tipo de programa según Lehman</td><td><b>E</b>: se usa en un entorno real que cambia (versiones de Python, navegadores, servidores) y su uso cambia el entorno, porque miles de extensiones y aplicaciones dependen de su API.</td></tr>
+    <tr><td class="campo">Problema inicial</td><td>Una organización depende de Flask y cada actualización mayor retira API obsoletas y versiones de Python.</td></tr>
+    <tr><td class="campo">Reto</td><td>¿Puede una organización seguir dependiendo de Flask cinco años más, y qué tendría que vigilar?</td></tr>
+    <tr><td class="campo">Alcance y lo que queda fuera</td><td>El paquete <code>flask</code>. Quedan fuera las pruebas, la documentación y las extensiones de terceros.</td></tr>
+    <tr><td class="campo">Criterio de éxito preliminar</td><td>Cada afirmación del análisis se rastrea hasta el historial público del proyecto.</td></tr>
   </tbody>
 </table>
 <p class="nota">Sin la opción <code>--incluir</code>, la medición inicial contaba <code>setup.py</code> y la carpeta
@@ -51,7 +57,7 @@ cambia las conclusiones.</p>
 
 <!-- ============================================================ F-02 -->
 <div class="salto"></div>
-<h2>F-02 · Evolución por versión</h2>
+<h2>F-02 · Evidencia de evolución</h2>
 <div class="recuadro crema"><span class="rot">Qué hay que hacer</span>
 <p>Pasar el CSV a los tres gráficos, anotar lo que se ve sin interpretarlo y explicar las versiones atípicas con el
 registro de cambios.</p></div>
@@ -133,20 +139,9 @@ documentación y en funcionalidades nuevas que cierran un issue.</p>
   </tbody>
 </table>
 
-<!-- ============================================================ F-05 -->
-<h2>F-05 · Etapa del ciclo de vida</h2>
-<table>
-  <tbody>
-    <tr><td class="campo">Etapa actual</td><td><b>Evolución</b>, con señales de transición hacia servicio.</td></tr>
-    <tr><td class="campo">Por qué evolución</td><td>Todavía se hacen cambios de estructura grandes: la 3.0.0 reorganizó las clases principales sobre bases sin E/S (<i>Sans-IO</i>), y la 3.2.0 en desarrollo fusiona <code>RequestContext</code> con <code>AppContext</code>. Un sistema en servicio evita esos cambios.</td></tr>
-    <tr><td class="campo">Señales de transición</td><td>Actividad en descenso (9 commits por mes en el intervalo de la 3.1.0), tamaño casi constante desde 2018, ninguna versión con funcionalidad nueva desde noviembre de 2024 (solo 3.1.1 a 3.1.3, de corrección), y 81 % de los cambios al producto son preventivos, correctivos o adaptativos.</td></tr>
-    <tr><td class="campo">Qué la haría cambiar</td><td>Si la 3.2.0 se publica con sus cambios de estructura, el proyecto confirma que sigue en evolución. Si se archiva esa rama y solo salen versiones de corrección, pasa a servicio.</td></tr>
-  </tbody>
-</table>
-
 <!-- ============================================================ F-06 -->
 <div class="salto"></div>
-<h2>F-06 · Registro de deuda técnica</h2>
+<h2>F-05 · Registro de deuda técnica</h2>
 <table>
   <thead><tr><th style="width:4%">#</th><th style="width:22%">Deuda y dónde está</th><th style="width:15%">Origen</th><th style="width:21%">Interés</th><th style="width:20%">Pago</th><th>Prioridad</th></tr></thead>
   <tbody>
@@ -158,24 +153,43 @@ documentación y en funcionalidades nuevas que cierran un issue.</p>
   </tbody>
 </table>
 <p class="nota">La deuda 5 está pagada y se incluye para mostrar cómo se ve el pago en los datos (Figura 2, versión
-2.0.0). En su informe, las cinco deudas deben estar vigentes.</p>
+2.0.0). En su documento, las deudas registradas deben estar vigentes.</p>
 
-<h2>Recomendación al comité</h2>
-<p><b>Seguir con condiciones.</b> Flask está en evolución, con una tasa de trabajo estable y un proceso explícito de
+<div class="salto"></div>
+<h2>F-06 · Análisis de riesgos</h2>
+<div class="recuadro crema"><span class="rot">Qué hay que hacer</span>
+<p>Analizar los riesgos de cambios no controlados y de falta de estrategia de evolución, cada uno con su evidencia.
+Aquí los riesgos se miran desde una organización que depende de Flask.</p></div>
+<table>
+  <thead><tr><th style="width:4%">#</th><th style="width:28%">Riesgo</th><th style="width:15%">Grupo</th><th style="width:25%">Evidencia</th><th style="width:9%">Prob.</th><th style="width:9%">Impacto</th><th>Calidad afectada</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Una actualización sin versiones fijadas rompe la aplicación al retirar API obsoletas</td><td>Cambios no controlados</td><td>Retiros de código obsoleto en 2.2.0, 2.3.0, 3.0.0 y 3.2.0 (F-02, deudas 2 y 3)</td><td>Alta</td><td>Alto</td><td>Disponibilidad</td></tr>
+    <tr><td>2</td><td>Los retiros se descubren el día de actualizar porque nadie sigue los avisos de obsolescencia</td><td>Falta de estrategia de evolución</td><td>Ciclo de avisos y retiro: 91 menciones en 2.2.0, 28 en 2.3.0 (F-04, ley II)</td><td>Media</td><td>Alto</td><td>Mantenibilidad</td></tr>
+    <tr><td>3</td><td>El entorno de ejecución queda sin soporte: la 3.2.0 deja de soportar Python 3.9 y 3.10</td><td>Falta de estrategia de evolución</td><td>Deuda 4; ley I</td><td>Alta</td><td>Medio</td><td>Seguridad</td></tr>
+    <tr><td>4</td><td>Menos actividad del proyecto: correcciones más lentas</td><td>Falta de estrategia de evolución</td><td>9 commits por mes en el intervalo de la 3.1.0 y ninguna versión con funcionalidad nueva desde noviembre de 2024 (F-02)</td><td>Media</td><td>Medio</td><td>Confiabilidad</td></tr>
+  </tbody>
+</table>
+<table>
+  <tbody>
+    <tr><td class="campo">Alcance del problema</td><td>El riesgo principal para quien depende de Flask es de configuración: saber qué versión usa cada sistema y controlar cuándo se actualiza. Ese es el problema que se abordaría en la Unidad 2.</td></tr>
+  </tbody>
+</table>
+
+<h2>Conclusión</h2>
+<p><b>Seguir con condiciones.</b> Flask sigue evolucionando, con una tasa de trabajo estable y un proceso explícito de
 obsolescencia que avisa una versión antes de retirar. Las condiciones que se derivan del diagnóstico:</p>
 <ol>
   <li><b>Seguir los avisos de obsolescencia.</b> Ejecutar las pruebas propias con los avisos convertidos en errores, para
   no descubrir los retiros (deudas 2 y 3) el día de la actualización.</li>
   <li><b>Fijar versiones y actualizar con método.</b> Cada versión mayor retira versiones de Python y API obsoletas
   (ley I); la organización necesita saber qué versión usa cada sistema. Este punto es el tema de la Unidad 2.</li>
-  <li><b>Vigilar la transición a servicio.</b> Revisar cada seis meses la actividad y la salida de la 3.2.0 (F-05).</li>
+  <li><b>Vigilar la actividad del proyecto.</b> Revisar cada seis meses la actividad y la salida de la 3.2.0 (riesgo 4).</li>
 </ol>
 
 <h2>Referencias</h2>
-<p>Fowler, M. (2009, 14 de octubre). <i>Technical debt quadrant</i>. https://martinfowler.com/bliki/TechnicalDebtQuadrant.html</p>
-<p>Lehman, M. M., Ramil, J. F., Wernick, P. D., Perry, D. E., &amp; Turski, W. M. (1997). Metrics and laws of software evolution: The nineties view. En <i>Proceedings of the Fourth International Software Metrics Symposium</i> (pp. 20–32). IEEE.</p>
+<p>Fowler, M. (2009). <i>Technical debt quadrant</i>. https://martinfowler.com/bliki/TechnicalDebtQuadrant.html</p>
+<p>Lehman, M. M. (1996). Laws of software evolution revisited. En C. Montangero (Ed.), <i>Software Process Technology</i> (pp. 108–124). Springer. https://doi.org/10.1007/BFb0017737</p>
 <p>Pallets. (2026). <i>Flask</i> [Repositorio de código fuente]. GitHub. https://github.com/pallets/flask</p>
-<p>Rajlich, V. T., &amp; Bennett, K. H. (2000). A staged model for the software life cycle. <i>Computer, 33</i>(7), 66–71.</p>
 
 <div class="pie-doc">GCMS · Unidad 1 · Recorrido resuelto con Flask · César Augusto Vega Fernández · Universidad de La Sabana ·
 Licencia CC BY-NC-SA 4.0. Flask es un proyecto de Pallets con licencia BSD-3-Clause; este documento analiza su historial público.</div>

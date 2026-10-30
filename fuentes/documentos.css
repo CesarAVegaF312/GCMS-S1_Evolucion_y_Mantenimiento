@@ -48,3 +48,4 @@ figure{margin:4pt 0 10pt;break-inside:avoid}
 figcaption{font-size:8.6pt;color:var(--gris);margin-top:3pt}
 .dos{display:grid;grid-template-columns:1fr 1fr;gap:10pt}
 th code{background:rgba(255,255,255,.15);color:#fff}
+h2,h3,.formato-cab{break-after:avoid}
