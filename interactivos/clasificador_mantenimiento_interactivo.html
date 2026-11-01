@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Clasificador de mantenimiento — GCMS Unidad 1</title>
+<style>
+:root{
+  --osc:#1C2B33; --txt:#31424B; --gris:#5E6E76; --claro:#EFF2F3; --linea:#CFDAE0; --crema:#F6EAE1;
+  --coral:#C2622C; --teal:#46707E; --cafe:#9E5C3B; --verde:#2F6B4C; --rojo:#A1352A; --foco:#0B63CE;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#F3F5F6;color:var(--txt);font-size:16px;line-height:1.5}
+:focus-visible{outline:3px solid var(--foco);outline-offset:2px}
+.header{background:var(--osc);color:#fff;padding:16px 28px}
+.header h1{font-size:20px;font-weight:700}
+.header p{font-size:13px;color:#9FB2BA;margin-top:2px}
+.header .encuadre{font-size:15px;color:#DCE6EA;margin-top:10px;max-width:1000px;border-left:4px solid var(--coral);padding-left:12px}
+.wrap{max-width:1000px;margin:22px auto 40px;padding:0 16px}
+.card{background:#fff;border-radius:12px;box-shadow:0 2px 14px rgba(28,43,51,.08);padding:22px 26px;margin-bottom:18px}
+.card h2{font-size:19px;color:var(--osc);margin-bottom:6px}
+.tipos{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:10px}
+.tipo{background:var(--claro);border-left:4px solid var(--teal);border-radius:0 8px 8px 0;padding:9px 12px;font-size:14px}
+.tipo b{display:block;color:var(--osc)}
+.barra{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.progreso{font-size:14px;color:var(--gris);font-weight:700}
+.puntos{height:8px;background:var(--claro);border-radius:4px;overflow:hidden;flex:1;min-width:140px}
+.puntos i{display:block;height:100%;background:var(--coral);transition:width .3s}
+.commit{font-family:Consolas,'Courier New',monospace;font-size:13px;color:var(--gris)}
+.asunto{font-size:19px;font-weight:700;color:var(--osc);margin:2px 0 8px}
+.archivos{font-size:13.5px;color:var(--gris);margin-bottom:8px}
+pre{font-family:Consolas,'Courier New',monospace;font-size:13px;background:#14222A;color:#DCE6EA;border-radius:8px;
+  padding:12px 14px;overflow-x:auto;white-space:pre;margin-bottom:12px}
+pre .mas{color:#8FD19E} pre .menos{color:#F2A49B}
+.opciones{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px}
+.opciones button{font:inherit;font-size:15px;padding:10px 12px;border-radius:8px;border:1px solid var(--linea);
+  background:#fff;color:var(--osc);cursor:pointer;text-align:left}
+.opciones button:hover:not(:disabled){border-color:var(--teal);background:var(--claro)}
+.opciones button:disabled{cursor:default}
+.opciones button.correcta{background:#E3F1E8;border-color:var(--verde);color:var(--verde);font-weight:700}
+.opciones button.errada{background:#FBE9E6;border-color:var(--rojo);color:var(--rojo)}
+.respuesta{display:none;margin-top:14px;border-radius:8px;padding:12px 16px;background:var(--crema)}
+.respuesta.visible{display:block}
+.respuesta h3{font-size:15px;color:var(--osc);margin-bottom:4px}
+.respuesta p{font-size:15px}
+.respuesta .heur{font-size:14px;color:var(--gris);margin-top:6px}
+.acciones{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+.acciones button{font:inherit;font-size:15px;font-weight:700;padding:9px 18px;border-radius:8px;border:none;cursor:pointer;
+  background:var(--osc);color:#fff}
+.acciones button.sec{background:var(--claro);color:var(--osc)}
+table{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px}
+th{background:var(--osc);color:#fff;text-align:left;padding:7px 10px}
+td{border-bottom:1px solid var(--linea);padding:7px 10px;vertical-align:top}
+.ok{color:var(--verde);font-weight:700} .no{color:var(--rojo);font-weight:700}
+.nota{font-size:13.5px;color:var(--gris);margin-top:10px}
+@media (max-width:600px){.header{padding:14px 16px}.card{padding:18px 16px}.asunto{font-size:17px}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Clasificador de mantenimiento</h1>
+  <p>Gestión de Configuración y Mantenimiento de Software · Unidad 1 · Formato F-03</p>
+  <div class="encuadre">Trece cambios reales del historial de Flask. Lea el diff, decida el tipo de mantenimiento y
+    compare con el razonamiento y con lo que habría dicho la heurística por palabras clave. No se califica: sirve para
+    calibrar el criterio antes de clasificar la muestra de su proyecto.</div>
+</div>
+
+<div class="wrap">
+  <div class="card">
+    <h2>Los tipos</h2>
+    <div class="tipos">
+      <div class="tipo"><b>Correctivo</b>Repara algo que ya debía funcionar y no funcionaba.</div>
+      <div class="tipo"><b>Adaptativo</b>Responde a un cambio del entorno: lenguaje, dependencias, navegadores, normas.</div>
+      <div class="tipo"><b>Perfectivo</b>Agrega o mejora funcionalidad que nadie reportó como falla.</div>
+      <div class="tipo"><b>Preventivo</b>Reduce la dificultad de cambios futuros o evita una falla latente.</div>
+      <div class="tipo"><b>Fuera del producto</b>Solo documentación, publicación o herramientas del equipo.</div>
+    </div>
+  </div>
+
+  <div class="card" id="tarjeta">
+    <div class="barra">
+      <span class="progreso" id="progreso"></span>
+      <div class="puntos" aria-hidden="true"><i id="avance"></i></div>
+    </div>
+    <div class="commit" id="commit"></div>
+    <div class="asunto" id="asunto"></div>
+    <div class="archivos" id="archivos"></div>
+    <pre id="diff" aria-label="Extracto del diff"></pre>
+    <div class="opciones" id="opciones" role="group" aria-label="Tipo de mantenimiento"></div>
+    <div class="respuesta" id="respuesta" aria-live="polite">
+      <h3 id="resp-tit"></h3>
+      <p id="resp-txt"></p>
+      <p class="heur" id="resp-heur"></p>
+    </div>
+    <div class="acciones">
+      <button id="siguiente" disabled>Siguiente cambio</button>
+    </div>
+  </div>
+
+  <div class="card" id="resumen" hidden>
+    <h2>Resumen</h2>
+    <p id="resumen-txt"></p>
+    <table>
+      <thead><tr><th>Commit</th><th>Usted</th><th>Leyendo el diff</th><th>Heurística</th></tr></thead>
+      <tbody id="resumen-filas"></tbody>
+    </table>
+    <p class="nota">La heurística es la de <code>herramientas/metricas_evolucion.py</code>. Sobre la muestra completa de
+      40 commits de Flask acierta en 15. Los casos donde usted y la clasificación no coinciden son los que vale la pena
+      discutir en el grupo.</p>
+    <div class="acciones"><button id="reiniciar" class="sec">Empezar de nuevo</button></div>
+  </div>
+</div>
+
+<script>
+const TIPOS = ["correctivo", "adaptativo", "perfectivo", "preventivo", "fuera del producto"];
+const CASOS = [
+ {c:"348bf52188", f:"2015-06-02", s:"Handle empty deque on errorhandler lookup.", a:"flask/app.py · tests/test_user_error_handler.py",
+  d:["-            while True:","+            while queue:","+def test_error_handler_no_match():","+    app = flask.Flask(__name__)"],
+  t:"correctivo", h:"correctivo",
+  r:"Con un manejador de errores registrado por clase, cualquier excepción no manejada terminaba en un IndexError que ocultaba la original. El cambio corrige el ciclo y agrega una prueba que reproduce la falla."},
+ {c:"3b393f89f6", f:"2013-01-27", s:"Added template_global, fixes #657", a:"CHANGES · flask/app.py · flask/blueprints.py · flask/testsuite/templating.py",
+  d:["+- Added ``template_global`` methods in addition to the already existing","+  ``template_filter`` method family.","+    @setupmethod","+    def template_global(self, name=None):"],
+  t:"perfectivo", h:"correctivo",
+  r:"Agrega un método nuevo con su documentación y sus pruebas. El issue #657 era una solicitud de funcionalidad: nada fallaba. La palabra «fixes» solo indica que el commit cierra un issue."},
+ {c:"224367fe98", f:"2014-05-09", s:"fixed import for python 3", a:"flask/__main__.py",
+  d:["-    from cli import main","+    from .cli import main"],
+  t:"adaptativo", h:"correctivo",
+  r:"El import implícito relativo funcionaba en Python 2 y no existe en Python 3. El cambio lo origina el lenguaje, que es parte del entorno del producto."},
+ {c:"9e686d93b6", f:"2022-07-01", s:"remove deprecated RequestContext.g", a:"CHANGES.rst · src/flask/ctx.py",
+  d:["+-   Remove previously deprecated code. :pr:`4337`","+    -   The ``RequestContext.g`` proxy to ``AppContext.g`` is removed.","-    @property","-    def g(self) -> AppContext:"],
+  t:"preventivo", h:"adaptativo",
+  r:"El entorno no cambió. El proyecto retira código propio que ya había marcado como obsoleto, para tener menos que mantener. Es trabajo para contener la complejidad (ley II de Lehman)."},
+ {c:"9efc1ebeeb", f:"2024-11-01", s:"add SESSION_COOKIE_PARTITIONED config", a:"CHANGES.rst · docs/config.rst · src/flask/app.py · src/flask/sessions.py · tests/test_basic.py",
+  d:["+-   Add support for the ``Partitioned`` cookie attribute (CHIPS), with the","+    ``SESSION_COOKIE_PARTITIONED`` config. :issue`5472`","+    def get_cookie_partitioned(self, app: Flask) -> bool:"],
+  t:"adaptativo", h:"perfectivo",
+  r:"Es una opción nueva, pero existe porque los navegadores introdujeron las cookies particionadas (CHIPS). Quien origina el cambio es el entorno. Admite discusión: un grupo podría defender perfectivo si muestra que nadie lo necesitaba aún."},
+ {c:"27d28dcef4", f:"2010-07-18", s:"Added Session again to the public API because existing code might import it", a:"flask/__init__.py",
+  d:["+from .session import Session"],
+  t:"correctivo", h:"perfectivo",
+  r:"La versión 0.5, publicada doce días antes, sacó Session de la API pública y rompió el código de quienes la importaban. El cambio repara una falla ya publicada."},
+ {c:"f29ec355e9", f:"2011-07-07", s:"Backwards compatibility import", a:"docs/upgrading.rst · flask/__init__.py",
+  d:["+Version 0.8","+Flask introduced a new session interface system.  We also noticed that","+there was a naming collision between `flask.session` the module that"],
+  t:"preventivo", h:"adaptativo",
+  r:"Se hace durante el desarrollo de la 0.8, antes de publicarla: evita que el cambio de la interfaz de sesiones rompa el código de los usuarios. Compárelo con el caso anterior: un diff parecido se clasifica distinto según si la falla ya ocurrió."},
+ {c:"17e146ad94", f:"2023-08-16", s:"Pass maxsplit via kwarg to re.split", a:"src/flask/cli.py",
+  d:["-                    re.split(r\":(?![\\\\/])\", self.app_import_path, 1) + [None]","+                    re.split(r\":(?![\\\\/])\", self.app_import_path, maxsplit=1) + [None]"],
+  t:"adaptativo", h:"sin sugerencia",
+  r:"Python 3.13 marcó como obsoleto pasar maxsplit por posición. El comportamiento no cambia; el cambio se anticipa a la evolución del lenguaje."},
+ {c:"4046d3bd30", f:"2011-03-13", s:"fixing cross-referenced links on fileupload patterns page", a:"docs/patterns/fileuploads.rst",
+  d:["-3. use the :meth:`~werkzeug.FileStorage.save` method of the file to save","+3. use the :meth:`~werkzeug.datastructures.FileStorage.save` method of the file to save"],
+  t:"fuera del producto", h:"correctivo",
+  r:"Solo toca la documentación. Corrige enlaces, pero el producto no cambia. Contarlo como correctivo inflaría el esfuerzo de corrección del sistema."},
+ {c:"7ecdbcfa2b", f:"2017-05-22", s:"show error if multiple Flask instances are detected add changelog", a:"CHANGES · flask/cli.py",
+  d:["+    elif len(matches) > 1:","+        raise NoAppException(","+            'Auto-detected multiple Flask applications in module \"{module}\".'"],
+  t:"perfectivo", h:"documentación o publicación",
+  r:"Mejora el diagnóstico de la línea de comandos: antes elegía en silencio; ahora explica qué hacer. Es una mejora de usabilidad. La heurística se confunde por la palabra «changelog»."},
+ {c:"4995a775df", f:"2024-11-12", s:"fix subdomain_matching=False behavior", a:"CHANGES.rst · docs/config.rst · src/flask/app.py · tests/test_basic.py · tests/test_blueprints.py",
+  d:["+-   Fix how setting ``host_matching=True`` or ``subdomain_matching=False``","+    interacts with ``SERVER_NAME``. Setting ``SERVER_NAME`` no longer restricts","+    requests to only that domain. :issue:`5553`"],
+  t:"correctivo", h:"correctivo",
+  r:"Una configuración documentada no se respetaba (issue #5553). El cambio corrige el comportamiento y agrega pruebas. Aquí la heurística acierta."},
+ {c:"1a67e284d0", f:"2016-06-15", s:"Remove unnecessary werkzeug mock attribs from test", a:"tests/test_templating.py",
+  d:["-    rv = {}","-","-        rv['passthrough_errors'] = kwargs.get('passthrough_errors')","+        pass"],
+  t:"preventivo", h:"preventivo",
+  r:"Simplifica una prueba sin cambiar el producto. Las pruebas son parte de lo que se mantiene: hacerlas más simples reduce el costo de cambios futuros."},
+ {c:"5da1fc2215", f:"2011-05-29", s:"Started work on URL value preprocessors", a:"flask/app.py · flask/blueprints.py",
+  d:["+        #: A dictionary with lists of functions that can be used as URL","+        #: value processor functions.  Whenever a URL is built these functions","+        #: are called to modify the dictionary of values in place."],
+  t:"perfectivo", h:"sin sugerencia",
+  r:"Ochenta y una líneas nuevas que agregan un mecanismo que no existía. La heurística no encuentra ninguna palabra clave: por eso la clasificación se hace leyendo el diff."}
+];
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let i = 0, elecciones = [];
+
+function pintar() {
+  const k = CASOS[i];
+  $("progreso").textContent = `Cambio ${i + 1} de ${CASOS.length}`;
+  $("avance").style.width = (i / CASOS.length * 100) + "%";
+  $("commit").textContent = `commit ${k.c} · ${k.f}`;
+  $("asunto").textContent = k.s;
+  $("archivos").textContent = "Archivos: " + k.a;
+  $("diff").innerHTML = k.d.map(l => `<span class="${l[0] === "+" ? "mas" : l[0] === "-" ? "menos" : ""}">${esc(l)}</span>`).join("\n");
+  $("opciones").innerHTML = TIPOS.map(t => `<button data-t="${t}">${t[0].toUpperCase() + t.slice(1)}</button>`).join("");
+  $("respuesta").classList.remove("visible");
+  $("siguiente").disabled = true;
+  $("siguiente").textContent = i === CASOS.length - 1 ? "Ver el resumen" : "Siguiente cambio";
+  document.querySelectorAll("#opciones button").forEach(b => b.onclick = () => elegir(b.dataset.t));
+}
+
+function elegir(t) {
+  const k = CASOS[i];
+  elecciones[i] = t;
+  document.querySelectorAll("#opciones button").forEach(b => {
+    b.disabled = true;
+    if (b.dataset.t === k.t) b.classList.add("correcta");
+    else if (b.dataset.t === t) b.classList.add("errada");
+  });
+  $("resp-tit").textContent = t === k.t ? "Coincide con la clasificación: " + k.t : "La clasificación leyendo el diff: " + k.t;
+  $("resp-txt").textContent = k.r;
+  $("resp-heur").textContent = "La heurística por palabras clave habría dicho: " + k.h + ".";
+  $("respuesta").classList.add("visible");
+  $("siguiente").disabled = false;
+  $("siguiente").focus();
+}
+
+function resumen() {
+  $("tarjeta").hidden = true;
+  $("resumen").hidden = false;
+  const bien = elecciones.filter((t, n) => t === CASOS[n].t).length;
+  const heur = CASOS.filter(k => k.h === k.t || (k.h === "documentación o publicación" && k.t === "fuera del producto")).length;
+  $("resumen-txt").textContent = `Coincidió en ${bien} de ${CASOS.length} cambios. En estos mismos cambios, la heurística coincide en ${heur}.`;
+  $("resumen-filas").innerHTML = CASOS.map((k, n) => `<tr><td><code>${k.c}</code><br>${esc(k.s)}</td>
+    <td class="${elecciones[n] === k.t ? "ok" : "no"}">${esc(elecciones[n])}</td><td>${esc(k.t)}</td><td>${esc(k.h)}</td></tr>`).join("");
+}
+
+$("siguiente").onclick = () => { if (i < CASOS.length - 1) { i++; pintar(); } else resumen(); };
+$("reiniciar").onclick = () => { i = 0; elecciones = []; $("resumen").hidden = true; $("tarjeta").hidden = false; pintar(); };
+pintar();
+</script>
+</body>
+</html>

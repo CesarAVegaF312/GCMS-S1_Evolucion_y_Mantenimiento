@@ -1,0 +1,41 @@
+commit,fecha,asunto,sugerencia_heuristica,clasificacion_manual,evidencia
+ebb07a0656,2010-04-21,Better English.,sin sugerencia,fuera del producto,"Solo docs/quickstart.rst, redacción"
+d0eefb01d1,2010-05-03,Added link to snippets website to the patterns docs.,documentación o publicación,fuera del producto,"Solo docs/patterns/index.rst, enlace nuevo"
+4c937be252,2010-07-06,Preparing for release,documentación o publicación,fuera del producto,Solo CHANGES: fecha y nombre de la versión 0.5
+27d28dcef4,2010-07-18,Added Session again to the public API because existing code might import it,perfectivo,correctivo,"Reexporta Session en flask/__init__.py; la 0.5, publicada doce días antes, la había sacado de la API pública"
+4046d3bd30,2011-03-13,fixing cross-referenced links on fileupload patterns page,correctivo,fuera del producto,Solo enlaces cruzados en docs/patterns/fileuploads.rst
+5764f3abd2,2011-03-13,fixing cross-referenced links on jquery patterns page,correctivo,fuera del producto,Solo un enlace en docs/patterns/jquery.rst
+5da1fc2215,2011-05-29,Started work on URL value preprocessors,sin sugerencia,perfectivo,81 líneas nuevas en app.py y blueprints.py: preprocesadores de valores de URL
+0fb2e4c848,2011-07-01,More invalid doc fixing,documentación o publicación,fuera del producto,Solo docs/upgrading.rst
+f29ec355e9,2011-07-07,Backwards compatibility import,adaptativo,preventivo,"Import de compatibilidad en flask/__init__.py durante el desarrollo de la 0.8, antes de publicar: evita que falle el código de los usuarios"
+c8663e8dab,2011-07-10,Fixed a typo in the docs.,documentación o publicación,fuera del producto,Errata en docs/testing.rst
+9d899cd63e,2011-07-13,Fixed a typo.  This closes #278,documentación o publicación,fuera del producto,Errata dentro de un docstring de app.py; no cambia comportamiento
+b115b38dbe,2011-10-06,Added PasswordField in docs/patterns/wtforms.rst,documentación o publicación,fuera del producto,Ejemplo en docs/patterns/wtforms.rst
+d8c2ec4cd8,2012-03-12,Fixed linebreaks.,correctivo,fuera del producto,Saltos de línea en docs/foreword.rst
+3b393f89f6,2013-01-27,"Added template_global, fixes #657",correctivo,perfectivo,"Método nuevo template_global en app.py y blueprints.py, con pruebas; el issue #657 era una solicitud de funcionalidad"
+9e5ab21c8e,2013-08-04,app.py: Link to correct EnvironBuilder docs,documentación o publicación,fuera del producto,Referencia de un docstring en app.py
+ae45aed8d6,2014-02-08,Removed an unnecessary newline,sin sugerencia,preventivo,Borra una línea vacía en app.py; cosmético
+224367fe98,2014-05-09,fixed import for python 3,correctivo,adaptativo,Import relativo en __main__.py para que funcione en Python 3
+348bf52188,2015-06-02,Handle empty deque on errorhandler lookup.,correctivo,correctivo,while True pasa a while queue: el manejador de errores lanzaba IndexError; agrega prueba
+a9066a3756,2015-06-17,Changes and docs are modified.,documentación o publicación,fuera del producto,CHANGES y docs/api.rst de una señal ya agregada
+bc9619beba,2016-03-15,"Replace ';' to ','",sin sugerencia,fuera del producto,Puntuación en docs/installation.rst
+434c19933e,2016-06-05,Add clarification for login_required decorator ref #313,perfectivo,fuera del producto,Aclaración en docs/patterns/viewdecorators.rst
+1a67e284d0,2016-06-15,Remove unnecessary werkzeug mock attribs from test,preventivo,preventivo,Simplifica un doble de prueba en tests/test_templating.py
+71e10be286,2016-08-26,Properly remove f.name usage in send_file (#1988),sin sugerencia,correctivo,helpers.py: send_file seguía usando f.name después de que la 0.12 retiró esa adivinanza; ahora falla de forma explícita
+7ecdbcfa2b,2017-05-22,show error if multiple Flask instances are detected add changelog,documentación o publicación,perfectivo,cli.py detecta varias instancias de Flask y muestra un error claro
+f52f3ef31d,2017-05-24,PyCharm Run Configuration Guide,sin sugerencia,fuera del producto,Guía nueva en docs/cli.rst
+e8fd06a0a7,2018-04-29,Bump version number to 0.12.5.dev,documentación o publicación,fuera del producto,Número de versión en __init__.py
+24498afed5,2019-06-22,standardize project metadata,preventivo,fuera del producto,"Makefile, setup.py y scripts de publicación del proyecto"
+07caa44224,2019-10-26,Change docs to use f-strings,documentación o publicación,fuera del producto,Ejemplos de la documentación
+77e33c4de6,2020-07-16,Bump tox from 3.17.0 to 3.17.1,adaptativo,fuera del producto,"requirements/dev.txt: herramienta de pruebas del equipo, no del producto"
+54ae1cb0e9,2021-01-06,Update the example in README,documentación o publicación,fuera del producto,README.rst
+411dbb37e2,2022-04-11,remove old test,preventivo,preventivo,Retira una prueba de un aviso de Click 7 que ya no aplica
+9e686d93b6,2022-07-01,remove deprecated RequestContext.g,adaptativo,preventivo,"Retira de ctx.py la propiedad RequestContext.g, obsoleta desde versiones anteriores"
+8811ae037a,2022-09-07,[pre-commit.ci] pre-commit autoupdate (#4806),adaptativo,fuera del producto,.pre-commit-config.yaml: herramienta del equipo
+6d6d986fc5,2023-01-18,switch to pyproject.toml,sin sugerencia,adaptativo,"setup.py y setup.cfg pasan a pyproject.toml, el formato de empaquetado que adoptó el ecosistema de Python"
+17e146ad94,2023-08-16,Pass maxsplit via kwarg to re.split,sin sugerencia,adaptativo,cli.py: maxsplit por nombre en re.split; Python 3.13 marcó como obsoleto pasarlo por posición
+9efc1ebeeb,2024-11-01,add SESSION_COOKIE_PARTITIONED config,perfectivo,adaptativo,"sessions.py: atributo Partitioned de las cookies (CHIPS), que los navegadores introdujeron"
+4995a775df,2024-11-12,fix subdomain_matching=False behavior,correctivo,correctivo,"app.py: subdomain_matching=False no se respetaba con SERVER_NAME; issue #5553, con pruebas"
+6b361ce06b,2025-01-05,markdown formatting,preventivo,fuera del producto,Formato de README.md
+bfffe87d4c,2025-03-29,add ghsa links,perfectivo,fuera del producto,CHANGES.rst y docs/conf.py
+3596b1ab61,2026-08-11,add entry,perfectivo,fuera del producto,Una entrada en CHANGES.rst

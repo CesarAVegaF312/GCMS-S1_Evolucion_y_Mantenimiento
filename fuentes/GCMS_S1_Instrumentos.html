@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<title>GCMS S1 · Instrumentos F-01 a F-07</title>
+<link rel="stylesheet" href="documentos.css"/>
+</head>
+<body>
+
+<div class="portada">
+  <div class="kicker">Gestión de Configuración y Mantenimiento de Software · Unidad 1</div>
+  <h1>Instrumentos F-01 a F-07</h1>
+  <div class="sub">Evolución del software y mantenimiento · Maestría en Ingeniería de Software, Universidad de La Sabana</div>
+</div>
+
+<p>Estos siete formatos preparan las actividades 0 y 1. Se llenan en grupo, en el orden en que aparecen, sobre el
+sistema que el grupo eligió. <b>No se suben a la plataforma</b>: son el borrador de los entregables y la evidencia
+que el grupo debe poder mostrar si se le pregunta de dónde sale una afirmación.</p>
+
+<table>
+  <thead><tr><th>Formato</th><th>Qué prepara</th><th>Dónde termina</th><th>Evidencia que usa</th></tr></thead>
+  <tbody>
+    <tr><td><b>F-01</b> Ficha del sistema y del reto</td><td>Qué sistema es, para quién, cuál es el reto y qué se aborda</td><td>Actividad 0 y sección 1 de la Actividad 1</td><td>El sistema, su documentación, su equipo</td></tr>
+    <tr><td><b>F-02</b> Evidencia de evolución</td><td>Cómo ha cambiado el sistema y qué señales de envejecimiento tiene</td><td>Actividad 1, sección 2</td><td>Historial Git, versiones, tickets, incidentes</td></tr>
+    <tr><td><b>F-03</b> Clasificación de cambios</td><td>En qué tipo de mantenimiento se va el esfuerzo</td><td>Actividad 1, sección 3</td><td>Commits o tickets, leídos uno por uno</td></tr>
+    <tr><td><b>F-04</b> Contraste con las leyes de Lehman</td><td>Qué leyes se observan, con evidencia y contraevidencia</td><td>Actividad 1, sección 2</td><td>F-02 y F-03</td></tr>
+    <tr><td><b>F-05</b> Registro de deuda técnica</td><td>Las deudas localizadas, con origen, interés y prioridad</td><td>Actividad 1, sección 4</td><td>Código, issues, registro de cambios</td></tr>
+    <tr><td><b>F-06</b> Análisis de riesgos</td><td>Riesgos de cambios no controlados y de falta de estrategia de evolución</td><td>Actividad 1, sección 5</td><td>F-02 a F-05</td></tr>
+    <tr><td><b>F-07</b> Verificación previa</td><td>Que cada afirmación tenga respaldo</td><td>Antes de entregar</td><td>El documento completo</td></tr>
+  </tbody>
+</table>
+
+<div class="recuadro crema">
+  <span class="rot">El orden importa</span>
+  <p>Primero se reúne la evidencia (F-02) y se clasifica (F-03); después se contrasta con las leyes y se registran la
+  deuda y los riesgos. Un grupo que decide antes qué problemas tiene el sistema y luego busca los datos que lo
+  confirman suele encontrarlos, y el análisis pierde valor.</p>
+</div>
+
+<!-- ============================================================ F-01 -->
+<div class="salto"></div>
+<div class="formato-cab"><h2>Ficha del sistema y del reto</h2><span class="codigo">F-01</span></div>
+<p>Es el borrador de la Actividad 0. El sistema que se describe aquí es el mismo de todo el curso.</p>
+<table>
+  <tbody>
+    <tr><td class="campo">Nombre del sistema y origen (académico, laboral o simulado)</td><td class="vacio"></td></tr>
+    <tr><td class="campo">Qué hace, en dos líneas</td><td class="vacio alto"></td></tr>
+    <tr><td class="campo">Tipo de sistema (web, backend, microservicios, móvil, otro)</td><td class="vacio"></td></tr>
+    <tr><td class="campo">Usuarios principales</td><td class="vacio"></td></tr>
+    <tr><td class="campo">Componentes o módulos principales y sus artefactos (código, configuración, scripts, documentación)</td><td class="vacio alto"></td></tr>
+    <tr><td class="campo">Contexto organizacional o técnico</td><td class="vacio alto"></td></tr>
+    <tr><td class="campo">Tipo de programa según Lehman (S, P o E) y por qué</td><td class="vacio"></td></tr>
+    <tr><td class="campo">Problema inicial: situaciones de configuración o mantenimiento y riesgos que ya se ven</td><td class="vacio alto"></td></tr>
+    <tr><td class="campo">Reto, formulado como pregunta</td><td class="vacio alto"></td></tr>
+    <tr><td class="campo">Alcance: qué se abordará</td><td class="vacio alto"></td></tr>
+    <tr><td class="campo">Qué queda por fuera</td><td class="vacio"></td></tr>
+    <tr><td class="campo">Criterios de éxito preliminares</td><td class="vacio alto"></td></tr>
+  </tbody>
+</table>
+<h3>Criterios del sistema</h3>
+<table>
+  <thead><tr><th style="width:62%">Criterio</th><th>Cumple</th><th>Evidencia</th></tr></thead>
+  <tbody>
+    <tr><td>El grupo puede modificarlo durante todo el curso</td><td></td><td></td></tr>
+    <tr><td>Su código está en Git o se puede poner en Git</td><td></td><td></td></tr>
+    <tr><td>Hay evidencia de su evolución: historial, tickets, incidentes o versiones</td><td></td><td></td></tr>
+    <tr><td>No expone datos sensibles, o se pueden anonimizar</td><td></td><td></td></tr>
+    <tr><td>Si es laboral, el grupo tiene autorización para usarlo</td><td></td><td></td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ F-02 -->
+<div class="salto"></div>
+<div class="formato-cab"><h2>Evidencia de evolución</h2><span class="codigo">F-02</span></div>
+<p>Se llena con la fuente que tenga el sistema. Si tiene historia en Git, la herramienta
+<code>herramientas/metricas_evolucion.py</code> produce <code>evolucion_por_version.csv</code>. Si no la tiene, se usan
+versiones desplegadas, tickets e incidentes.</p>
+<table>
+  <thead><tr><th>Versión o período</th><th>Fecha</th><th>Tamaño (archivos, líneas o módulos)</th><th>Cambios en el período</th><th>Personas que cambiaron el sistema</th><th>Hechos relevantes</th></tr></thead>
+  <tbody>
+    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+<h3>Señales de envejecimiento</h3>
+<table>
+  <thead><tr><th style="width:26%">Señal</th><th>Qué se observa en el sistema</th><th style="width:22%">Fuente</th></tr></thead>
+  <tbody>
+    <tr><td><b>Dilatación de tiempos</b>: cambios sencillos que toman más de lo previsto</td><td class="vacio alto"></td><td></td></tr>
+    <tr><td><b>Inestabilidad operativa</b>: más errores después de cada actualización</td><td class="vacio alto"></td><td></td></tr>
+    <tr><td><b>Silos de conocimiento</b>: pocas personas entienden el sistema</td><td class="vacio alto"></td><td></td></tr>
+    <tr><td><b>Entorno que cambió</b>: dependencias, plataforma o normas que el sistema no ha seguido</td><td class="vacio alto"></td><td></td></tr>
+  </tbody>
+</table>
+<table>
+  <tbody>
+    <tr><td class="campo">Limitaciones de la evidencia: qué no se pudo medir y por qué</td><td class="vacio alto"></td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ F-03 -->
+<div class="salto"></div>
+<div class="formato-cab"><h2>Clasificación de cambios</h2><span class="codigo">F-03</span></div>
+<p>Se clasifica una muestra de cambios del sistema; se recomiendan al menos 20. Cada cambio se clasifica <b>leyendo
+lo que modificó</b> (<code>git show &lt;commit&gt;</code> o el detalle del ticket), no su mensaje. Si se usa
+<code>muestra_cambios.csv</code>, la columna <code>sugerencia_heuristica</code> es solo un punto de partida.</p>
+<table>
+  <thead><tr><th>Tipo</th><th>Pregunta que lo decide</th></tr></thead>
+  <tbody>
+    <tr><td><b>Correctivo</b></td><td>¿Corrige un comportamiento que ya debía funcionar y no funcionaba?</td></tr>
+    <tr><td><b>Adaptativo</b></td><td>¿Responde a un cambio del entorno: lenguaje, dependencias, plataforma, normas, navegadores?</td></tr>
+    <tr><td><b>Perfectivo</b></td><td>¿Agrega o mejora funcionalidad, rendimiento o usabilidad que nadie reportó como falla?</td></tr>
+    <tr><td><b>Preventivo</b></td><td>¿Corrige una falla latente o reduce la dificultad de cambios futuros sin cambiar el comportamiento?</td></tr>
+    <tr><td><b>Fuera del producto</b></td><td>¿Toca solo documentación, publicación o herramientas del equipo?</td></tr>
+  </tbody>
+</table>
+<table>
+  <thead><tr><th style="width:13%">Cambio</th><th style="width:30%">Descripción</th><th style="width:15%">Sugerencia</th><th style="width:15%">Clasificación</th><th>Evidencia</th></tr></thead>
+  <tbody>
+    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td class="vacio"></td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+<table>
+  <tbody>
+    <tr><td class="campo">Distribución por tipo (número y porcentaje)</td><td class="vacio alto"></td></tr>
+    <tr><td class="campo">Qué revela la distribución sobre las prioridades reales del equipo</td><td class="vacio alto"></td></tr>
+    <tr><td class="campo">Dos casos difíciles: por qué admitían dos tipos y cuál eligió el grupo</td><td class="vacio alto"></td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ F-04 -->
+<div class="salto"></div>
+<div class="formato-cab"><h2>Contraste con las leyes de Lehman</h2><span class="codigo">F-04</span></div>
+<p>Para cada ley se escribe primero qué se esperaría ver si la ley se cumple, y después lo que efectivamente se ve.
+Se recomienda contrastar al menos la I (cambio continuo) y la II (complejidad creciente), según Lehman (1996).</p>
+<table>
+  <thead><tr><th style="width:20%">Ley</th><th style="width:22%">Qué se esperaría ver</th><th style="width:22%">Evidencia (F-02, F-03)</th><th style="width:20%">Contraevidencia</th><th>Veredicto</th></tr></thead>
+  <tbody>
+    <tr><td><b>I</b> Cambio continuo</td><td class="vacio alto"></td><td></td><td></td><td></td></tr>
+    <tr><td><b>II</b> Complejidad creciente</td><td class="vacio alto"></td><td></td><td></td><td></td></tr>
+    <tr><td><b>IV</b> Estabilidad organizacional</td><td class="vacio alto"></td><td></td><td></td><td></td></tr>
+    <tr><td><b>VI</b> Crecimiento continuo</td><td class="vacio alto"></td><td></td><td></td><td></td></tr>
+    <tr><td><b>VII</b> Calidad decreciente</td><td class="vacio alto"></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+<p class="nota">Veredicto: <b>se observa</b>, <b>se observa con matices</b>, <b>no se observa</b> o <b>la evidencia no
+alcanza</b>. «La evidencia no alcanza» es una respuesta válida si se explica qué dato haría falta.</p>
+
+<!-- ============================================================ F-05 -->
+<div class="salto"></div>
+<div class="formato-cab"><h2>Registro de deuda técnica</h2><span class="codigo">F-05</span></div>
+<p>Cada deuda tiene un lugar en el código o en el proyecto. Para el origen se usa el cuadrante de Fowler (2009):
+<b>deliberada o inadvertida</b>, <b>prudente o imprudente</b>.</p>
+<table>
+  <thead><tr><th style="width:4%">#</th><th style="width:22%">Deuda y dónde está</th><th style="width:14%">Origen</th><th style="width:20%">Interés: qué cuesta mantenerla</th><th style="width:18%">Pago: qué cuesta quitarla</th><th style="width:12%">Evidencia</th><th>Prioridad</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td class="vacio alto"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>2</td><td class="vacio alto"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>3</td><td class="vacio alto"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>4</td><td class="vacio alto"></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+<div class="recuadro">
+  <span class="rot">Dónde buscar</span>
+  <ul>
+    <li>Código marcado como obsoleto: <code>git grep -n -i deprecat</code></li>
+    <li>Supresiones de advertencias: <code>type: ignore</code>, <code>noqa</code>, <code>@SuppressWarnings</code>, <code>eslint-disable</code></li>
+    <li>Comentarios <code>TODO</code>, <code>FIXME</code>, <code>HACK</code>: <code>git grep -n -E "TODO|FIXME|HACK"</code></li>
+    <li>Dependencias desactualizadas o sin soporte, y versiones de lenguaje o plataforma que ya no tienen soporte</li>
+    <li>Tickets de refactorización abiertos hace meses, y código que nadie retiró</li>
+  </ul>
+</div>
+
+<!-- ============================================================ F-06 -->
+<div class="salto"></div>
+<div class="formato-cab"><h2>Análisis de riesgos</h2><span class="codigo">F-06</span></div>
+<p>Riesgos asociados a la evolución del sistema. La Actividad 1 pide analizar al menos los de <b>cambios no
+controlados</b> y los de <b>falta de estrategias de evolución</b>. Cada riesgo se rastrea hasta una evidencia de los
+formatos anteriores.</p>
+<table>
+  <thead><tr><th style="width:4%">#</th><th style="width:24%">Riesgo</th><th style="width:16%">Grupo</th><th style="width:18%">Evidencia (F-02 a F-05)</th><th style="width:10%">Probabilidad</th><th style="width:10%">Impacto</th><th>Atributo de calidad afectado</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td class="vacio alto"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>2</td><td class="vacio alto"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>3</td><td class="vacio alto"></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td>4</td><td class="vacio alto"></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table>
+<div class="recuadro">
+  <span class="rot">Preguntas que ayudan</span>
+  <ul>
+    <li>¿Se sabe con certeza qué versión está en producción y qué cambió respecto de la anterior?</li>
+    <li>¿Un cambio de configuración puede llegar a producción sin revisión?</li>
+    <li>¿Las adaptaciones al entorno se planean o se hacen cuando el entorno ya obligó?</li>
+    <li>¿Alguien registra la deuda, o se descubre cuando falla algo?</li>
+  </ul>
+</div>
+<table>
+  <tbody>
+    <tr><td class="campo">Alcance del problema que el grupo abordará en el curso y por qué importa para la calidad del sistema</td><td class="vacio alto"></td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ F-07 -->
+<div class="salto"></div>
+<div class="formato-cab"><h2>Verificación previa a la entrega</h2><span class="codigo">F-07</span></div>
+<p>El grupo la recorre completa antes de subir el documento de la Actividad 1. Cada «no» se corrige o se explica.</p>
+<table>
+  <thead><tr><th style="width:76%">Verificación</th><th>Sí / No</th></tr></thead>
+  <tbody>
+    <tr><td>El sistema es el mismo de la Actividad 0 y se incorporó la retroalimentación recibida</td><td></td></tr>
+    <tr><td>La descripción incluye componentes, artefactos y contexto organizacional o técnico</td><td></td></tr>
+    <tr><td>La evidencia de evolución dice de dónde sale y cuáles son sus limitaciones</td><td></td></tr>
+    <tr><td>Cada cambio de la muestra se clasificó leyendo lo que modificó</td><td></td></tr>
+    <tr><td>Los veredictos sobre las leyes de Lehman tienen evidencia y contraevidencia</td><td></td></tr>
+    <tr><td>Las deudas tienen un lugar concreto en el sistema, no son genéricas</td><td></td></tr>
+    <tr><td>Los riesgos cubren cambios no controlados y falta de estrategia de evolución, con su evidencia</td><td></td></tr>
+    <tr><td>El alcance del problema está definido y justificado por su impacto en la calidad</td><td></td></tr>
+    <tr><td>El documento tiene de 5 a 7 páginas y sigue la norma APA 7</td><td></td></tr>
+  </tbody>
+</table>
+
+<div class="pie-doc">GCMS · Unidad 1 · Instrumentos F-01 a F-07 · César Augusto Vega Fernández · Universidad de La Sabana ·
+Licencia CC BY-NC-SA 4.0</div>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<title>GCMS S1 · Recorrido resuelto con Flask</title>
+<link rel="stylesheet" href="documentos.css"/>
+</head>
+<body>
+
+<div class="portada">
+  <div class="kicker">Gestión de Configuración y Mantenimiento de Software · Unidad 1</div>
+  <h1>Recorrido resuelto con Flask</h1>
+  <div class="sub">Los formatos F-01 a F-06 llenos con un sistema real · Maestría en Ingeniería de Software, Universidad de La Sabana</div>
+</div>
+
+<p>Este documento recorre los formatos de la unidad con <b>Flask</b>, un framework web de Python con más de quince
+años de historia pública. Todos los números salen de su repositorio y se pueden repetir con la herramienta del curso.
+El historial se consultó el 28 de octubre de 2026; el último commit revisado es del 7 de octubre de 2026.</p>
+
+<div class="recuadro">
+  <span class="rot">Cómo usar este recorrido</span>
+  <p>Léanlo antes de llenar sus propios formatos. Cada sección abre con lo que hay que hacer y después muestra cómo
+  quedó con Flask. Lo que importa es el razonamiento: su sistema tendrá otra evidencia, otros cambios y otras
+  deudas. Flask tiene una historia pública larga, así que la evidencia sale de Git; si su sistema no tiene esa historia,
+  la evidencia sale de tickets, incidentes y versiones desplegadas.</p>
+</div>
+
+<pre>git clone https://github.com/pallets/flask.git
+python herramientas/metricas_evolucion.py flask --incluir "flask.py,flask/**/*.py,src/flask/**/*.py" --muestra 40 --semilla 1</pre>
+<p class="nota">Los dos CSV que produce este comando están en la carpeta <code>ejemplo_flask/</code> del repositorio,
+con la clasificación manual de la muestra ya hecha.</p>
+
+<!-- ============================================================ F-01 -->
+<h2>F-01 · Ficha del sistema y del reto</h2>
+<div class="recuadro crema"><span class="rot">Qué hay que hacer</span>
+<p>Describir el sistema, formular el reto y decidir el alcance antes de medir. Es el contenido de la Actividad 0.</p></div>
+<table>
+  <tbody>
+    <tr><td class="campo">Proyecto</td><td>Flask · <code>github.com/pallets/flask</code></td></tr>
+    <tr><td class="campo">Qué hace y quién lo usa</td><td>Framework para construir aplicaciones web en Python. Lo usan desarrolladores de aplicaciones y autores de extensiones, que dependen de su API pública.</td></tr>
+    <tr><td class="campo">Tipo de sistema y componentes</td><td>Biblioteca de backend web. Componentes: aplicación, blueprints, línea de comandos, sesiones, JSON y plantillas.</td></tr>
+    <tr><td class="campo">Lenguaje y licencia</td><td>Python · BSD-3-Clause</td></tr>
+    <tr><td class="campo">Primera y última versión con funcionalidad nueva</td><td>0.1 (16 de abril de 2010) y 3.1.0 (13 de noviembre de 2024). La 3.2.0 está en desarrollo.</td></tr>
+    <tr><td class="campo">Versiones con funcionalidad nueva</td><td>20, con el patrón por defecto de la herramienta (<code>X.Y</code> o <code>X.Y.0</code>)</td></tr>
+    <tr><td class="campo">Qué se mide como código fuente</td><td>El paquete <code>flask</code>, que cambió de lugar dos veces: <code>flask.py</code> (0.1 a 0.4), <code>flask/</code> (0.5 a 1.0) y <code>src/flask/</code> (desde 1.1.0). Se excluyen pruebas, documentación, ejemplos y scripts. Hasta la 0.10 las pruebas estaban dentro del paquete, en <code>flask/testsuite/</code>; también se excluyen.</td></tr>
+    <tr><td class="campo">Registro de cambios</td><td><code>CHANGES.rst</code> en la raíz, con una sección por versión</td></tr>
+    <tr><td class="campo">Tipo de programa según Lehman</td><td><b>E</b>: se usa en un entorno real que cambia (versiones de Python, navegadores, servidores) y su uso cambia el entorno, porque miles de extensiones y aplicaciones dependen de su API.</td></tr>
+    <tr><td class="campo">Problema inicial</td><td>Una organización depende de Flask y cada actualización mayor retira API obsoletas y versiones de Python.</td></tr>
+    <tr><td class="campo">Reto</td><td>¿Puede una organización seguir dependiendo de Flask cinco años más, y qué tendría que vigilar?</td></tr>
+    <tr><td class="campo">Alcance y lo que queda fuera</td><td>El paquete <code>flask</code>. Quedan fuera las pruebas, la documentación y las extensiones de terceros.</td></tr>
+    <tr><td class="campo">Criterio de éxito preliminar</td><td>Cada afirmación del análisis se rastrea hasta el historial público del proyecto.</td></tr>
+  </tbody>
+</table>
+<p class="nota">Sin la opción <code>--incluir</code>, la medición inicial contaba <code>setup.py</code> y la carpeta
+<code>testsuite</code>: la versión 0.10 aparecía con 59 archivos en lugar de 20. Así se ve un error de medición que
+cambia las conclusiones.</p>
+
+<!-- ============================================================ F-02 -->
+<div class="salto"></div>
+<h2>F-02 · Evidencia de evolución</h2>
+<div class="recuadro crema"><span class="rot">Qué hay que hacer</span>
+<p>Pasar el CSV a los tres gráficos, anotar lo que se ve sin interpretarlo y explicar las versiones atípicas con el
+registro de cambios.</p></div>
+<figure><img src="figuras/tamano.svg" style="width:100%"/>
+<figcaption>Figura 1. Líneas del paquete flask por versión. Fuente: elaboración propia con
+<code>ejemplo_flask/evolucion_por_version.csv</code>.</figcaption></figure>
+<figure><img src="figuras/crecimiento.svg" style="width:100%"/>
+<figcaption>Figura 2. Líneas agregadas y eliminadas entre versiones consecutivas.</figcaption></figure>
+<figure><img src="figuras/actividad.svg" style="width:100%"/>
+<figcaption>Figura 3. Commits por mes en el intervalo que termina en cada versión. Se divide por la duración del
+intervalo porque las versiones no salen a intervalos regulares: entre 0.10 y 0.11 pasaron casi tres años.</figcaption></figure>
+
+<h3>Lo que se ve</h3>
+<ol>
+  <li>El paquete pasa de 663 líneas a 9.187. Hasta la 1.0 (2018) crece casi doce veces; de la 1.0 a la 3.1.0, en seis
+  años y medio, crece 19 %.</li>
+  <li>Desde la 1.0, cada versión elimina casi tanto como agrega. En la 2.0.0 se eliminan más líneas (2.794) de las que
+  se agregan (2.727), y la 2.3.0 es más pequeña que la anterior.</li>
+  <li>Después de los dos primeros años, la actividad se estabiliza entre 14 y 28 commits por mes, aunque el número de
+  autores por intervalo varía entre 13 y 209.</li>
+</ol>
+<h3>Versiones atípicas</h3>
+<table>
+  <thead><tr><th style="width:12%">Versión</th><th style="width:30%">Qué muestran los datos</th><th>Qué dice <code>CHANGES.rst</code></th></tr></thead>
+  <tbody>
+    <tr><td>0.5</td><td>De 1 archivo a 12; se eliminan 1.516 líneas y se agregan 1.970</td><td>«Refactored Flask internally. It now consists of more than a single file.»</td></tr>
+    <tr><td>2.0.0</td><td>Se elimina más de lo que se agrega</td><td>Se retira el soporte para Python 2 y 3.5; desaparece la capa de compatibilidad <code>_compat.py</code>.</td></tr>
+    <tr><td>2.3.0</td><td>El tamaño baja de 9.357 a 8.799 líneas</td><td>«Remove previously deprecated code»: se retiran las API marcadas como obsoletas en la 2.2.0.</td></tr>
+  </tbody>
+</table>
+<p class="nota">Limitaciones: las líneas incluyen comentarios y docstrings, que en Flask son extensos. Una línea no
+equivale a funcionalidad; se usa como indicador de tamaño, junto con el número de archivos.</p>
+
+<!-- ============================================================ F-03 -->
+<div class="salto"></div>
+<h2>F-03 · Clasificación de cambios</h2>
+<div class="recuadro crema"><span class="rot">Qué hay que hacer</span>
+<p>Leer el diff de cada commit de la muestra, clasificarlo y anotar la evidencia. Comparar con la heurística al final.</p></div>
+<table>
+  <thead><tr><th>Tipo</th><th class="dato">Commits</th><th class="dato">% de la muestra</th><th class="dato">% de los que tocan el producto</th></tr></thead>
+  <tbody>
+    <tr><td>Fuera del producto (documentación, publicación, herramientas del equipo)</td><td class="dato">24</td><td class="dato">60 %</td><td class="dato">—</td></tr>
+    <tr><td>Preventivo</td><td class="dato">5</td><td class="dato">12,5 %</td><td class="dato">31 %</td></tr>
+    <tr><td>Correctivo</td><td class="dato">4</td><td class="dato">10 %</td><td class="dato">25 %</td></tr>
+    <tr><td>Adaptativo</td><td class="dato">4</td><td class="dato">10 %</td><td class="dato">25 %</td></tr>
+    <tr><td>Perfectivo</td><td class="dato">3</td><td class="dato">7,5 %</td><td class="dato">19 %</td></tr>
+  </tbody>
+</table>
+<p>Dos hallazgos de método. Primero, <b>60 % de la muestra no toca el producto</b>; solo 1.459 de los 3.829 commits
+del proyecto modifican el paquete. Por eso el comando recomendado para su proyecto usa <code>--solo-fuente</code>. Segundo,
+la heurística por palabras clave acierta en <b>15 de 40</b> commits. «Fix» aparece en correcciones de enlaces de la
+documentación y en funcionalidades nuevas que cierran un issue.</p>
+
+<h3>Casos difíciles</h3>
+<table>
+  <thead><tr><th style="width:24%">Commit</th><th style="width:15%">Heurística</th><th style="width:14%">Clasificación</th><th>Razonamiento</th></tr></thead>
+  <tbody>
+    <tr><td><code>3b393f89f6</code> Added template_global, fixes #657</td><td>correctivo</td><td>perfectivo</td><td>El diff agrega un método nuevo con pruebas. El issue #657 pedía la funcionalidad; nada fallaba.</td></tr>
+    <tr><td><code>9e686d93b6</code> remove deprecated RequestContext.g</td><td>adaptativo</td><td>preventivo</td><td>El entorno no cambió. Se retira código propio que ya estaba marcado como obsoleto, para reducir lo que hay que mantener.</td></tr>
+    <tr><td><code>9efc1ebeeb</code> add SESSION_COOKIE_PARTITIONED config</td><td>perfectivo</td><td>adaptativo</td><td>Es una opción nueva, pero existe porque los navegadores introdujeron el atributo <i>Partitioned</i> para las cookies. El cambio lo origina el entorno.</td></tr>
+    <tr><td><code>27d28dcef4</code> y <code>f29ec355e9</code>, dos imports de compatibilidad</td><td>perfectivo / adaptativo</td><td>correctivo / preventivo</td><td>El primero repara una versión ya publicada que había sacado <code>Session</code> de la API pública. El segundo evita la misma falla antes de publicar la 0.8. Un diff casi igual se clasifica distinto según el momento.</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ F-04 -->
+<div class="salto"></div>
+<h2>F-04 · Contraste con las leyes de Lehman</h2>
+<div class="recuadro crema"><span class="rot">Qué hay que hacer</span>
+<p>Para cada ley, escribir primero qué se esperaría ver y después buscarlo. La contraevidencia es obligatoria.</p></div>
+<table>
+  <thead><tr><th style="width:15%">Ley</th><th style="width:20%">Qué se esperaría ver</th><th style="width:27%">Evidencia</th><th style="width:22%">Contraevidencia</th><th>Veredicto</th></tr></thead>
+  <tbody>
+    <tr><td><b>I</b> Cambio continuo</td><td>Cambios originados en el entorno a lo largo de toda la vida</td><td>4 de los 16 cambios al producto de la muestra son adaptativos: Python 3, Python 3.13, cookies de navegador, empaquetado. Cada versión mayor retira versiones viejas de Python.</td><td>—</td><td>Se observa</td></tr>
+    <tr><td><b>II</b> Complejidad creciente</td><td>Que la complejidad suba salvo cuando hay trabajo para reducirla</td><td>Trabajo explícito para contenerla: 0.5 divide el archivo único; 2.0.0 retira la capa de Python 2; ciclos de obsolescencia (menciones a <i>deprecat</i>: 27 en 2.0.0, 91 en 2.2.0, 2 en 3.0.0); 31 % de los cambios al producto son preventivos.</td><td>Las supresiones <code>type: ignore</code> pasan de 58 (2.0.0) a 105 (3.1.0).</td><td>Se observa con matices: la complejidad se contiene porque se trabaja para eso</td></tr>
+    <tr><td><b>IV</b> Estabilidad organizacional</td><td>Tasa de trabajo estable aunque cambie el equipo</td><td>Entre 14 y 28 commits por mes desde 2012, con 13 a 209 autores por intervalo (Figura 3).</td><td>Picos de los dos primeros años y caída a 9 commits por mes en la 3.1.0.</td><td>Se observa después de la etapa inicial</td></tr>
+    <tr><td><b>V</b> Familiaridad</td><td>Crecimiento por versión acotado; después de una versión grande, una pequeña</td><td>Después de cada versión grande viene una pequeña: 2.0.0 (2.727 líneas agregadas) y 2.1.0 (766); 2.2.0 (2.211) y 2.3.0 (658); 3.0.0 (1.900) y 3.1.0 (743).</td><td>La 1.0 y la 1.1.0 son dos versiones grandes seguidas.</td><td>Se observa</td></tr>
+    <tr><td><b>VI</b> Crecimiento continuo</td><td>Funcionalidad que aumenta versión tras versión</td><td>De 663 a 9.187 líneas; sigue habiendo cambios perfectivos en 2024 (cookies particionadas).</td><td>Desde 2018 el tamaño casi no crece y la 2.3.0 se reduce. El proyecto declara que el núcleo se mantiene pequeño y la funcionalidad crece en extensiones.</td><td>Se observa con matices</td></tr>
+    <tr><td><b>VII</b> Calidad decreciente</td><td>Más defectos reportados o más tiempo de corrección con los años</td><td>—</td><td>—</td><td>Los datos no alcanzan: haría falta la serie de issues de defectos por versión</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ F-06 -->
+<div class="salto"></div>
+<h2>F-05 · Registro de deuda técnica</h2>
+<table>
+  <thead><tr><th style="width:4%">#</th><th style="width:22%">Deuda y dónde está</th><th style="width:15%">Origen</th><th style="width:21%">Interés</th><th style="width:20%">Pago</th><th>Prioridad</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Supresiones de tipos <code>type: ignore</code> en <code>src/flask/</code>: 105 en la 3.1.0 y 90 en la rama principal hoy</td><td>Deliberada y prudente: se agregaron tipos a un código que no los tenía</td><td>Cada supresión es un punto donde el verificador de tipos no protege</td><td>Revisar y tipar cada caso; se está pagando por partes</td><td>Media</td></tr>
+    <tr><td>2</td><td>Período de obsolescencia de la 3.2.0: el alias <code>RequestContext</code> y la detección de firmas antiguas de los métodos de despacho</td><td>Deliberada y prudente: da tiempo a las extensiones</td><td>Dos rutas de código, avisos que mantener y lógica de detección en el camino de cada petición</td><td>Retirarlos en la versión siguiente, como se hizo en 2.3.0 y 3.0.0</td><td>Alta, ya programada</td></tr>
+    <tr><td>3</td><td>Despacho interno apoyado en objetos proxy globales (<code>request</code>, <code>current_app</code>)</td><td>Deliberada y prudente: diseño original para una API simple</td><td>Código complejo para seguir el contexto activo, según el propio registro de cambios</td><td>En curso: en la 3.2.0 los métodos reciben el <code>AppContext</code> como parámetro</td><td>Alta, en curso</td></tr>
+    <tr><td>4</td><td>Soporte de Python 3.9 y 3.10 en la serie 3.1 (<code>requires-python = "&gt;=3.9"</code>), versiones que llegaron a fin de soporte</td><td>Deliberada y prudente: no dejar a usuarios sin actualizaciones</td><td>No se pueden usar características nuevas del lenguaje y hay que probar en más versiones</td><td>Retirado en la 3.2.0 en desarrollo</td><td>Media</td></tr>
+    <tr><td>5</td><td>Pagada: capa de compatibilidad con Python 2 (<code>_compat.py</code>, de la 0.10 a la 1.1.0)</td><td>Deliberada y prudente</td><td>Cada cambio debía funcionar en dos lenguajes</td><td>Retirada en la 2.0.0, que elimina más de lo que agrega</td><td>Cerrada; se registra como antecedente</td></tr>
+  </tbody>
+</table>
+<p class="nota">La deuda 5 está pagada y se incluye para mostrar cómo se ve el pago en los datos (Figura 2, versión
+2.0.0). En su documento, las deudas registradas deben estar vigentes.</p>
+
+<div class="salto"></div>
+<h2>F-06 · Análisis de riesgos</h2>
+<div class="recuadro crema"><span class="rot">Qué hay que hacer</span>
+<p>Analizar los riesgos de cambios no controlados y de falta de estrategia de evolución, cada uno con su evidencia.
+Aquí los riesgos se miran desde una organización que depende de Flask.</p></div>
+<table>
+  <thead><tr><th style="width:4%">#</th><th style="width:28%">Riesgo</th><th style="width:15%">Grupo</th><th style="width:25%">Evidencia</th><th style="width:9%">Prob.</th><th style="width:9%">Impacto</th><th>Calidad afectada</th></tr></thead>
+  <tbody>
+    <tr><td>1</td><td>Una actualización sin versiones fijadas rompe la aplicación al retirar API obsoletas</td><td>Cambios no controlados</td><td>Retiros de código obsoleto en 2.2.0, 2.3.0, 3.0.0 y 3.2.0 (F-02, deudas 2 y 3)</td><td>Alta</td><td>Alto</td><td>Disponibilidad</td></tr>
+    <tr><td>2</td><td>Los retiros se descubren el día de actualizar porque nadie sigue los avisos de obsolescencia</td><td>Falta de estrategia de evolución</td><td>Ciclo de avisos y retiro: 91 menciones en 2.2.0, 28 en 2.3.0 (F-04, ley II)</td><td>Media</td><td>Alto</td><td>Mantenibilidad</td></tr>
+    <tr><td>3</td><td>El entorno de ejecución queda sin soporte: la 3.2.0 deja de soportar Python 3.9 y 3.10</td><td>Falta de estrategia de evolución</td><td>Deuda 4; ley I</td><td>Alta</td><td>Medio</td><td>Seguridad</td></tr>
+    <tr><td>4</td><td>Menos actividad del proyecto: correcciones más lentas</td><td>Falta de estrategia de evolución</td><td>9 commits por mes en el intervalo de la 3.1.0 y ninguna versión con funcionalidad nueva desde noviembre de 2024 (F-02)</td><td>Media</td><td>Medio</td><td>Confiabilidad</td></tr>
+  </tbody>
+</table>
+<table>
+  <tbody>
+    <tr><td class="campo">Alcance del problema</td><td>El riesgo principal para quien depende de Flask es de configuración: saber qué versión usa cada sistema y controlar cuándo se actualiza. Ese es el problema que se abordaría en la Unidad 2.</td></tr>
+  </tbody>
+</table>
+
+<h2>Conclusión</h2>
+<p><b>Seguir con condiciones.</b> Flask sigue evolucionando, con una tasa de trabajo estable y un proceso explícito de
+obsolescencia que avisa una versión antes de retirar. Las condiciones que se derivan del diagnóstico:</p>
+<ol>
+  <li><b>Seguir los avisos de obsolescencia.</b> Ejecutar las pruebas propias con los avisos convertidos en errores, para
+  no descubrir los retiros (deudas 2 y 3) el día de la actualización.</li>
+  <li><b>Fijar versiones y actualizar con método.</b> Cada versión mayor retira versiones de Python y API obsoletas
+  (ley I); la organización necesita saber qué versión usa cada sistema. Este punto es el tema de la Unidad 2.</li>
+  <li><b>Vigilar la actividad del proyecto.</b> Revisar cada seis meses la actividad y la salida de la 3.2.0 (riesgo 4).</li>
+</ol>
+
+<h2>Referencias</h2>
+<p>Fowler, M. (2009). <i>Technical debt quadrant</i>. https://martinfowler.com/bliki/TechnicalDebtQuadrant.html</p>
+<p>Lehman, M. M. (1996). Laws of software evolution revisited. En C. Montangero (Ed.), <i>Software Process Technology</i> (pp. 108–124). Springer. https://doi.org/10.1007/BFb0017737</p>
+<p>Pallets. (2026). <i>Flask</i> [Repositorio de código fuente]. GitHub. https://github.com/pallets/flask</p>
+
+<div class="pie-doc">GCMS · Unidad 1 · Recorrido resuelto con Flask · César Augusto Vega Fernández · Universidad de La Sabana ·
+Licencia CC BY-NC-SA 4.0. Flask es un proyecto de Pallets con licencia BSD-3-Clause; este documento analiza su historial público.</div>
+</body>
+</html>

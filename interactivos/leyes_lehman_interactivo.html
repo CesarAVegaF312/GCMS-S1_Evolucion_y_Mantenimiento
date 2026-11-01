@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Leyes de Lehman — GCMS Unidad 1</title>
+<style>
+:root{
+  --osc:#1C2B33; --txt:#31424B; --gris:#5E6E76; --claro:#EFF2F3; --linea:#CFDAE0; --crema:#F6EAE1;
+  --coral:#C2622C; --teal:#46707E; --cafe:#9E5C3B; --ambar:#C9932E; --foco:#0B63CE;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:#F3F5F6;color:var(--txt);font-size:16px;line-height:1.5}
+:focus-visible{outline:3px solid var(--foco);outline-offset:2px}
+.header{background:var(--osc);color:#fff;padding:16px 28px}
+.header h1{font-size:20px;font-weight:700}
+.header p{font-size:13px;color:#9FB2BA;margin-top:2px}
+.header .encuadre{font-size:15px;color:#DCE6EA;margin-top:10px;max-width:1050px;border-left:4px solid var(--coral);padding-left:12px}
+.wrap{max-width:1100px;margin:22px auto 40px;padding:0 16px}
+.card{background:#fff;border-radius:12px;box-shadow:0 2px 14px rgba(28,43,51,.08);padding:22px 26px;margin-bottom:18px}
+.card h2{font-size:19px;color:var(--osc);margin-bottom:6px}
+.lead{margin-bottom:12px}
+.small{font-size:14px;color:var(--gris)}
+.leyes{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;align-items:start}
+.ley{background:var(--claro);border:1px solid transparent;border-left:4px solid var(--teal);border-radius:0 8px 8px 0;
+  padding:10px 12px;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.ley:hover,.ley[aria-expanded="true"]{border-color:var(--linea);border-left-color:var(--coral);background:#fff}
+.ley b{display:block;color:var(--osc);font-size:15px}
+.ley span{font-size:14px}
+.ley .mas{display:none;font-size:14px;color:var(--gris);margin-top:6px}
+.ley[aria-expanded="true"] .mas{display:block}
+.ley .mas i{font-style:normal;font-weight:700;color:var(--cafe)}
+.sim{display:grid;grid-template-columns:300px 1fr;gap:22px;align-items:start}
+.controles label{display:block;font-size:14.5px;font-weight:700;color:var(--osc);margin-top:14px}
+.controles label:first-child{margin-top:0}
+.controles input{width:100%;margin-top:4px;accent-color:var(--coral)}
+.controles .v{float:right;color:var(--coral)}
+.controles p{font-size:13.5px;color:var(--gris);margin-top:2px}
+.lectura{margin-top:16px;background:var(--crema);border-radius:8px;padding:10px 14px;font-size:14.5px}
+.metricas{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.metricas div{background:var(--claro);border-radius:8px;padding:8px 10px;font-size:13px;color:var(--gris)}
+.metricas b{display:block;font-size:20px;color:var(--osc)}
+svg{width:100%;height:auto;display:block}
+#flask{max-width:820px;margin:0 auto}
+.leyenda{display:flex;gap:16px;flex-wrap:wrap;font-size:13.5px;color:var(--gris);margin-top:6px}
+.leyenda i{display:inline-block;width:14px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.botones{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.botones button{font:inherit;font-size:13.5px;padding:6px 12px;border-radius:16px;border:1px solid var(--linea);background:#fff;cursor:pointer;color:var(--osc)}
+.botones button:hover{border-color:var(--coral)}
+@media (max-width:820px){.sim{grid-template-columns:1fr}.header{padding:14px 16px}.card{padding:18px 16px}}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Las leyes de Lehman</h1>
+  <p>Gestión de Configuración y Mantenimiento de Software · Unidad 1 · Formato F-04</p>
+  <div class="encuadre">Arriba, las ocho leyes con el dato que permitiría observarlas. Abajo, un modelo didáctico para
+    ver la ley II en movimiento: con un equipo de tamaño fijo, qué pasa con el crecimiento del sistema según cuánto
+    esfuerzo se dedica a contener la complejidad. Al final, los datos reales de Flask para comparar.</div>
+</div>
+
+<div class="wrap">
+
+  <div class="card">
+    <h2>Las ocho leyes</h2>
+    <p class="lead small">Haga clic en cada ley para ver qué dato del repositorio la mostraría y cómo se vio en Flask.
+      Formulación de Lehman (1996); aplican a programas tipo E.</p>
+    <div class="leyes" id="leyes"></div>
+  </div>
+
+  <div class="card">
+    <h2>La ley II en un modelo didáctico</h2>
+    <p class="lead small">El modelo es una simplificación para la clase, no un instrumento de predicción. Supone un
+      equipo con capacidad constante en cada versión (ley IV). La capacidad se reparte entre adaptarse al entorno
+      (ley I), contener la complejidad y agregar funcionalidad. Cuanto más complejo es el sistema, más cuesta cada
+      línea nueva.</p>
+    <div class="sim">
+      <div class="controles">
+        <label for="prev">Esfuerzo preventivo <span class="v" id="prev-v"></span></label>
+        <input type="range" id="prev" min="0" max="60" step="5" value="25"/>
+        <p>Refactorización, pruebas, retiro de código obsoleto.</p>
+        <label for="amb">Presión del entorno <span class="v" id="amb-v"></span></label>
+        <input type="range" id="amb" min="0" max="40" step="5" value="15"/>
+        <p>Parte de la capacidad que se va en adaptaciones obligatorias.</p>
+        <label for="vers">Versiones simuladas <span class="v" id="vers-v"></span></label>
+        <input type="range" id="vers" min="10" max="40" step="5" value="25"/>
+        <div class="botones">
+          <button data-p="0" data-a="15">Sin trabajo preventivo</button>
+          <button data-p="25" data-a="15">Equilibrado</button>
+          <button data-p="50" data-a="15">Preventivo excesivo</button>
+        </div>
+        <div class="metricas">
+          <div><b id="m-func"></b>funcionalidad acumulada</div>
+          <div><b id="m-comp"></b>complejidad final</div>
+          <div><b id="m-ult"></b>crecimiento en la última versión</div>
+        </div>
+      </div>
+      <div>
+        <svg id="grafico" viewBox="0 0 640 300" role="img" aria-label="Funcionalidad y complejidad por versión"></svg>
+        <div class="leyenda">
+          <span><i style="background:var(--coral)"></i>Funcionalidad acumulada</span>
+          <span><i style="background:var(--teal)"></i>Complejidad</span>
+          <span><i style="background:var(--linea)"></i>Referencia: escenario equilibrado</span>
+        </div>
+        <div class="lectura" id="lectura"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Los datos reales de Flask</h2>
+    <p class="lead small">Líneas del paquete <code>flask</code> por versión, de <code>ejemplo_flask/evolucion_por_version.csv</code>.
+      Las barras debajo marcan las versiones donde se eliminó al menos el 60 % de lo que se agregó: ahí hubo trabajo
+      explícito para contener la complejidad.</p>
+    <svg id="flask" viewBox="0 0 640 260" role="img" aria-label="Tamaño de Flask por versión"></svg>
+  </div>
+
+</div>
+
+<script>
+const LEYES = [
+ ["I", "Cambio continuo", "Un sistema E que no se adapta se vuelve progresivamente menos satisfactorio.", "Cambios adaptativos a lo largo de toda la vida del proyecto.", "4 de 16 cambios al producto de la muestra son adaptativos: Python 3, Python 3.13, cookies de navegador, empaquetado."],
+ ["II", "Complejidad creciente", "La complejidad aumenta salvo que se trabaje para mantenerla o reducirla.", "Trabajo preventivo y retiro de código, o indicadores de complejidad que suben.", "Ciclos de obsolescencia y retiro (2.2.0 a 2.3.0); a la vez, las supresiones type: ignore pasan de 58 a 105."],
+ ["III", "Autorregulación", "La evolución es un proceso autorregulado, con tendencias estables en sus medidas.", "Tendencias reconocibles y desviaciones que se corrigen en el tamaño y la actividad.", "Después de la etapa inicial, tamaño y actividad siguen tendencias suaves con pocas desviaciones."],
+ ["IV", "Conservación de la estabilidad organizacional", "La tasa media de actividad efectiva es invariante a lo largo de la vida del sistema.", "Commits por mes estables aunque cambie el número de personas.", "Entre 14 y 28 commits por mes desde 2012, con 13 a 209 autores por intervalo."],
+ ["V", "Conservación de la familiaridad", "El contenido incremental de cada versión se mantiene acotado en promedio.", "Crecimiento por versión acotado; después de una versión grande, una pequeña.", "2.0.0, 2.2.0 y 3.0.0 son grandes; cada una va seguida de una pequeña."],
+ ["VI", "Crecimiento continuo", "El contenido funcional debe crecer para mantener la satisfacción de los usuarios.", "Tamaño o funcionalidad que aumenta versión tras versión.", "De 663 a 9.187 líneas, pero casi plano desde 2018: el núcleo se mantiene pequeño por diseño."],
+ ["VII", "Calidad decreciente", "La calidad se percibe en declive salvo que se mantenga y adapte con rigor.", "Defectos reportados por versión, tiempo de corrección.", "Con los datos del recorrido no alcanza: haría falta la serie de issues de defectos."],
+ ["VIII", "Sistema de retroalimentación", "La evolución es un sistema de retroalimentación de varios niveles, ciclos y agentes.", "Decisiones que responden a usuarios, equipo y entorno.", "El período de obsolescencia existe porque las extensiones necesitan tiempo para adaptarse."]
+];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const $ = id => document.getElementById(id);
+$("leyes").innerHTML = LEYES.map(l => `<button class="ley" aria-expanded="false"><b>${l[0]} · ${esc(l[1])}</b>
+  <span>${esc(l[2])}</span><div class="mas"><i>Dato:</i> ${esc(l[3])}<br><i>En Flask:</i> ${esc(l[4])}</div></button>`).join("");
+document.querySelectorAll(".ley").forEach(b => b.onclick = () =>
+  b.setAttribute("aria-expanded", b.getAttribute("aria-expanded") === "true" ? "false" : "true"));
+
+// Modelo didáctico. Capacidad C por versión. Una parte se va al entorno (a) y otra a prevención (p).
+// La funcionalidad nueva cuesta más cuando la complejidad es alta; la prevención reduce complejidad.
+function simular(p, a, n) {
+  const C = 100;
+  let func = 0, comp = 10;
+  const serie = [];
+  for (let v = 1; v <= n; v++) {
+    const util = Math.max(C * (1 - a - p), 0);
+    const nuevo = util / (1 + comp / 40);
+    comp = Math.max(comp + nuevo * 0.35 + C * a * 0.08 - C * p * 0.9, 5);
+    func += nuevo;
+    serie.push({ v, func, comp, nuevo });
+  }
+  return serie;
+}
+
+function linea(serie, campo, max, color, ancho, x, y) {
+  return `<polyline fill="none" stroke="${color}" stroke-width="${ancho}" points="${serie.map(s => `${x(s.v).toFixed(1)},${y(s[campo], max).toFixed(1)}`).join(" ")}"/>`;
+}
+
+function dibujar() {
+  const p = +$("prev").value / 100, a = +$("amb").value / 100, n = +$("vers").value;
+  $("prev-v").textContent = Math.round(p * 100) + " %";
+  $("amb-v").textContent = Math.round(a * 100) + " %";
+  $("vers-v").textContent = n;
+  const s = simular(p, a, n), ref = simular(0.25, a, n);
+  const maxF = Math.max(...s.map(x => x.func), ...ref.map(x => x.func), 1);
+  const peor = simular(0, a, n);   // la escala de complejidad se fija con el peor caso, para poder comparar
+  const maxC = Math.max(...s.map(x => x.comp), ...ref.map(x => x.comp), ...peor.map(x => x.comp), 1);
+  const W = 640, H = 300, L = 46, R = 46, T = 14, B = 34;
+  const x = v => L + (v - 1) / Math.max(n - 1, 1) * (W - L - R);
+  const y = (val, max) => T + (H - T - B) * (1 - val / max);
+  let g = "";
+  for (let k = 0; k <= 4; k++) {
+    const yy = T + (H - T - B) * k / 4;
+    g += `<line x1="${L}" x2="${W - R}" y1="${yy}" y2="${yy}" stroke="#E3E9EC"/>`;
+    g += `<text x="${L - 6}" y="${yy + 4}" text-anchor="end" font-size="11" fill="#C2622C">${Math.round(maxF * (1 - k / 4))}</text>`;
+    g += `<text x="${W - R + 6}" y="${yy + 4}" font-size="11" fill="#46707E">${Math.round(maxC * (1 - k / 4))}</text>`;
+  }
+  for (let v = 1; v <= n; v += Math.ceil(n / 10)) g += `<text x="${x(v)}" y="${H - 12}" text-anchor="middle" font-size="11" fill="#5E6E76">v${v}</text>`;
+  g += linea(ref, "func", maxF, "#CFDAE0", 2, x, y);
+  g += linea(ref, "comp", maxC, "#CFDAE0", 2, x, y);
+  g += linea(s, "comp", maxC, "#46707E", 2.6, x, y);
+  g += linea(s, "func", maxF, "#C2622C", 2.8, x, y);
+  $("grafico").innerHTML = g;
+  const ult = s[s.length - 1];
+  $("m-func").textContent = Math.round(ult.func);
+  $("m-comp").textContent = Math.round(ult.comp);
+  $("m-ult").textContent = ult.nuevo.toFixed(1);
+  const fr = ref[ref.length - 1].func;
+  let txt;
+  if (p === 0) txt = "Sin trabajo preventivo la complejidad sube sin freno y cada versión agrega menos: el equipo trabaja igual, pero el sistema crece cada vez más despacio. Es la ley II.";
+  else if (a + p >= 0.8) txt = "El entorno y la prevención consumen casi toda la capacidad. Así se ve un sistema que se mantiene en pie pero casi no crece.";
+  else if (ult.func < fr * 0.9 && p > 0.25) txt = "Con tanto esfuerzo preventivo la complejidad queda baja, pero queda poca capacidad para funcionalidad nueva. Prevenir también tiene un costo de oportunidad.";
+  else if (ult.func < fr * 0.9) txt = "El esfuerzo preventivo no alcanza: la complejidad sigue subiendo, más despacio que sin prevención, y cada versión agrega menos que en el escenario de referencia.";
+  else txt = "Con una parte moderada del esfuerzo dedicada a prevención, la complejidad se estabiliza y el sistema sigue creciendo a un ritmo sostenido.";
+  $("lectura").textContent = txt;
+}
+["prev", "amb", "vers"].forEach(id => $(id).oninput = dibujar);
+document.querySelectorAll(".botones button").forEach(b => b.onclick = () => {
+  $("prev").value = b.dataset.p; $("amb").value = b.dataset.a; dibujar();
+});
+dibujar();
+
+// Datos reales de Flask: versión, año decimal, líneas, agregadas, eliminadas.
+const FLASK = [["0.1",2010.29,663,0,0],["0.2",2010.36,1137,582,108],["0.3",2010.41,1430,331,38],["0.4",2010.46,1516,134,48],
+ ["0.5",2010.51,1970,1970,1516],["0.6",2010.57,2194,324,100],["0.7",2011.49,3177,1388,405],["0.8",2011.74,4033,1113,257],
+ ["0.9",2012.5,4677,776,132],["0.10",2013.45,5354,998,321],["0.11",2016.41,6450,1652,556],["0.12",2016.97,6536,227,141],
+ ["1.0",2018.32,7712,2336,1160],["1.1.0",2019.51,8321,1916,1307],["2.0.0",2021.36,8254,2727,2794],["2.1.0",2022.24,8466,766,554],
+ ["2.2.0",2022.58,9357,2211,1320],["2.3.0",2023.31,8799,658,1216],["3.0.0",2023.75,8840,1900,1859],["3.1.0",2024.87,9187,743,396]];
+(function () {
+  const W = 640, H = 260, L = 50, R = 14, T = 14, B = 40;
+  const x = a => L + (a - 2010) / 15 * (W - L - R), y = v => T + (H - T - B) * (1 - v / 10000);
+  let g = "";
+  for (let k = 0; k <= 5; k++) {
+    const v = k * 2000, yy = y(v);
+    g += `<line x1="${L}" x2="${W - R}" y1="${yy}" y2="${yy}" stroke="#E3E9EC"/><text x="${L - 6}" y="${yy + 4}" text-anchor="end" font-size="11" fill="#5E6E76">${v.toLocaleString("es-CO")}</text>`;
+  }
+  for (let a = 2010; a <= 2024; a += 2) g += `<text x="${x(a)}" y="${H - 22}" text-anchor="middle" font-size="11" fill="#5E6E76">${a}</text>`;
+  FLASK.forEach(f => { if (f[3] && f[4] >= 0.6 * f[3]) g += `<rect x="${x(f[1]) - 4}" y="${H - 14}" width="8" height="10" rx="2" fill="#46707E"><title>${f[0]}: +${f[3]} / −${f[4]}</title></rect>`; });
+  g += `<polyline fill="none" stroke="#C2622C" stroke-width="2.4" points="${FLASK.map(f => `${x(f[1]).toFixed(1)},${y(f[2]).toFixed(1)}`).join(" ")}"/>`;
+  FLASK.forEach(f => g += `<circle cx="${x(f[1]).toFixed(1)}" cy="${y(f[2]).toFixed(1)}" r="3.4" fill="#C2622C"><title>${f[0]}: ${f[2]} líneas</title></circle>`);
+  ["0.5", "1.0", "2.0.0", "2.3.0", "3.1.0"].forEach(v => { const f = FLASK.find(z => z[0] === v);
+    g += `<text x="${x(f[1])}" y="${y(f[2]) + (v === "2.3.0" ? 16 : -9)}" text-anchor="middle" font-size="11" fill="#1C2B33">${v}</text>`; });
+  document.getElementById("flask").innerHTML = g;
+})();
+</script>
+</body>
+</html>
